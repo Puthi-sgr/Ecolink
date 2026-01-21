@@ -1,0 +1,5 @@
+{
+  "name": "EcoLink Portal",
+  "description": "A role-based web portal for faculty, admins, and the public to manage environmental projects.",
+  "requestFramePermissions": []
+}
