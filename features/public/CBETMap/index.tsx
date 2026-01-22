@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import type { CBETPackage } from '../../../../shared/types';
+import type { CBETPackage } from '../../../shared/types';
 import { CBETMapCanvas } from './CBETMapCanvas';
 import { CBETMapLayout } from './CBETMapLayout';
 import { CBETMapMarkers } from './CBETMapMarkers';

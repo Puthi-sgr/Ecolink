@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../../shared/atoms/Button';
 import { useAuth } from '../../../app/AuthContext';
 import { UserRole } from '../../../shared/types';
-import { Mountain, Map, Info, UserCircle, BookOpen } from 'lucide-react';
+import { Mountain, Map, Info, UserCircle, BookOpen, Home } from 'lucide-react';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -36,7 +36,10 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
           </div>
           <div className="hidden md:flex items-center gap-1">
             <Button variant="ghost" size="sm" className="flex items-center gap-2" onClick={() => onNavigate('/')}>
-              <Map className="w-4 h-4" /> Packages
+              <Home className="w-4 h-4" /> Home
+            </Button>
+            <Button variant="ghost" size="sm" className="flex items-center gap-2" onClick={() => onNavigate('/destinations')}>
+              <Map className="w-4 h-4" /> Destinations
             </Button>
             <Button variant="ghost" size="sm" className="flex items-center gap-2" onClick={() => onNavigate('/travel-guide')}>
               <BookOpen className="w-4 h-4" /> Travel Guide

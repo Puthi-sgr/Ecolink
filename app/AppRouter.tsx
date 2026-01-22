@@ -11,7 +11,7 @@ import { FacultyTripDetails } from '../features/faculty/pages/FacultyTripDetails
 import { AdminDashboard } from '../features/admin/pages/AdminDashboard';
 import { AdminTripDetails } from '../features/admin/pages/AdminTripDetails';
 import { CBETCatalog } from '../features/public/pages/CBETCatalog';
-import { PublicPackageDetails } from '../features/public/pages/PublicPackageDetails';
+import { PublicPackageDetails } from '../features/public/pages/PublicPackageDetail/PublicPackageDetails';
 import TravelGuidePage from '../features/travel-guide/TravelGuidePage';
 
 export const AppRouter: React.FC = () => {

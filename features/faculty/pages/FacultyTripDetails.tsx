@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FacultyLayout } from '../layouts/FacultyLayout';
 import { useTrips } from '../../../app/TripContext';
-import { TripDetailHeader, TripStatusTracker, ApprovalSection, PaymentSection } from '../components/TripDetailViews';
+import { TripDetailHeader } from '../components/trip-details/TripDetailHeader';
+import { TripStatusTracker } from '../components/trip-details/TripStatusTracker';
+import { ApprovalSection } from '../components/trip-details/ApprovalSection';
+import { PaymentSection } from '../components/trip-details/PaymentSection';
 import { PaymentProof } from '../../../shared/types';
 
 interface FacultyTripDetailsProps {

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { CBETPackage } from '../../../../shared/types';
+import type { CBETPackage } from '../../../shared/types';
 import { ArrowRight, Mountain } from 'lucide-react';
 
 interface CBETMapTooltipCardProps {

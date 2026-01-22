@@ -8,7 +8,7 @@ import { SocialProof } from '../components/SocialProof';
 import { HowItWorks } from '../components/HowItWorks';
 import { TrustStrip } from '../components/TrustStrip';
 import { ImpactSection } from '../components/ImpactSection';
-import { CBETMap } from '../components/CBETMap';
+import { CBETMap } from '../CBETMap';
 
 // Existing Components (Catalog)
 import { CatalogGrid } from '../components/CatalogGrid';

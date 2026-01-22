@@ -1,7 +1,7 @@
 import React from 'react';
 import L from 'leaflet';
 import { Marker, Tooltip } from 'react-leaflet';
-import type { CBETPackage } from '../../../../shared/types';
+import type { CBETPackage } from '../../../shared/types';
 import { CBETMapTooltipCard } from './CBETMapTooltipCard';
 
 interface CBETMapMarkersProps {
