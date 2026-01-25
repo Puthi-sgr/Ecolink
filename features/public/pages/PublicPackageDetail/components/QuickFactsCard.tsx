@@ -1,14 +1,23 @@
 import React from 'react';
+import { Home, Mountain, ShieldCheck, Sun, Users, HelpCircle } from 'lucide-react';
 
 export interface QuickFactItem {
   label: string;
   value: string;
-  icon: React.ReactNode;
+  icon?: string;
 }
 
 interface QuickFactsCardProps {
   items: QuickFactItem[];
 }
+
+const ICONS: Record<string, React.ReactNode> = {
+  users: <Users className="w-5 h-5" />,
+  home: <Home className="w-5 h-5" />,
+  sun: <Sun className="w-5 h-5" />,
+  mountain: <Mountain className="w-5 h-5" />,
+  shield: <ShieldCheck className="w-5 h-5" />
+};
 
 export const QuickFactsCard: React.FC<QuickFactsCardProps> = ({ items }) => {
   return (
@@ -18,7 +27,7 @@ export const QuickFactsCard: React.FC<QuickFactsCardProps> = ({ items }) => {
         {items.map((fact) => (
           <div key={fact.label} className="flex gap-3 pb-3 border-b border-border/60 last:border-b-0 last:pb-0">
             <div className="w-10 h-10 rounded-xl bg-surface-2 flex items-center justify-center text-primary">
-              {fact.icon}
+              {fact.icon ? ICONS[fact.icon] ?? <HelpCircle className="w-5 h-5" /> : <HelpCircle className="w-5 h-5" />}
             </div>
             <div className="flex-1">
               <p className="text-[11px] uppercase tracking-wider text-text-muted font-semibold">{fact.label}</p>

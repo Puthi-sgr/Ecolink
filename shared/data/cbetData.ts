@@ -10,7 +10,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Coordinator',
     description: 'A world-class ornithological site. Students will observe the largest colony of water birds in Southeast Asia while engaging with a floating village community adapting to extreme hydrological cycles.',
     activities: ['Bird Watching', 'Floating Village Tour', 'Water Hyacinth Workshop', 'Biosphere Lecture'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Prek Toal
     coordinates: { lat: 13.2374, lng: 103.6524 },
@@ -40,7 +40,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'One of Cambodia’s premier community ecotourism destinations in the Cardamom Mountains. Students will trek through dense rainforests and rivers to discover wildlife and learn about conservation efforts in a former logging community turned guardians of the forest.',
     activities: ['Jungle Trekking', 'Wildlife Night Safari', 'River Kayaking', 'Camping'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Chi Phat
     coordinates: { lat: 11.3285, lng: 103.5239 },
@@ -70,7 +70,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Facilitator',
     description: 'A community at the edge of Kirirom National Park known for its waterfalls and rural charm. Students will hike to a scenic waterfall and learn about sustainable livelihoods as villagers demonstrate local farming and conservation in practice.',
     activities: ['Waterfall Hike', 'Ox-cart Ride', 'Cultural Dance Show', 'Village Homestay'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Chambok
     coordinates: { lat: 11.3849, lng: 104.1164 },
@@ -100,7 +100,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Coordinator',
     description: 'An ancient Angkorian temple complex managed by the local community. Students will explore a sprawling 12th-century temple off the beaten path while experiencing village homestays that showcase community-led cultural heritage preservation.',
     activities: ['Temple Exploration', 'Village Homestay', 'Traditional Weaving Workshop', 'Ox-cart Tour'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Banteay Chhmar
     coordinates: { lat: 14.0711, lng: 103.0997 },
@@ -130,7 +130,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Advisor',
     description: 'A remote bird sanctuary in Cambodia’s Northern Plains. Students will venture into dry forest with community guides to spot rare Giant Ibis and other wildlife, learning how ecotourism supports both conservation and local livelihoods in this Khmer and Kuy village.',
     activities: ['Bird Watching (Giant Ibis)', 'Wildlife Safari', 'Nature Walks', 'Community Lodge Stay'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Tmatboey
     coordinates: { lat: 13.9677, lng: 104.8827 },
@@ -160,7 +160,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'A riverside ecotourism community on the Mekong near the Lao border. Students will witness the powerful Sopheakmit Waterfall and possibly glimpse endangered Irrawaddy dolphins while understanding community efforts to protect the Mekong’s biodiversity.',
     activities: ['Boat to Waterfall', 'Dolphin Watching', 'Cycling to Border', 'Homestay Experience'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Preah Rumkel
     coordinates: { lat: 13.886, lng: 105.963 },
@@ -190,7 +190,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'A Mekong River island community renowned for dolphin conservation. Students will take boat trips to observe the endangered Irrawaddy dolphins and participate in village activities, seeing first-hand how ecotourism supports rural development and environmental protection.',
     activities: ['Dolphin Watching Boat Trip', 'Fishing Village Tour', 'Kayaking', 'Evening Bonfire'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Koh Pdao
     coordinates: { lat: 12.9529, lng: 105.9993 },
@@ -220,7 +220,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Advisor',
     description: 'A coastal community ecotourism site near Bokor National Park. Students will explore mangrove forests and estuarine ecosystems, learn about local efforts to protect Irrawaddy dolphins and mangroves, and engage in community-led activities like fishing and handicrafts.',
     activities: ['Mangrove Boat Ride', 'Dolphin Spotting', 'Village Walk', 'Fishing Demonstration'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Prek Thnout
     coordinates: { lat: 10.5956, lng: 103.9632 },
@@ -250,7 +250,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Coordinator',
     description: 'One of Cambodia’s wildest national parks, offering multi-day jungle treks guided by indigenous communities. Students will hike and camp deep in the rainforest, learning survival skills and about the rich biodiversity from park rangers and local guides in this transboundary conservation area.',
     activities: ['Multi-day Jungle Trekking', 'Camping', 'Wildlife Tracking', 'Cultural Village Visit'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Virachey NP
     coordinates: { lat: 14.3257, lng: 106.9982 },
@@ -280,7 +280,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Advisor',
     description: 'A community forest retreat known for a pristine stream and lush biodiversity. Students can trek through protected woods, swim in crystal-clear stream pools, and observe wildlife, all while learning about community-led forest conservation initiated by local environmental groups.',
     activities: ['Forest Trekking', 'Stream Swimming', 'Wildlife Viewing', 'Picnic'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near O Russey Kandal
     coordinates: { lat: 13.28, lng: 105.967 },
@@ -310,7 +310,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'A sacred volcanic lake managed by the local indigenous community. Students will hike the lake’s circumference, swim in its clear waters, and visit a cultural center to learn about the traditions and environmental stewardship of the indigenous Tampuan people.',
     activities: ['Nature Hike', 'Swimming', 'Cultural Center Visit', 'Handicraft Shopping'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Yeak Laom
     coordinates: { lat: 13.73, lng: 107.015 },
@@ -340,7 +340,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'A cluster of Mekong islands and flooded forests within a Ramsar wetland. Students will boat through mangroves, observe diverse bird life and possibly river dolphins, and interact with villagers to understand life along the Mekong and community conservation efforts.',
     activities: ['Forest Hike', 'Boat Trip in Wetlands', 'Dolphin Spotting', 'Bird Watching'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Osvay
     coordinates: { lat: 13.8368, lng: 105.9992 },
@@ -370,7 +370,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Advisor',
     description: 'A unique wetland and reservoir that is a sanctuary for the Eastern Sarus Crane. Students will traverse dry season grasslands with local rangers to observe cranes and other wildlife, and learn about the site\'s history and community involvement in protecting this biodiversity hotspot.',
     activities: ['Bird Watching (Sarus Cranes)', 'Ox-Cart Safari', 'Village Visit', 'Wildlife Photography'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Ang Trapeang Thmor
     coordinates: { lat: 13.8688, lng: 103.3013 },
@@ -400,7 +400,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Facilitator',
     description: 'A serene Mekong island ecotourism site in the Stung Treng Ramsar wetlands. Students will camp on sandbars, explore the rich birdlife and flooded forests by boat, and engage with the local community\'s initiatives led by women to promote sustainable tourism and conservation.',
     activities: ['Boat Excursion', 'Island Camping', 'Bird Watching', 'Fishing with Locals'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Koh Han
     coordinates: { lat: 13.75, lng: 105.97 },
@@ -430,7 +430,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Facilitator',
     description: 'An ecotourism experience spanning 30 islands in the Mekong’s biodiversity-rich landscape of Kratie. Students will navigate between islands to spot rare birds and aquatic life, partake in fishing and farming activities with locals, and understand how community tourism can preserve a critical riverine habitat.',
     activities: ['Boat Island Hopping', 'Bird Watching', 'Fishing Experience', 'Camping'],
-    imageUrl: '',
+    imageKey: 'package.placeholder',
     isFavorite: false,
     // Coordinates near Koh Samseb
     coordinates: { lat: 12.85, lng: 106.05 },
@@ -460,7 +460,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'Community-run CBET in Veun Sai-Siem Pang National Park focused on primate conservation and forest ecology. Guided treks and early-morning gibbon tracking highlight one of the largest known populations of Northern yellow-cheeked crested gibbons, while homestays support Indigenous Kavet and Lao livelihoods and conservation patrols.',
     activities: ['Pre-dawn gibbon tracking and observation', 'Guided forest hike for birds and primates', 'Night safari walk for nocturnal wildlife', 'Community village visit and cultural exchange', 'Boat ferry and motorbike transfers through forest paths'],
-    imageUrl: '',
+    imageKey: 'cbet.package.veunsaisiampang.hero',
     isFavorite: false,
     coordinates: { lat: 14.05, lng: 106.98 },
     duration: '2 Days 1 Night',

@@ -1,4 +1,6 @@
 
+import { CldAssetKey } from '../utils/cld/cldAssets';
+
 export enum UserRole {
   PUBLIC = 'PUBLIC',
   FACULTY = 'FACULTY',
@@ -61,7 +63,7 @@ export interface CBETPackage {
   ecoLinkRole: string; // e.g. "Coordinator", "Partner"
   
   description: string;
-  imageUrl?: string;
+  imageKey?: CldAssetKey;
   isFavorite?: boolean;
   
   // Coordinates for Map
@@ -91,6 +93,60 @@ export interface CBETPackage {
   
   // Booking Rules
   bookingConditions: BookingConditions;
+}
+
+export interface CBETAbout {
+  snapshot: {
+    title: string;
+    description: string;
+    imageKey: CldAssetKey;
+  };
+  communityStory: {
+    title: string;
+    subtitle?: string;
+    description: string;
+    avatarKey: CldAssetKey;
+    imageKey: CldAssetKey;
+  };
+  conservation: {
+    title: string;
+    description: string;
+    imageKey: CldAssetKey;
+    ethicsRules: Array<{
+      title: string;
+      description: string;
+      icon: string;
+    }>;
+  };
+  seasonality: {
+    title?: string;
+    rangeStartMonth: number;
+    rangeEndMonth: number;
+    peakStartMonth: number;
+    peakEndMonth: number;
+    peakLabel?: string;
+    bestSeasonNote?: string;
+    wetSeasonNote?: string;
+  };
+  impact: {
+    title?: string;
+    subtitle?: string;
+    breakdown: Array<{
+      label: string;
+      value: number;
+      color?: string;
+    }>;
+    localLabel?: string;
+  };
+  quickFacts: Array<{
+    label: string;
+    value: string;
+    icon?: string;
+  }>;
+  accordion: Array<{
+    title: string;
+    content: string;
+  }>;
 }
 
 export interface ApprovalPack {

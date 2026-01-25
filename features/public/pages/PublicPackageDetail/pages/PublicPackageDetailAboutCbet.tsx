@@ -7,21 +7,14 @@ import { CbetSnapshot } from '../components/CbetSnapshot';
 import { CommunityStoryGovernance } from '../components/CommunityStoryGovernance';
 import { ConservationEthics } from '../components/ConservationEthics';
 import { SeasonalityHighlights } from '../components/SeasonalityHighlights';
-import { Home, Mountain, ShieldCheck, Sun, Users } from 'lucide-react';
+import { CBETAbout } from '../../../../../shared/types';
 
 interface PublicPackageDetailAboutCbetProps {
   onNavigatePricing: () => void;
+  about: CBETAbout;
 }
 
-const QUICK_FACTS = [
-  { label: 'Capacity', value: '15-35 students', icon: <Users className="w-5 h-5" /> },
-  { label: 'Facilities', value: 'Basic toilets, drinking water, shelter', icon: <Home className="w-5 h-5" /> },
-  { label: 'Best Season', value: 'Nov - Mar (dry season)', icon: <Sun className="w-5 h-5" /> },
-  { label: 'Difficulty', value: 'Moderate trekking', icon: <Mountain className="w-5 h-5" /> },
-  { label: 'Safety', value: 'First aid kit, local guides, permits', icon: <ShieldCheck className="w-5 h-5" /> }
-];
-
-export const PublicPackageDetailAboutCbet: React.FC<PublicPackageDetailAboutCbetProps> = ({ onNavigatePricing }) => {
+export const PublicPackageDetailAboutCbet: React.FC<PublicPackageDetailAboutCbetProps> = ({ onNavigatePricing, about }) => {
   return (
     <section id="about" className="space-y-10 scroll-mt-32">
       <div className="flex items-center gap-3">
@@ -31,12 +24,41 @@ export const PublicPackageDetailAboutCbet: React.FC<PublicPackageDetailAboutCbet
 
       <div className="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-10">
         <div className="space-y-8">
-          <CbetSnapshot />
+          <CbetSnapshot
+            title={about.snapshot.title}
+            description={about.snapshot.description}
+            imageKey={about.snapshot.imageKey}
+          />
 
-          <CommunityStoryGovernance />
-          <ConservationEthics />
-          <SeasonalityHighlights />
-          <CommunityImpact />
+          <CommunityStoryGovernance
+            title={about.communityStory.title}
+            subtitle={about.communityStory.subtitle}
+            description={about.communityStory.description}
+            avatarKey={about.communityStory.avatarKey}
+            imageKey={about.communityStory.imageKey}
+          />
+          <ConservationEthics
+            title={about.conservation.title}
+            description={about.conservation.description}
+            imageKey={about.conservation.imageKey}
+            ethicsRules={about.conservation.ethicsRules}
+          />
+          <SeasonalityHighlights
+            title={about.seasonality.title}
+            rangeStartMonth={about.seasonality.rangeStartMonth}
+            rangeEndMonth={about.seasonality.rangeEndMonth}
+            peakStartMonth={about.seasonality.peakStartMonth}
+            peakEndMonth={about.seasonality.peakEndMonth}
+            peakLabel={about.seasonality.peakLabel}
+            bestSeasonNote={about.seasonality.bestSeasonNote}
+            wetSeasonNote={about.seasonality.wetSeasonNote}
+          />
+          <CommunityImpact
+            title={about.impact.title ?? 'Your Impact'}
+            subtitle={about.impact.subtitle}
+            breakdown={about.impact.breakdown}
+            localLabel={about.impact.localLabel}
+          />
 
           <div className="pt-2">
             <Button onClick={onNavigatePricing} className="px-6">
@@ -46,11 +68,11 @@ export const PublicPackageDetailAboutCbet: React.FC<PublicPackageDetailAboutCbet
         </div>
 
         <aside className="lg:sticky lg:top-28 h-fit">
-          <QuickFactsCard items={QUICK_FACTS} />
+          <QuickFactsCard items={about.quickFacts} />
         </aside>
       </div>
 
-      <AboutCbetAccordion />
+      <AboutCbetAccordion items={about.accordion} />
     </section>
   );
 };

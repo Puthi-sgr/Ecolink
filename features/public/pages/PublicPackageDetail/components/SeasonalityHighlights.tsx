@@ -9,6 +9,8 @@ interface SeasonalityHighlightsProps {
   peakEndMonth?: number;
   title?: string;
   peakLabel?: string;
+  bestSeasonNote?: string;
+  wetSeasonNote?: string;
 }
 
 const normalizeMonth = (value: number | undefined, fallback: number) => {
@@ -36,7 +38,9 @@ export const SeasonalityHighlights: React.FC<SeasonalityHighlightsProps> = ({
   peakStartMonth = 12,
   peakEndMonth = 3,
   title = 'Best Season & Changes',
-  peakLabel = 'Peak Season'
+  peakLabel = 'Peak Season',
+  bestSeasonNote,
+  wetSeasonNote
 }) => {
   const start = normalizeMonth(rangeStartMonth, 11);
   const end = normalizeMonth(rangeEndMonth, 5);
@@ -111,6 +115,23 @@ export const SeasonalityHighlights: React.FC<SeasonalityHighlightsProps> = ({
             </div>
           ))}
         </div>
+
+        {(bestSeasonNote || wetSeasonNote) && (
+          <div className="grid gap-3 sm:grid-cols-2 text-sm">
+            {bestSeasonNote && (
+              <div className="rounded-xl border border-border/60 bg-surface-2 p-3">
+                <p className="text-[11px] uppercase tracking-wider text-text-muted font-semibold">Best months</p>
+                <p className="text-sm text-text leading-relaxed">{bestSeasonNote}</p>
+              </div>
+            )}
+            {wetSeasonNote && (
+              <div className="rounded-xl border border-border/60 bg-surface-2 p-3">
+                <p className="text-[11px] uppercase tracking-wider text-text-muted font-semibold">Wet season</p>
+                <p className="text-sm text-text leading-relaxed">{wetSeasonNote}</p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useCBETPackages } from '../../../../shared/data/cbetData';
+import { useCBETPackages, CBET_ABOUT } from '../../../../shared/data';
 import { useAuth } from '../../../../app/AuthContext';
 import { useTrips } from '../../../../app/TripContext';
 import { ProjectStatus, UserRole } from '../../../../shared/types';
@@ -38,6 +38,7 @@ export const PublicPackageDetails: React.FC<PublicPackageDetailsProps> = ({ pack
   const isFaculty = user?.role === UserRole.FACULTY;
 
   const pkg = packages.find(p => p.id === packageId);
+  const about = CBET_ABOUT[pkg?.id ?? ''] ?? Object.values(CBET_ABOUT)[0];
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [date, setDate] = useState('');
@@ -58,6 +59,9 @@ export const PublicPackageDetails: React.FC<PublicPackageDetailsProps> = ({ pack
   }, [tab]);
 
   if (!pkg) {
+    return <PackageNotFound onBack={() => window.location.hash = '/'} />;
+  }
+  if (!about) {
     return <PackageNotFound onBack={() => window.location.hash = '/'} />;
   }
 
@@ -151,7 +155,12 @@ export const PublicPackageDetails: React.FC<PublicPackageDetailsProps> = ({ pack
         }
       >
         {activeTab === 'overview' && <PublicPackageDetailOverviewAndItinery pkg={pkg} />}
-        {activeTab === 'about' && <PublicPackageDetailAboutCbet onNavigatePricing={() => navigateToTab('pricing')} />}
+        {activeTab === 'about' && (
+          <PublicPackageDetailAboutCbet
+            about={about}
+            onNavigatePricing={() => navigateToTab('pricing')}
+          />
+        )}
         {activeTab === 'pricing' && <PublicPackageDetailPricelisting pkg={pkg} />}
         {activeTab === 'travel-guide' && <PublicPackageDetailTravelGuide pkg={pkg} />}
       </PublicPackageDetailLayout>

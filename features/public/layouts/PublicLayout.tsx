@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '../../../shared/atoms/Button';
 import { useAuth } from '../../../app/AuthContext';
 import { UserRole } from '../../../shared/types';
-import { Mountain, Map, Info, UserCircle, BookOpen, Home, Heart } from 'lucide-react';
+import { Map, Info, UserCircle, BookOpen, Home, Heart } from 'lucide-react';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -42,9 +42,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
     <div className="min-h-screen bg-background flex flex-col font-sans">
       <header className="sticky top-0 z-50 w-full border-b border-border bg-white">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 cursor-pointer group" onClick={() => onNavigate('/')}>
-            <div className="w-10 h-10 rounded-eco bg-primary flex items-center justify-center text-surface font-bold font-serif shadow-sm group-hover:scale-105 transition-transform">
-              <Mountain className="w-6 h-6" />
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => onNavigate('/')}>
+            <div className="w-10 h-10 rounded-eco bg-surface-2 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+              <img src="/Logo.png" alt="EcoLink logo" className="h-8 w-8 object-contain" />
             </div>
             <span className="font-bold text-xl text-text font-serif tracking-tight">EcoLink</span>
           </div>
@@ -123,7 +123,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <Mountain className="w-6 h-6 text-primary" />
+                <img src="/Logo.png" alt="EcoLink logo" className="h-7 w-7 object-contain" />
                 <span className="font-bold text-lg font-serif">EcoLink</span>
               </div>
               <p className="text-sm text-text-muted leading-relaxed">

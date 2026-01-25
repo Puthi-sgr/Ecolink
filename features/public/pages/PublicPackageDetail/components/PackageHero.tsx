@@ -11,9 +11,9 @@ export const PackageHero: React.FC<PackageHeroProps> = ({ pkg }) => {
   return (
     <div className="space-y-4">
       <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-surface-2">
-        {pkg.imageUrl ? (
+        {pkg.imageKey ? (
           <CldImage
-            src={pkg.imageUrl}
+            assetKey={pkg.imageKey}
             alt={pkg.name}
             className="w-full h-[320px] md:h-[360px] object-cover"
           />
