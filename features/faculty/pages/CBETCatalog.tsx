@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../../../shared/molecules/Card';
 import { Button } from '../../../shared/atoms/Button';
 import { Input } from '../../../shared/atoms/Input';
+import { CldImage } from '../../../shared/atoms/CldImage';
 import { useCBETPackages } from '../data/cbetData';
 import { CBETPackage } from '../../../shared/types';
 
@@ -84,7 +85,11 @@ export const CBETCatalog: React.FC = () => {
                 {/* Image */}
                 <div className="h-56 bg-surface-2 relative overflow-hidden">
                     {pkg.imageUrl ? (
-                        <img src={pkg.imageUrl} alt={pkg.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <CldImage
+                          src={pkg.imageUrl}
+                          alt={pkg.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-text-muted italic bg-surface-2">
                              <span className="opacity-30 text-4xl">🏔</span>

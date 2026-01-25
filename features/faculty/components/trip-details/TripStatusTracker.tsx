@@ -58,14 +58,21 @@ interface StatusStepProps {
 const StatusStep: React.FC<StatusStepProps> = ({ step, index, currentIndex, dateStr }) => {
   const isCompleted = index <= currentIndex;
   const isCurrent = index === currentIndex;
+  const isPending = isCurrent && step === ProjectStatus.PENDING;
 
   return (
     <div className="relative z-10 flex flex-col items-center gap-2 bg-surface px-2">
-      <div
-        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${isCompleted ? 'bg-primary text-white' : 'bg-surface-2 text-text-muted border border-border'
-          }`}
-      >
-        {isCompleted ? <CheckCircle className="w-4 h-4" /> : (index + 1)}
+      <div className="relative">
+        {isPending && (
+          <span className="absolute inset-0 rounded-full bg-status-pending/30 animate-ping"></span>
+        )}
+        <div
+          className={`relative w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
+            isCompleted ? 'bg-primary text-white' : 'bg-surface-2 text-text-muted border border-border'
+          } ${isPending ? 'ring-4 ring-status-pending/20' : ''}`}
+        >
+          {isCompleted ? <CheckCircle className="w-4 h-4" /> : (index + 1)}
+        </div>
       </div>
       <div className="text-center bg-surface px-2 rounded">
         <span className={`block text-xs font-bold uppercase tracking-wider ${isCurrent ? 'text-primary' : 'text-text-muted'}`}>
@@ -83,11 +90,16 @@ const StatusStep: React.FC<StatusStepProps> = ({ step, index, currentIndex, date
 
 export const TripStatusTracker: React.FC<{ trip: Trip }> = ({ trip }) => {
   const currentIndex = STATUS_STEPS.indexOf(trip.status);
+  const isPending = trip.status === ProjectStatus.PENDING;
 
   return (
     <Card className="mb-8">
       <div className="flex items-center justify-between relative">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-border -z-0 rounded"></div>
+        <div
+          className={`absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 -z-0 rounded ${
+            isPending ? 'bg-status-pending/20 animate-pulse' : 'bg-border'
+          }`}
+        ></div>
 
         {STATUS_STEPS.map((step, index) => {
           const dateStr = getDateForStep(trip, step, index, currentIndex);

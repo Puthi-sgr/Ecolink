@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../../../shared/atoms/Button';
 import { useAuth } from '../../../app/AuthContext';
 import { UserRole } from '../../../shared/types';
-import { Mountain, Map, Info, UserCircle, BookOpen, Home } from 'lucide-react';
+import { Mountain, Map, Info, UserCircle, BookOpen, Home, Heart } from 'lucide-react';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -11,6 +11,20 @@ interface PublicLayoutProps {
 
 export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate }) => {
   const { user } = useAuth();
+  const [activePath, setActivePath] = useState(window.location.hash.slice(1) || '/');
+  const isHome = activePath === '/';
+  const isDestinations = activePath.startsWith('/destinations') || activePath.startsWith('/package');
+  const isTravelGuide = activePath.startsWith('/travel-guide');
+  const isFavorites = activePath.startsWith('/favorites');
+  const isAbout = activePath.startsWith('/about');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setActivePath(window.location.hash.slice(1) || '/');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const handlePortalAction = () => {
     if (user) {
@@ -26,7 +40,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-surface/95 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-white">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer group" onClick={() => onNavigate('/')}>
             <div className="w-10 h-10 rounded-eco bg-primary flex items-center justify-center text-surface font-bold font-serif shadow-sm group-hover:scale-105 transition-transform">
@@ -34,17 +48,55 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
             </div>
             <span className="font-bold text-xl text-text font-serif tracking-tight">EcoLink</span>
           </div>
-          <div className="hidden md:flex items-center gap-1">
-            <Button variant="ghost" size="sm" className="flex items-center gap-2" onClick={() => onNavigate('/')}>
+          <div className="hidden md:flex items-center gap-6">
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`flex items-center gap-2 rounded-none border-b-2 pb-3 focus:ring-0 focus:ring-offset-0 ${
+                isHome ? 'border-primary text-text' : 'border-transparent text-text-muted hover:text-text'
+              }`}
+              onClick={() => onNavigate('/')}
+            >
               <Home className="w-4 h-4" /> Home
             </Button>
-            <Button variant="ghost" size="sm" className="flex items-center gap-2" onClick={() => onNavigate('/destinations')}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`flex items-center gap-2 rounded-none border-b-2 pb-3 focus:ring-0 focus:ring-offset-0 ${
+                isDestinations ? 'border-primary text-text' : 'border-transparent text-text-muted hover:text-text'
+              }`}
+              onClick={() => onNavigate('/destinations')}
+            >
               <Map className="w-4 h-4" /> Destinations
             </Button>
-            <Button variant="ghost" size="sm" className="flex items-center gap-2" onClick={() => onNavigate('/travel-guide')}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`flex items-center gap-2 rounded-none border-b-2 pb-3 focus:ring-0 focus:ring-offset-0 ${
+                isTravelGuide ? 'border-primary text-text' : 'border-transparent text-text-muted hover:text-text'
+              }`}
+              onClick={() => onNavigate('/travel-guide')}
+            >
               <BookOpen className="w-4 h-4" /> Travel Guide
             </Button>
-            <Button variant="ghost" size="sm" className="flex items-center gap-2" onClick={() => onNavigate('/about')}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`flex items-center gap-2 rounded-none border-b-2 pb-3 focus:ring-0 focus:ring-offset-0 ${
+                isFavorites ? 'border-primary text-text' : 'border-transparent text-text-muted hover:text-text'
+              }`}
+              onClick={() => onNavigate('/favorites')}
+            >
+              <Heart className="w-4 h-4" /> Favorites
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`flex items-center gap-2 rounded-none border-b-2 pb-3 focus:ring-0 focus:ring-offset-0 ${
+                isAbout ? 'border-primary text-text' : 'border-transparent text-text-muted hover:text-text'
+              }`}
+              onClick={() => onNavigate('/about')}
+            >
               <Info className="w-4 h-4" /> How it works
             </Button>
           </div>

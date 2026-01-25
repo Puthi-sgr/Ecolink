@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from '../../../shared/molecules/Card';
 import { Leaf, HeartHandshake, Globe2 } from 'lucide-react';
+import { CldImage } from '../../../shared/atoms/CldImage';
 
 export const CBETEducation: React.FC = () => {
   return (
@@ -70,9 +71,9 @@ export const CBETEducation: React.FC = () => {
 
           <div className="relative h-full min-h-[500px] hidden lg:block">
              <div className="absolute inset-0 bg-gray-200 rounded-eco overflow-hidden">
-                <img 
-                    src="https://images.unsplash.com/photo-1544979590-2c008a0dfc0a?q=80&w=1000&auto=format&fit=crop" 
-                    alt="Students in nature" 
+                <CldImage
+                    src="https://images.unsplash.com/photo-1544979590-2c008a0dfc0a?q=80&w=1000&auto=format&fit=crop"
+                    alt="Students in nature"
                     className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>

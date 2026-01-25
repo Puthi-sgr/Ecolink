@@ -11,7 +11,7 @@ interface PublicPackageDetailOverviewAndItineryProps {
 
 export const PublicPackageDetailOverviewAndItinery: React.FC<PublicPackageDetailOverviewAndItineryProps> = ({ pkg }) => {
   return (
-    <>
+    <section id="overview" className="space-y-12 scroll-mt-32">
       <PackageOverview pkg={pkg} />
       <ExperiencePreview />
 
@@ -19,6 +19,6 @@ export const PublicPackageDetailOverviewAndItinery: React.FC<PublicPackageDetail
         <LearningOutcomes outcomes={pkg.learningOutcomes} />
         <TypicalSchedule schedule={pkg.scheduleOutline} />
       </div>
-    </>
+    </section>
   );
 };

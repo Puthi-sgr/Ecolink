@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useCBETPackages } from '../../../shared/data/cbetData';
 import { CBETPackage } from '../../../shared/types';
 
@@ -10,20 +10,15 @@ import { TrustStrip } from '../components/TrustStrip';
 import { ImpactSection } from '../components/ImpactSection';
 import { CBETMap } from '../CBETMap';
 
-// Existing Components (Catalog)
-import { CatalogGrid } from '../components/CatalogGrid';
-import { MapPin, Map as MapIcon, Grid } from 'lucide-react';
-import { Button } from '../../../shared/atoms/Button';
+import { MapPin } from 'lucide-react';
 
 export const CBETCatalog: React.FC = () => {
     const packages = useCBETPackages();
     const [searchTerm, setSearchTerm] = useState('');
-    const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
-
     const catalogRef = useRef<HTMLDivElement>(null);
 
     const handleCardClick = (pkg: CBETPackage) => {
-        window.location.hash = `/package/${pkg.id}`;
+        window.location.hash = `/package/${pkg.id}/overview`;
     };
 
     const scrollToCatalog = () => {
@@ -72,15 +67,6 @@ export const CBETCatalog: React.FC = () => {
                             <CBETMap packages={filteredPackages} onPackageSelect={handleCardClick} />
                         </div>
 
-                        <div className="animate-in fade-in zoom-in-95 duration-300 pt-10">
-                            <CatalogGrid packages={filteredPackages} onPackageSelect={handleCardClick} />
-                        </div>
-
-
-                        {/* Always show Grid if in Map mode but pushed down? No, user toggles. 
-                    However, let's keep the map purely interactive and grid for details. 
-                    If user selects map, we just show map. 
-                */}
                     </div>
                 </section>
             </div>

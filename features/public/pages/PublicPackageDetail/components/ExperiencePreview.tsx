@@ -1,5 +1,6 @@
 import React from 'react';
 import { Camera, Users, Sprout } from 'lucide-react';
+import { CldImage } from '../../../../../shared/atoms/CldImage';
 
 const PREVIEW_CARDS = [
   {
@@ -37,7 +38,11 @@ export const ExperiencePreview: React.FC = () => {
             className="group bg-surface rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-1"
           >
             <div className="aspect-[16/10] overflow-hidden relative">
-              <img src={card.image} alt={card.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <CldImage
+                src={card.image}
+                alt={card.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
               <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm p-1.5 rounded-full text-primary shadow-sm">
                 {card.icon}

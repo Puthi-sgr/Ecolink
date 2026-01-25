@@ -5,13 +5,23 @@ import { Trip, ProjectStatus } from '../../../../shared/types';
 import { Clock, FileText, FileSpreadsheet, Download } from 'lucide-react';
 
 const ApprovalPendingCard: React.FC = () => (
-  <Card title="Governance & Approval" className="border-l-4 border-l-status-pending mb-6 opacity-75">
+  <Card title="Governance & Approval" className="border-l-4 border-l-status-pending mb-6">
     <div className="flex gap-4">
-      <div className="w-12 h-12 rounded-full bg-status-pending/20 flex items-center justify-center text-xl text-status-pending">
-        <Clock className="w-6 h-6" />
+      <div className="relative">
+        <span className="absolute inset-0 rounded-full bg-status-pending/30 animate-ping"></span>
+        <div className="relative w-12 h-12 rounded-full bg-status-pending/20 flex items-center justify-center text-xl text-status-pending">
+          <Clock className="w-6 h-6 animate-pulse" />
+        </div>
       </div>
-      <div>
-        <h4 className="font-bold text-text mb-1">Approval Pending</h4>
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <h4 className="font-bold text-text">Approval Pending</h4>
+          <div className="flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-status-pending animate-bounce"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-status-pending animate-bounce" style={{ animationDelay: '120ms' }}></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-status-pending animate-bounce" style={{ animationDelay: '240ms' }}></span>
+          </div>
+        </div>
         <p className="text-text-muted text-sm max-w-xl">
           EcoLink Admin is reviewing your request. Once approved, an official <strong>Approval Pack</strong> containing your confirmation letter, itinerary, and safety documents will be available here.
         </p>

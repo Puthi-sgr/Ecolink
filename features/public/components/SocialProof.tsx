@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, GraduationCap, Search } from 'lucide-react';
+import { CldImage } from '../../../shared/atoms/CldImage';
 
 export const SocialProof: React.FC = () => {
   const expeditions = [
@@ -48,9 +49,9 @@ export const SocialProof: React.FC = () => {
                   {/* Left Side: Image */}
                   <div className="w-full md:w-1/2 md:pr-8 mb-4 md:mb-0 flex justify-end">
                      <div className="h-32 w-full max-w-lg relative overflow-hidden rounded-2xl md:rounded-l-full md:rounded-r-none shadow-md group-hover:shadow-lg transition-all duration-500">
-                        <img 
-                          src={trip.image} 
-                          alt={trip.destination} 
+                        <CldImage
+                          src={trip.image}
+                          alt={trip.destination}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         />
                         <div className="absolute inset-0 bg-black/5"></div>

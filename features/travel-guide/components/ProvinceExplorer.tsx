@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check, X, AlertTriangle, Sun, Waves, ArrowRight, Circle } from 'lucide-react';
+import { CldImage } from '../../../shared/atoms/CldImage';
 
 const PROVINCES = [
   {
@@ -79,10 +80,10 @@ const ProvinceExplorer: React.FC = () => {
 const ProvinceCard: React.FC<{ province: typeof PROVINCES[0] }> = ({ province }) => {
   return (
     <>
-      <img 
-        src={province.image} 
-        alt={province.name} 
-        className="absolute inset-0 w-full h-full object-cover" 
+      <CldImage
+        src={province.image}
+        alt={province.name}
+        className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/70 to-stone-900/10" />
 

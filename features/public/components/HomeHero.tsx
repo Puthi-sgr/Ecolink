@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../../../shared/atoms/Button';
+import { CldImage } from '../../../shared/atoms/CldImage';
 import { Search, Calendar, Users, CheckCircle, MapPin } from 'lucide-react';
 import { useCBETPackages } from '../../../shared/data/cbetData';
 
@@ -18,9 +19,9 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ searchTerm, onSearchChange, 
     <div className="relative w-full pb-16 bg-surface-2 mb-12"> 
       {/* Background with overlay */}
       <div className="absolute inset-0 h-[500px] z-0 overflow-hidden bg-primary-600">
-         <img 
-            src="https://images.unsplash.com/photo-1596423736767-27b9b329c063?q=80&w=2000&auto=format&fit=crop" 
-            alt="Hero Background" 
+         <CldImage
+            src="https://images.unsplash.com/photo-1596423736767-27b9b329c063?q=80&w=2000&auto=format&fit=crop"
+            alt="Hero Background"
             className="w-full h-full object-cover opacity-50 mix-blend-overlay"
         />
         {/* Gradient Overlay */}

@@ -7,5 +7,9 @@ interface PublicPackageDetailPricelistingProps {
 }
 
 export const PublicPackageDetailPricelisting: React.FC<PublicPackageDetailPricelistingProps> = ({ pkg }) => {
-  return <CapacityPricingTable bands={pkg.capacityBands} />;
+  return (
+    <section id="pricing" className="scroll-mt-32">
+      <CapacityPricingTable bands={pkg.capacityBands} />
+    </section>
+  );
 };

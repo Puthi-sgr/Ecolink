@@ -34,9 +34,18 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
   onReview,
   onLoginRedirect
 }) => {
+  const minPrice = Math.min(...pkg.capacityBands.map((band) => band.pricePerStudent));
+
   return (
     <div className="sticky top-24">
       <Card className="shadow-2xl border-0 p-8 bg-surface-2 ring-1 ring-border">
+        <div className="mb-6 border-b border-border pb-4">
+          <span className="block text-xs uppercase font-bold tracking-widest text-text-muted">From</span>
+          <div className="flex items-end justify-between">
+            <span className="text-3xl font-black text-text">${minPrice}</span>
+            <span className="text-[10px] uppercase font-bold text-text-muted">est. per student</span>
+          </div>
+        </div>
         <h3 className="text-xl font-bold text-text font-serif mb-6">Request this Trip</h3>
 
         {!isFaculty ? (

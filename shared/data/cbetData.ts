@@ -10,7 +10,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Coordinator',
     description: 'A world-class ornithological site. Students will observe the largest colony of water birds in Southeast Asia while engaging with a floating village community adapting to extreme hydrological cycles.',
     activities: ['Bird Watching', 'Floating Village Tour', 'Water Hyacinth Workshop', 'Biosphere Lecture'],
-    imageUrl: 'https://placehold.co/600x400?text=Prek+Toal+Wetlands',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Prek Toal
     coordinates: { lat: 13.2374, lng: 103.6524 },
     duration: '1 Full Day',
@@ -39,7 +40,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'One of Cambodia’s premier community ecotourism destinations in the Cardamom Mountains. Students will trek through dense rainforests and rivers to discover wildlife and learn about conservation efforts in a former logging community turned guardians of the forest.',
     activities: ['Jungle Trekking', 'Wildlife Night Safari', 'River Kayaking', 'Camping'],
-    imageUrl: 'https://placehold.co/600x400?text=Chi+Phat+Jungle',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Chi Phat
     coordinates: { lat: 11.3285, lng: 103.5239 },
     duration: '3 Days 2 Nights',
@@ -68,7 +70,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Facilitator',
     description: 'A community at the edge of Kirirom National Park known for its waterfalls and rural charm. Students will hike to a scenic waterfall and learn about sustainable livelihoods as villagers demonstrate local farming and conservation in practice.',
     activities: ['Waterfall Hike', 'Ox-cart Ride', 'Cultural Dance Show', 'Village Homestay'],
-    imageUrl: 'https://placehold.co/600x400?text=Chambok+Waterfall',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Chambok
     coordinates: { lat: 11.3849, lng: 104.1164 },
     duration: '1 Full Day',
@@ -97,7 +100,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Coordinator',
     description: 'An ancient Angkorian temple complex managed by the local community. Students will explore a sprawling 12th-century temple off the beaten path while experiencing village homestays that showcase community-led cultural heritage preservation.',
     activities: ['Temple Exploration', 'Village Homestay', 'Traditional Weaving Workshop', 'Ox-cart Tour'],
-    imageUrl: 'https://placehold.co/600x400?text=Banteay+Chhmar+Temple',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Banteay Chhmar
     coordinates: { lat: 14.0711, lng: 103.0997 },
     duration: '2 Days 1 Night',
@@ -126,7 +130,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Advisor',
     description: 'A remote bird sanctuary in Cambodia’s Northern Plains. Students will venture into dry forest with community guides to spot rare Giant Ibis and other wildlife, learning how ecotourism supports both conservation and local livelihoods in this Khmer and Kuy village.',
     activities: ['Bird Watching (Giant Ibis)', 'Wildlife Safari', 'Nature Walks', 'Community Lodge Stay'],
-    imageUrl: 'https://placehold.co/600x400?text=Tmatboey+Wildlife',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Tmatboey
     coordinates: { lat: 13.9677, lng: 104.8827 },
     duration: '2 Days 1 Night',
@@ -155,7 +160,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'A riverside ecotourism community on the Mekong near the Lao border. Students will witness the powerful Sopheakmit Waterfall and possibly glimpse endangered Irrawaddy dolphins while understanding community efforts to protect the Mekong’s biodiversity.',
     activities: ['Boat to Waterfall', 'Dolphin Watching', 'Cycling to Border', 'Homestay Experience'],
-    imageUrl: 'https://placehold.co/600x400?text=Preah+Rumkel+Mekong',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Preah Rumkel
     coordinates: { lat: 13.886, lng: 105.963 },
     duration: '1 Full Day',
@@ -184,7 +190,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'A Mekong River island community renowned for dolphin conservation. Students will take boat trips to observe the endangered Irrawaddy dolphins and participate in village activities, seeing first-hand how ecotourism supports rural development and environmental protection.',
     activities: ['Dolphin Watching Boat Trip', 'Fishing Village Tour', 'Kayaking', 'Evening Bonfire'],
-    imageUrl: 'https://placehold.co/600x400?text=Koh+Pdao+Dolphins',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Koh Pdao
     coordinates: { lat: 12.9529, lng: 105.9993 },
     duration: '1 Full Day',
@@ -213,7 +220,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Advisor',
     description: 'A coastal community ecotourism site near Bokor National Park. Students will explore mangrove forests and estuarine ecosystems, learn about local efforts to protect Irrawaddy dolphins and mangroves, and engage in community-led activities like fishing and handicrafts.',
     activities: ['Mangrove Boat Ride', 'Dolphin Spotting', 'Village Walk', 'Fishing Demonstration'],
-    imageUrl: 'https://placehold.co/600x400?text=Prek+Thnout+Mangroves',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Prek Thnout
     coordinates: { lat: 10.5956, lng: 103.9632 },
     duration: '1 Full Day',
@@ -242,7 +250,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Coordinator',
     description: 'One of Cambodia’s wildest national parks, offering multi-day jungle treks guided by indigenous communities. Students will hike and camp deep in the rainforest, learning survival skills and about the rich biodiversity from park rangers and local guides in this transboundary conservation area.',
     activities: ['Multi-day Jungle Trekking', 'Camping', 'Wildlife Tracking', 'Cultural Village Visit'],
-    imageUrl: 'https://placehold.co/600x400?text=Virachey+Rainforest',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Virachey NP
     coordinates: { lat: 14.3257, lng: 106.9982 },
     duration: '5 Days 4 Nights',
@@ -271,7 +280,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Advisor',
     description: 'A community forest retreat known for a pristine stream and lush biodiversity. Students can trek through protected woods, swim in crystal-clear stream pools, and observe wildlife, all while learning about community-led forest conservation initiated by local environmental groups.',
     activities: ['Forest Trekking', 'Stream Swimming', 'Wildlife Viewing', 'Picnic'],
-    imageUrl: 'https://placehold.co/600x400?text=ORussey+Kandal+Forest',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near O Russey Kandal
     coordinates: { lat: 13.28, lng: 105.967 },
     duration: '1 Full Day',
@@ -300,7 +310,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'A sacred volcanic lake managed by the local indigenous community. Students will hike the lake’s circumference, swim in its clear waters, and visit a cultural center to learn about the traditions and environmental stewardship of the indigenous Tampuan people.',
     activities: ['Nature Hike', 'Swimming', 'Cultural Center Visit', 'Handicraft Shopping'],
-    imageUrl: 'https://placehold.co/600x400?text=Yeak+Laom+Lake',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Yeak Laom
     coordinates: { lat: 13.73, lng: 107.015 },
     duration: 'Half Day',
@@ -329,7 +340,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'A cluster of Mekong islands and flooded forests within a Ramsar wetland. Students will boat through mangroves, observe diverse bird life and possibly river dolphins, and interact with villagers to understand life along the Mekong and community conservation efforts.',
     activities: ['Forest Hike', 'Boat Trip in Wetlands', 'Dolphin Spotting', 'Bird Watching'],
-    imageUrl: 'https://placehold.co/600x400?text=Osvay+Wetlands',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Osvay
     coordinates: { lat: 13.8368, lng: 105.9992 },
     duration: '2 Days 1 Night',
@@ -358,7 +370,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Advisor',
     description: 'A unique wetland and reservoir that is a sanctuary for the Eastern Sarus Crane. Students will traverse dry season grasslands with local rangers to observe cranes and other wildlife, and learn about the site\'s history and community involvement in protecting this biodiversity hotspot.',
     activities: ['Bird Watching (Sarus Cranes)', 'Ox-Cart Safari', 'Village Visit', 'Wildlife Photography'],
-    imageUrl: 'https://placehold.co/600x400?text=Ang+Trapeang+Thmor+Cranes',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Ang Trapeang Thmor
     coordinates: { lat: 13.8688, lng: 103.3013 },
     duration: '1 Full Day',
@@ -387,7 +400,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Facilitator',
     description: 'A serene Mekong island ecotourism site in the Stung Treng Ramsar wetlands. Students will camp on sandbars, explore the rich birdlife and flooded forests by boat, and engage with the local community\'s initiatives led by women to promote sustainable tourism and conservation.',
     activities: ['Boat Excursion', 'Island Camping', 'Bird Watching', 'Fishing with Locals'],
-    imageUrl: 'https://placehold.co/600x400?text=Koh+Han+Island',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Koh Han
     coordinates: { lat: 13.75, lng: 105.97 },
     duration: '2 Days 1 Night',
@@ -416,7 +430,8 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Facilitator',
     description: 'An ecotourism experience spanning 30 islands in the Mekong’s biodiversity-rich landscape of Kratie. Students will navigate between islands to spot rare birds and aquatic life, partake in fishing and farming activities with locals, and understand how community tourism can preserve a critical riverine habitat.',
     activities: ['Boat Island Hopping', 'Bird Watching', 'Fishing Experience', 'Camping'],
-    imageUrl: 'https://placehold.co/600x400?text=Koh+Samseb+Islands',
+    imageUrl: '',
+    isFavorite: false,
     // Coordinates near Koh Samseb
     coordinates: { lat: 12.85, lng: 106.05 },
     duration: '3 Days 2 Nights',
@@ -435,6 +450,35 @@ export const CBET_PACKAGES: CBETPackage[] = [
       firstAid: true
     },
     bookingConditions: { minLeadTimeDays: 21, minGroupSize: 15, maxGroupSize: 25, cancellationPolicy: 'Full refund 14 days prior. 50% refund 7 days prior.', transportNotes: 'Combination of road (2 hours from Kratie) and boat travel to reach islands. Small boats (5-8 people) used for island hopping to minimize impact and ensure safety.' }
+  },
+  {
+    id: 'CBET-016',
+    name: 'Veun Sai-Siem Pang Gibbon Experience',
+    location: 'Veun Sai-Siem Pang National Park, Ratanakiri',
+    cbetSite: 'Veun Sai-Siem Pang Community',
+    managingOrg: 'Veun Sai-Siem Pang CBET Committee',
+    ecoLinkRole: 'Partner',
+    description: 'Community-run CBET in Veun Sai-Siem Pang National Park focused on primate conservation and forest ecology. Guided treks and early-morning gibbon tracking highlight one of the largest known populations of Northern yellow-cheeked crested gibbons, while homestays support Indigenous Kavet and Lao livelihoods and conservation patrols.',
+    activities: ['Pre-dawn gibbon tracking and observation', 'Guided forest hike for birds and primates', 'Night safari walk for nocturnal wildlife', 'Community village visit and cultural exchange', 'Boat ferry and motorbike transfers through forest paths'],
+    imageUrl: '',
+    isFavorite: false,
+    coordinates: { lat: 14.05, lng: 106.98 },
+    duration: '2 Days 1 Night',
+    scheduleOutline: ['Day 1 - Depart Banlung, cross the Sesan River by ferry, transfer by motorbike to base camp, afternoon forest trek, and night walk.', 'Day 2 - Pre-dawn gibbon trek and observation, return for brunch, village visit, and transfer back to Banlung.'],
+    suitableTiming: 'Nov - Mar (Dry season for trekking and gibbon viewing)',
+    capacityBands: [{ min: 1, max: 1, pricePerStudent: 399 }, { min: 2, max: 2, pricePerStudent: 250 }, { min: 3, max: 4, pricePerStudent: 212 }, { min: 5, max: 6, pricePerStudent: 189 }],
+    includes: ['Park permits and conservation fees', 'English-speaking guide and community wildlife tracker', 'Local transport (boat ferry, motorbike transfers, Banlung pickup/drop-off)', 'Meals (Day 1 lunch/dinner, Day 2 breakfast/brunch) and drinking water', 'Homestay accommodation with mosquito net and bedding'],
+    excludes: ['Travel to/from Banlung before and after the tour', 'Personal travel insurance', 'Additional snacks, alcoholic beverages, or sodas', 'Personal expenses and gratuities'],
+    depositDetails: { percentage: 30, deadlineDays: 14 },
+    learningOutcomes: ['Observe endangered gibbons in the wild and learn field research techniques', 'Understand how community-led ecotourism supports conservation and livelihoods', 'Engage with Indigenous Kavet and Lao culture and resource practices', 'Identify key rainforest species and their conservation status', 'Discuss protected area management and threats to biodiversity'],
+    safetyInfo: {
+      activityLevel: 'Moderate',
+      riskNotes: 'Pre-dawn trekking and forest hiking require headlamps, closed-toe shoes, and adherence to wildlife distance rules.',
+      facilities: ['Basic ranger station lodging', 'Mosquito nets', 'Drinking water provided', 'First aid kit'],
+      guideRatio: '1:6',
+      firstAid: true
+    },
+    bookingConditions: { minLeadTimeDays: 14, minGroupSize: 1, maxGroupSize: 6, cancellationPolicy: '30% deposit is non-refundable. Balance due 2 days prior; non-refundable after payment.', transportNotes: 'Boat ferry across the Sesan River and motorbike transfers from Banlung are included.' }
   }
 
 ];
@@ -578,3 +622,4 @@ export const ADDITIONAL_MOCK_TRIPS: Trip[] = [
 ];
 
 export const ALL_MOCK_TRIPS = [...MOCK_TRIPS, ...ADDITIONAL_MOCK_TRIPS];
+

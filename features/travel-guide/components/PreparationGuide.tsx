@@ -10,6 +10,7 @@ import {
   PlusCircle, 
   MessageCircle 
 } from 'lucide-react';
+import { CldImage } from '../../../shared/atoms/CldImage';
 
 const PreparationGuide: React.FC = () => {
   return (
@@ -27,8 +28,8 @@ const PreparationGuide: React.FC = () => {
         <div className="space-y-6">
           {/* Cultural Respect - Large Image Card */}
           <div className="relative h-64 rounded-[2.5rem] overflow-hidden group shadow-lg">
-            <img 
-              src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1000&auto=format&fit=crop" 
+            <CldImage
+              src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1000&auto=format&fit=crop"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Cultural Respect"
             />
@@ -87,7 +88,11 @@ const PreparationGuide: React.FC = () => {
           {/* Research Permits - Image + Text Card */}
           <div className="flex gap-6 p-6 bg-[#f9f9f7] rounded-[2rem] border border-stone-100 shadow-sm overflow-hidden group hover:shadow-md hover:bg-white">
             <div className="w-32 h-24 rounded-2xl overflow-hidden shrink-0">
-               <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=400&auto=format&fit=crop" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Permits" />
+               <CldImage
+                 src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=400&auto=format&fit=crop"
+                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                 alt="Permits"
+               />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
@@ -103,7 +108,11 @@ const PreparationGuide: React.FC = () => {
           {/* Health & Safety - Image + Text Card */}
           <div className="flex gap-6 p-6 bg-[#f9f9f7] rounded-[2rem] border border-stone-100 shadow-sm overflow-hidden group hover:shadow-md hover:bg-white">
             <div className="w-32 h-24 rounded-2xl overflow-hidden shrink-0">
-               <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=400&auto=format&fit=crop" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Health" />
+               <CldImage
+                 src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=400&auto=format&fit=crop"
+                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                 alt="Health"
+               />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
@@ -119,7 +128,11 @@ const PreparationGuide: React.FC = () => {
           {/* Language & Communication - Image + Text Card */}
           <div className="flex gap-6 p-6 bg-[#f9f9f7] rounded-[2rem] border border-stone-100 shadow-sm overflow-hidden group hover:shadow-md hover:bg-white">
             <div className="w-32 h-24 rounded-2xl overflow-hidden shrink-0">
-               <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Communication" />
+               <CldImage
+                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop"
+                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                 alt="Communication"
+               />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
@@ -134,8 +147,8 @@ const PreparationGuide: React.FC = () => {
 
           {/* Eco-Packing - Large Image Card Bottom */}
           <div className="relative h-64 rounded-[2.5rem] overflow-hidden group shadow-lg">
-            <img 
-              src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?q=80&w=1000&auto=format&fit=crop" 
+            <CldImage
+              src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?q=80&w=1000&auto=format&fit=crop"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Eco-Packing"
             />

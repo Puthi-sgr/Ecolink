@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { CldImage } from '../../../shared/atoms/CldImage';
 
 interface Slide {
   id: number;
@@ -72,7 +73,7 @@ const HeroSlider: React.FC = () => {
           }`}
         >
           {/* Background Image */}
-          <img
+          <CldImage
             src={slide.image}
             alt="Travel Destination"
             className="w-full h-full object-cover"

@@ -62,6 +62,7 @@ export interface CBETPackage {
   
   description: string;
   imageUrl?: string;
+  isFavorite?: boolean;
   
   // Coordinates for Map
   coordinates: {

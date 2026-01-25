@@ -1,6 +1,7 @@
 import React from 'react';
 import type { CBETPackage } from '../../../shared/types';
 import { ArrowRight, Mountain } from 'lucide-react';
+import { CldImage } from '../../../shared/atoms/CldImage';
 
 interface CBETMapTooltipCardProps {
   pkg: CBETPackage;
@@ -9,7 +10,13 @@ interface CBETMapTooltipCardProps {
 export const CBETMapTooltipCard: React.FC<CBETMapTooltipCardProps> = ({ pkg }) => (
   <div className="w-56 p-0 overflow-hidden bg-white rounded-lg shadow-xl border-0 font-sans">
     <div className="h-24 relative">
-      <img src={pkg.imageUrl} className="w-full h-full object-cover" alt={pkg.name} />
+      {pkg.imageUrl ? (
+        <CldImage src={pkg.imageUrl} className="w-full h-full object-cover" alt={pkg.name} />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-text-muted italic bg-surface-2">
+          <Mountain className="w-8 h-8 opacity-30" />
+        </div>
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
       <div className="absolute bottom-2 left-2 text-white">
         <span className="text-[10px] font-bold uppercase tracking-wider block opacity-90">{pkg.location}</span>
