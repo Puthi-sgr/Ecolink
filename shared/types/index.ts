@@ -64,6 +64,7 @@ export interface CBETPackage {
   
   description: string;
   imageKey?: CldAssetKey;
+  imageSrc?: string;
   isFavorite?: boolean;
   
   // Coordinates for Map

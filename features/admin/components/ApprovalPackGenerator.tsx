@@ -13,17 +13,19 @@ interface ApprovalPackGeneratorProps {
 
 export const ApprovalPackGenerator: React.FC<ApprovalPackGeneratorProps> = ({ trip, onGenerate, onCancel }) => {
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
   
   // Form State for Governance Details
   const [tripLead, setTripLead] = useState('Sarah Connor (EcoLink Senior Lead)');
   const [emergencyPhone, setEmergencyPhone] = useState('+855 12 999 888');
-  const [hospital, setHospital] = useState('Siem Reap Referral Hospital (45 mins)');
+  const [hospital, setHospital] = useState('CBET First Aid Center');
   const [depositDeadline, setDepositDeadline] = useState(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   );
 
   const handleGenerate = () => {
     setIsGenerating(true);
+    setIsComplete(false);
     
     // Simulate API generation time
     setTimeout(() => {
@@ -38,7 +40,10 @@ export const ApprovalPackGenerator: React.FC<ApprovalPackGeneratorProps> = ({ tr
           { name: `5_Student_Roster_Template.csv`, url: '#' },
         ]
       };
-      onGenerate(pack);
+      setIsComplete(true);
+      setTimeout(() => {
+        onGenerate(pack);
+      }, 800);
     }, 2000);
   };
 
@@ -46,14 +51,26 @@ export const ApprovalPackGenerator: React.FC<ApprovalPackGeneratorProps> = ({ tr
     return (
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <Card className="w-full max-w-md text-center p-12">
-           <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-6" />
-           <h3 className="text-xl font-bold font-serif text-text mb-2">Generating Governance Pack...</h3>
-           <p className="text-text-muted text-sm">Stamping liability documents for {trip.id}</p>
-           <div className="mt-6 space-y-2 text-xs text-text-muted/70 text-left max-w-xs mx-auto">
-              <p className="flex items-center gap-2"><Check className="w-3 h-3 text-accent" /> Verifying Faculty Contact</p>
-              <p className="flex items-center gap-2"><Check className="w-3 h-3 text-accent" /> Locking Itinerary Data</p>
-              <p className="animate-pulse pl-5">... Creating Safety Sheet</p>
-           </div>
+           {isComplete ? (
+             <>
+               <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-6">
+                 <Check className="w-6 h-6" />
+               </div>
+               <h3 className="text-xl font-bold font-serif text-text mb-2">Governance Pack Published</h3>
+               <p className="text-text-muted text-sm">Approval Pack is ready for {trip.id}</p>
+             </>
+           ) : (
+             <>
+               <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-6" />
+               <h3 className="text-xl font-bold font-serif text-text mb-2">Generating Governance Pack...</h3>
+               <p className="text-text-muted text-sm">Stamping liability documents for {trip.id}</p>
+               <div className="mt-6 space-y-2 text-xs text-text-muted/70 text-left max-w-xs mx-auto">
+                  <p className="flex items-center gap-2"><Check className="w-3 h-3 text-accent" /> Verifying Faculty Contact</p>
+                  <p className="flex items-center gap-2"><Check className="w-3 h-3 text-accent" /> Locking Itinerary Data</p>
+                  <p className="animate-pulse pl-5">... Creating Safety Sheet</p>
+               </div>
+             </>
+           )}
         </Card>
       </div>
     );

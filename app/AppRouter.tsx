@@ -90,6 +90,10 @@ export const AppRouter: React.FC = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPath]);
+
   const navigate = (path: string) => {
     window.location.hash = path;
   };

@@ -10,7 +10,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Facilitator',
     description: 'Immersive water-bird observation and floating village community study. Students will engage with the unique hydrology of the Tonle Sap.',
     activities: ['Bird Watching', 'Boat Tour', 'Water Quality Testing', 'Weaving Workshop'],
-    imageKey: 'package.placeholder',
+    imageKey: 'cbet.package.veunsaisiampang.hero',
     
     // Coordinates for Map
     coordinates: {
@@ -68,7 +68,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Partner',
     description: 'High-altitude rainforest trekking and indigenous flora classification. Experience the heart of the Cardamoms.',
     activities: ['Trekking', 'Botany Workshop', 'Community Homestay', 'Waterfall Swim'],
-    imageKey: 'package.placeholder',
+    imageKey: 'cbet.package.veunsaisiampang.snapshot',
 
     // Coordinates for Map
     coordinates: {
@@ -123,7 +123,7 @@ export const CBET_PACKAGES: CBETPackage[] = [
     ecoLinkRole: 'Sponsor',
     description: 'Hands-on mangrove planting and coastal erosion analysis. Direct contribution to reforestation efforts.',
     activities: ['Planting', 'Kayaking', 'Fishery Study', 'Nursery Tour'],
-    imageKey: 'package.placeholder',
+    imageKey: 'cbet.package.veunsaisiampang.community.story',
 
     // Coordinates for Map
     coordinates: {

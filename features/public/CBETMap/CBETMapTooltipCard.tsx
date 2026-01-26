@@ -10,8 +10,13 @@ interface CBETMapTooltipCardProps {
 export const CBETMapTooltipCard: React.FC<CBETMapTooltipCardProps> = ({ pkg }) => (
   <div className="w-56 p-0 overflow-hidden bg-white rounded-lg shadow-xl border-0 font-sans">
     <div className="h-24 relative">
-      {pkg.imageKey ? (
-        <CldImage assetKey={pkg.imageKey} className="w-full h-full object-cover" alt={pkg.name} />
+      {pkg.imageSrc || pkg.imageKey ? (
+        <CldImage
+          src={pkg.imageSrc}
+          assetKey={pkg.imageKey}
+          className="w-full h-full object-cover"
+          alt={pkg.name}
+        />
       ) : (
         <div className="w-full h-full flex items-center justify-center text-text-muted italic bg-surface-2">
           <Mountain className="w-8 h-8 opacity-30" />

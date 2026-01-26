@@ -6,19 +6,19 @@ const PREVIEW_CARDS = [
   {
     title: 'Wildlife Ethics Viewing',
     description: 'Strict adherence to distance and noise protocols ensures non-intrusive observation of local species.',
-    image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963098?q=80&w=600&auto=format&fit=crop',
+    image: 'hero.main',
     icon: <Camera className="w-4 h-4" />
   },
   {
     title: 'Community Exchange',
     description: 'Direct dialogue with village elders and rangers to understand the human side of conservation.',
-    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb7d5b7a?q=80&w=600&auto=format&fit=crop',
+    image: 'cbet.package.veunsaisiampang.community.story',
     icon: <Users className="w-4 h-4" />
   },
   {
     title: 'Conservation Workshop',
     description: 'Participate in hands-on activities ranging from nursery care to biodiversity data collection.',
-    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=600&auto=format&fit=crop',
+    image: 'cbet.package.veunsaisiampang.significance',
     icon: <Sprout className="w-4 h-4" />
   }
 ];
@@ -35,11 +35,13 @@ export const ExperiencePreview: React.FC = () => {
         {PREVIEW_CARDS.map((card) => (
           <div
             key={card.title}
+
             className="group bg-surface rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-1"
           >
             <div className="aspect-[16/10] overflow-hidden relative">
               <CldImage
-                src={card.image}
+                key={card.title}
+                assetKey={card.image}
                 alt={card.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />

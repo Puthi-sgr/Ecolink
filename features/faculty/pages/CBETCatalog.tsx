@@ -84,8 +84,9 @@ export const CBETCatalog: React.FC = () => {
               <Card className="flex flex-col h-full p-0 overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 {/* Image */}
                 <div className="h-56 bg-surface-2 relative overflow-hidden">
-                    {pkg.imageKey ? (
+                    {pkg.imageSrc || pkg.imageKey ? (
                         <CldImage
+                          src={pkg.imageSrc}
                           assetKey={pkg.imageKey}
                           alt={pkg.name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"

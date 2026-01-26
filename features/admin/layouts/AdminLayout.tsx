@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '../../../shared/atoms/Button';
 import { useAuth } from '../../../app/AuthContext';
+import { Activity, ClipboardCheck, LayoutDashboard, ShieldCheck, Users } from 'lucide-react';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -11,34 +12,68 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-background flex font-sans">
-      {/* Sidebar - Using primary color for Admin distinction but keeping nature theme */}
-      <aside className="w-64 bg-primary text-surface hidden md:flex flex-col">
-        <div className="h-16 flex items-center px-6 border-b border-primary-600">
-          <div className="w-6 h-6 rounded-full bg-primary-600 flex items-center justify-center text-surface text-xs font-bold mr-2">A</div>
-          <span className="font-bold font-serif">Admin Control</span>
+      {/* Sidebar */}
+      <aside className="w-72 bg-surface border-r border-border hidden md:flex flex-col">
+        <div className="h-16 flex items-center px-6 border-b border-border">
+          <div className="w-9 h-9 rounded-eco bg-surface-2 flex items-center justify-center shadow-sm">
+            <img src="/Logo.png" alt="EcoLink logo" className="h-6 w-6 object-contain" />
+          </div>
+          <div className="ml-3">
+            <p className="text-xs uppercase tracking-widest text-text-muted">Control Center</p>
+            <p className="font-bold font-serif text-text">Admin Workspace</p>
+          </div>
         </div>
         <nav className="flex-1 p-4 space-y-2">
-          <Button variant="ghost" className="w-full justify-start text-surface hover:bg-primary-600 hover:text-white">Overview</Button>
-          <Button variant="ghost" className="w-full justify-start text-surface/80 hover:text-surface hover:bg-primary-600">Pending Review</Button>
-          <Button variant="ghost" className="w-full justify-start text-surface/80 hover:text-surface hover:bg-primary-600">User Management</Button>
-          <Button variant="ghost" className="w-full justify-start text-surface/80 hover:text-surface hover:bg-primary-600">System Logs</Button>
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-text hover:bg-surface-2"
+          >
+            <LayoutDashboard className="w-4 h-4 text-primary" />
+            Overview
+          </Button>
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-text-muted hover:text-text hover:bg-surface-2"
+          >
+            <ClipboardCheck className="w-4 h-4 text-primary" />
+            Pending Review
+          </Button>
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-text-muted hover:text-text hover:bg-surface-2"
+          >
+            <Users className="w-4 h-4 text-primary" />
+            User Management
+          </Button>
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-text-muted hover:text-text hover:bg-surface-2"
+          >
+            <Activity className="w-4 h-4 text-primary" />
+            System Logs
+          </Button>
         </nav>
-        <div className="p-4 border-t border-primary-600">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-surface font-bold text-xs border border-primary-500">
-               {user?.name?.charAt(0) || 'A'}
-            </div>
-            <div className="text-sm">
-              <div className="flex items-center gap-2">
-                <p className="font-medium text-surface line-clamp-1">{user?.name}</p>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-surface/20 text-surface uppercase border border-surface/30 tracking-wider">
-                  {user?.role || 'ADMIN'}
-                </span>
+        <div className="p-4 border-t border-border">
+          <div className="rounded-2xl bg-surface-2 p-4 space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+                {user?.name?.charAt(0) || 'A'}
               </div>
-              <p className="text-surface/70 text-xs">System Administrator</p>
+              <div className="text-sm">
+                <p className="font-semibold text-text line-clamp-1">{user?.name}</p>
+                <p className="text-xs text-text-muted">System Administrator</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-primary" />
+              <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">
+                {user?.role || 'ADMIN'}
+              </span>
             </div>
           </div>
-          <Button variant="outline" size="sm" className="w-full border-primary-600 text-surface/80 hover:text-surface hover:bg-primary-600" onClick={logout}>Sign Out</Button>
+          <Button variant="outline" size="sm" className="w-full mt-4" onClick={logout}>
+            Sign Out
+          </Button>
         </div>
       </aside>
 

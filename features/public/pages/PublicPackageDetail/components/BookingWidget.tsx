@@ -38,7 +38,7 @@ export const BookingWidget: React.FC<BookingWidgetProps> = ({
 
   return (
     <div className="sticky top-24">
-      <Card className="shadow-2xl border-0 p-8 bg-surface-2 ring-1 ring-border">
+      <Card className="shadow-2xl border-0 bg-surface-2 ring-1 ring-border">
         <div className="mb-6 border-b border-border pb-4">
           <span className="block text-xs uppercase font-bold tracking-widest text-text-muted">From</span>
           <div className="flex items-end justify-between">

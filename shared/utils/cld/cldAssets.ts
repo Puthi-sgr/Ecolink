@@ -13,7 +13,7 @@ export type CldAssetKey =
 
 
 export const cldAssets: Record<CldAssetKey, { publicId: string; alt: string }> = {
-  "hero.main": { publicId: "string", alt: "Hero main image" },
+  "hero.main": { publicId: "KPC00060_tvl6ah", alt: "Hero main image" },
   "package.placeholder": { publicId: "string", alt: "CBET package placeholder" },
   "about.snapshot": { publicId: "string", alt: "CBET snapshot" },
   "about.community.avatar": { publicId: "string", alt: "Community lead" },

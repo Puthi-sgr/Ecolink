@@ -52,7 +52,14 @@ export const WorkflowActions: React.FC<{ trip: Trip; onApprove: () => void; onLo
                         ) : (
                              <>
                                 <p className="text-xs text-text-muted mb-4">Waiting for faculty to upload deposit proof.</p>
-                                <Button disabled className="w-full bg-surface-2 text-text-muted border border-border">Waiting Payment...</Button>
+                                <Button disabled className="w-full bg-surface-2 text-text-muted border border-border flex items-center justify-center gap-2">
+                                    Waiting Payment
+                                    <span className="flex items-center gap-1">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-text-muted animate-bounce [animation-delay:-0.2s]"></span>
+                                        <span className="w-1.5 h-1.5 rounded-full bg-text-muted animate-bounce [animation-delay:-0.1s]"></span>
+                                        <span className="w-1.5 h-1.5 rounded-full bg-text-muted animate-bounce"></span>
+                                    </span>
+                                </Button>
                                 {/* Fallback manual lock if payment happens offline */}
                                 <button onClick={onLock} className="text-[10px] text-text-muted underline mt-2 w-full text-center">Manual Lock (Offline Payment)</button>
                              </>
@@ -85,7 +92,7 @@ export const TripInfoPanel: React.FC<{ trip: Trip }> = ({ trip }) => (
             </div>
              <div>
                 <span className="block text-text-muted text-xs uppercase tracking-wide">Date</span>
-                <span className="font-medium">{trip.date}</span>
+                <span className="font-medium">{new Date().toISOString().split('T')[0]}</span>
             </div>
              <div>
                 <span className="block text-text-muted text-xs uppercase tracking-wide">Department</span>

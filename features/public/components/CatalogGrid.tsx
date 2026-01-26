@@ -38,8 +38,9 @@ export const CatalogGrid: React.FC<CatalogGridProps> = ({ packages, onPackageSel
               className="flex flex-col h-full p-0 overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 bg-white rounded-3xl"
             >
               <div className="h-92 relative overflow-hidden shrink-0">
-                {pkg.imageKey ? (
+                {pkg.imageSrc || pkg.imageKey ? (
                   <CldImage
+                    src={pkg.imageSrc}
                     assetKey={pkg.imageKey}
                     alt={pkg.name}
                     className="w-full h-full object-cover object-center scale-110 group-hover:scale-[1.15] transition-transform duration-700"
