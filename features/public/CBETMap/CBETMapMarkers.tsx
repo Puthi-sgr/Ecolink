@@ -27,7 +27,7 @@ export const CBETMapMarkers: React.FC<CBETMapMarkersProps> = ({ packages, onPack
           opacity={1}
           className="!bg-transparent !border-0 !shadow-none !p-0 custom-leaflet-tooltip"
         >
-          <CBETMapTooltipCard pkg={pkg} />
+          <CBETMapTooltipCard pkg={pkg} onSelect={() => onPackageSelect(pkg)} />
         </Tooltip>
       </Marker>
     ))}

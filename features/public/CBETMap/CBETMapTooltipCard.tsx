@@ -5,10 +5,23 @@ import { CldImage } from '../../../shared/atoms/CldImage';
 
 interface CBETMapTooltipCardProps {
   pkg: CBETPackage;
+  onSelect?: () => void;
 }
 
-export const CBETMapTooltipCard: React.FC<CBETMapTooltipCardProps> = ({ pkg }) => (
-  <div className="w-56 p-0 overflow-hidden bg-white rounded-lg shadow-xl border-0 font-sans">
+export const CBETMapTooltipCard: React.FC<CBETMapTooltipCardProps> = ({ pkg, onSelect }) => (
+  <div
+    className="w-56 p-0 overflow-hidden bg-white rounded-lg shadow-xl border-0 font-sans cursor-pointer"
+    onClick={onSelect}
+    role={onSelect ? 'button' : undefined}
+    tabIndex={onSelect ? 0 : undefined}
+    onKeyDown={(event) => {
+      if (!onSelect) return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        onSelect();
+      }
+    }}
+  >
     <div className="h-24 relative">
       {pkg.imageSrc || pkg.imageKey ? (
         <CldImage

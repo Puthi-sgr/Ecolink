@@ -6,6 +6,8 @@ import PreparationGuide from './components/PreparationGuide';
 import AIInspirationScout from './components/AIInspirationScout';
 import HeroSlider from './components/HeroSlider';
 import { MapPin, Sun, Sparkles, Leaf } from 'lucide-react';
+import { useCBETPackages } from '../faculty/data/cbetData';
+import type { ProvinceCardData } from './components/ProvinceExplorer';
 
 const SECTIONS = [
   { 
@@ -37,6 +39,35 @@ const SECTIONS = [
 const TravelGuidePage: React.FC = () => {
   const [explored, setExplored] = useState<Set<string>>(new Set(['provinces']));
   const [activeSection, setActiveSection] = useState<string>('provinces');
+  const packages = useCBETPackages();
+
+  const heroSlides = packages.slice(0, 3).map((pkg, index) => ({
+    id: index + 1,
+    title: (
+      <>
+        Explore <span className="border-b-4 border-white">{pkg.name}</span> with
+        <span className="border-b-4 border-white"> EcoLink</span>
+      </>
+    ),
+    description: pkg.description,
+    imageKey: pkg.imageKey,
+    link: '#'
+  }));
+
+  const provinceCards: ProvinceCardData[] = packages.slice(0, 3).map((pkg, index) => ({
+    id: pkg.id,
+    name: pkg.cbetSite || pkg.name,
+    description: pkg.description,
+    imageKey: pkg.imageKey,
+    idealFor: pkg.activities.slice(0, 3),
+    notIdealFor: ['Short weekend trips', 'Luxury seekers'],
+    actionLabel: index === 0 ? 'Explore Research Sites' : index === 1 ? 'Plan Visit' : 'See Seasonal Data',
+    seasonalStatus: {
+      label: index === 0 ? 'IDEAL: PEAK SEASON' : index === 1 ? 'CONDITIONAL ACCESS' : 'NOT RECOMMENDED (MONSOON)',
+      icon: index === 0 ? <Sun className="w-3.5 h-3.5" /> : index === 1 ? <Sparkles className="w-3.5 h-3.5" /> : <Leaf className="w-3.5 h-3.5" />,
+      color: index === 0 ? 'bg-green-500/20 text-green-400 border-green-500/30' : index === 1 ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30'
+    }
+  }));
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -147,7 +178,7 @@ const TravelGuidePage: React.FC = () => {
   const Content = (
     <div className="space-y-16">
       {/* Hero Section */}
-      <HeroSlider />
+      <HeroSlider slides={heroSlides} />
 
       {/* Simplified Sub-Nav for Mobile */}
       <div className="lg:hidden flex justify-center gap-6 border-b border-stone-100 pb-6 mb-12 overflow-x-auto whitespace-nowrap px-4">
@@ -164,7 +195,7 @@ const TravelGuidePage: React.FC = () => {
         ))}
       </div>
 
-      <ProvinceExplorer />
+      <ProvinceExplorer provinces={provinceCards} />
       <PreparationGuide />
       <SeasonalGuide />
       <AIInspirationScout />

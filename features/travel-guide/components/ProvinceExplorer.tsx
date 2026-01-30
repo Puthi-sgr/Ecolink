@@ -7,7 +7,7 @@ const PROVINCES = [
     id: 'koh-kong',
     name: 'Koh Kong Province',
     description: 'Mountains, dense rainforests, and mangrove systems. Crucial for biodiversity studies.',
-    image: 'https://images.unsplash.com/photo-1543731068-7e0f5beff43a?q=80&w=1000&auto=format&fit=crop',
+    imageKey: 'cbet.package.veunsaisiampang.hero',
     idealFor: ['Biodiversity Researchers', 'Deep-Jungle Trekkers', 'Env. Science Students'],
     notIdealFor: ['Luxury Seekers', 'Casual City Tourism'],
     actionLabel: 'Explore Research Sites',
@@ -21,7 +21,7 @@ const PROVINCES = [
     id: 'cardamom',
     name: 'Cardamom Mountains',
     description: "Rich in wildlife and indigenous communities. A biodiversity hotspot.",
-    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1000&auto=format&fit=crop',
+    imageKey: 'cbet.package.veunsaisiampang.community.story',
     idealFor: ['Wildlife Photographers', 'Indigenous Culture Researchers'],
     notIdealFor: ['Short weekend trips', 'Elderly travelers'],
     actionLabel: 'Plan Visit',
@@ -35,7 +35,7 @@ const PROVINCES = [
     id: 'tonle-sap',
     name: 'Tonle Sap Biosphere',
     description: 'UNESCO Biosphere Reserve, vital to the Mekong ecosystem.',
-    image: 'https://images.unsplash.com/photo-1596401057633-531035ef8694?q=80&w=1000&auto=format&fit=crop',
+    imageKey: 'cbet.package.veunsaisiampang.significance',
     idealFor: ['Ornithologists (Bird Lovers)', 'Aquatic Ecosystem Students'],
     notIdealFor: ['Travelers with severe seasickness'],
     actionLabel: 'See Seasonal Data',
@@ -47,7 +47,24 @@ const PROVINCES = [
   }
 ];
 
-const ProvinceExplorer: React.FC = () => {
+export interface ProvinceCardData {
+  id: string;
+  name: string;
+  description: string;
+  imageKey?: string;
+  image?: string;
+  idealFor: string[];
+  notIdealFor: string[];
+  actionLabel: string;
+  seasonalStatus: {
+    label: string;
+    icon: React.ReactNode;
+    color: string;
+  };
+}
+
+const ProvinceExplorer: React.FC<{ provinces?: ProvinceCardData[] }> = ({ provinces }) => {
+  const data = provinces && provinces.length ? provinces : PROVINCES;
   return (
     <div id="provinces" className="space-y-12 py-12 animate-in fade-in duration-1000">
       <header className="text-center max-w-3xl mx-auto space-y-4 px-4 mb-16">
@@ -61,15 +78,15 @@ const ProvinceExplorer: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 px-4 max-w-7xl mx-auto min-h-[800px]">
         <div className="md:col-span-5 h-[600px] md:h-full relative rounded-3xl overflow-hidden shadow-2xl">
-          <ProvinceCard province={PROVINCES[0]} />
+          <ProvinceCard province={data[0]} />
         </div>
 
         <div className="md:col-span-7 grid grid-rows-2 gap-6">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[400px] md:h-full">
-            <ProvinceCard province={PROVINCES[1]} />
+            <ProvinceCard province={data[1]} />
           </div>
           <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[400px] md:h-full">
-            <ProvinceCard province={PROVINCES[2]} />
+            <ProvinceCard province={data[2]} />
           </div>
         </div>
       </div>
@@ -77,11 +94,12 @@ const ProvinceExplorer: React.FC = () => {
   );
 };
 
-const ProvinceCard: React.FC<{ province: typeof PROVINCES[0] }> = ({ province }) => {
+const ProvinceCard: React.FC<{ province: ProvinceCardData }> = ({ province }) => {
   return (
     <>
       <CldImage
         src={province.image}
+        assetKey={province.imageKey}
         alt={province.name}
         className="absolute inset-0 w-full h-full object-cover"
       />

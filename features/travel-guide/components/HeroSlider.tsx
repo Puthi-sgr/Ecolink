@@ -6,7 +6,8 @@ interface Slide {
   id: number;
   title: React.ReactNode;
   description: string;
-  image: string;
+  image?: string;
+  imageKey?: string;
   link: string;
 }
 
@@ -46,15 +47,20 @@ const SLIDES: Slide[] = [
   }
 ];
 
-const HeroSlider: React.FC = () => {
+interface HeroSliderProps {
+  slides?: Slide[];
+}
+
+const HeroSlider: React.FC<HeroSliderProps> = ({ slides }) => {
   const [current, setCurrent] = useState(0);
+  const activeSlides = slides && slides.length ? slides : SLIDES;
 
   const nextSlide = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % SLIDES.length);
+    setCurrent((prev) => (prev + 1) % activeSlides.length);
   }, []);
 
   const prevSlide = () => {
-    setCurrent((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+    setCurrent((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
   };
 
   useEffect(() => {
@@ -65,7 +71,7 @@ const HeroSlider: React.FC = () => {
   return (
     <div className="relative w-full h-[600px] overflow-hidden rounded-3xl mb-12 shadow-2xl group">
       {/* Slides */}
-      {SLIDES.map((slide, index) => (
+      {activeSlides.map((slide, index) => (
         <div
           key={slide.id}
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
@@ -75,6 +81,7 @@ const HeroSlider: React.FC = () => {
           {/* Background Image */}
           <CldImage
             src={slide.image}
+            assetKey={slide.imageKey}
             alt="Travel Destination"
             className="w-full h-full object-cover"
           />
@@ -112,7 +119,7 @@ const HeroSlider: React.FC = () => {
 
       {/* Pagination Indicators */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30">
-        {SLIDES.map((_, i) => (
+        {activeSlides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sun, CloudRain, Info, CheckCircle2, AlertTriangle, XCircle, ChevronRight } from 'lucide-react';
+import { CldImage } from '../../../shared/atoms/CldImage';
 
 const REGIONAL_IMPACT = [
   {
@@ -32,6 +33,12 @@ const SeasonalGuide: React.FC = () => {
   return (
     <section id="seasons" className="space-y-16 animate-in fade-in duration-700">
       <div className="space-y-12 bg-stone-900 rounded-[2.5rem] p-12 text-white overflow-hidden relative">
+        <CldImage
+          assetKey="cbet.package.veunsaisiampang.hero"
+          alt="Seasonal landscape"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-stone-950 via-stone-900/80 to-stone-900/40" />
         <div className="absolute top-0 right-0 p-8 opacity-5">
            <Sun className="w-64 h-64" />
         </div>
@@ -93,6 +100,15 @@ const SeasonalGuide: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {REGIONAL_IMPACT.map((item) => (
             <div key={item.location} className="bg-white border border-stone-100 shadow-xl shadow-stone-200/50 rounded-3xl p-6 transition-transform hover:-translate-y-1">
+              <div className="relative h-32 w-full rounded-2xl overflow-hidden mb-6">
+                <CldImage
+                  assetKey="cbet.package.veunsaisiampang.snapshot"
+                  alt={`${item.location} season`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              </div>
+
               <div className="flex items-start justify-between mb-6">
                 <div className={`p-3 rounded-2xl ${item.statusColor}`}>
                   {item.icon}

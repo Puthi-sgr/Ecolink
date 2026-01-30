@@ -83,6 +83,9 @@ export const AppRouter: React.FC = () => {
   const [currentPath, setCurrentPath] = useState(window.location.hash.slice(1) || '/');
 
   useEffect(() => {
+    if (!window.location.hash) {
+      window.location.hash = '/';
+    }
     const handleHashChange = () => {
       setCurrentPath(window.location.hash.slice(1) || '/');
     };
@@ -101,24 +104,24 @@ export const AppRouter: React.FC = () => {
   // Login Redirects with ReturnTo logic
   useEffect(() => {
     if (user && currentPath === '/login') {
-        const returnTo = sessionStorage.getItem('returnTo');
+      const returnTo = sessionStorage.getItem('returnTo');
 
-        // ADMIN OVERRIDE: Always go to dashboard.
-        if (user.role === UserRole.ADMIN) {
-             sessionStorage.removeItem('returnTo');
-             sessionStorage.removeItem('pendingPackageId'); 
-             navigate('/admin/dashboard');
-             return;
+      // ADMIN OVERRIDE: Always go to dashboard.
+      if (user.role === UserRole.ADMIN) {
+        sessionStorage.removeItem('returnTo');
+        sessionStorage.removeItem('pendingPackageId');
+        navigate('/admin/dashboard');
+        return;
+      }
+
+      if (returnTo) {
+        sessionStorage.removeItem('returnTo');
+        navigate(returnTo);
+      } else {
+        if (user.role === UserRole.FACULTY) {
+          navigate('/faculty/dashboard');
         }
-        
-        if (returnTo) {
-            sessionStorage.removeItem('returnTo');
-            navigate(returnTo);
-        } else {
-            if (user.role === UserRole.FACULTY) {
-                navigate('/faculty/dashboard');
-            } 
-        }
+      }
     }
   }, [user, currentPath]);
 
@@ -155,7 +158,7 @@ export const AppRouter: React.FC = () => {
   const publicRoutes: RouteConfig[] = [
     {
       path: '/login',
-      render: () => <LoginPage onLoginSuccess={(role) => {}} />
+      render: () => <LoginPage onLoginSuccess={(role) => { }} />
     },
     {
       path: '/about',

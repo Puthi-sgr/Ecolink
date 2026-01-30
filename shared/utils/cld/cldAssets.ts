@@ -1,4 +1,5 @@
 export type CldAssetKey =
+  | "logo.main"
   | "hero.main"
   | "package.placeholder"
   | "about.snapshot"
@@ -13,6 +14,7 @@ export type CldAssetKey =
 
 
 export const cldAssets: Record<CldAssetKey, { publicId: string; alt: string }> = {
+  "logo.main": { publicId: "Logo_urnkuv", alt: "Ecolink Logo" },
   "hero.main": { publicId: "KPC00060_tvl6ah", alt: "Hero main image" },
   "package.placeholder": { publicId: "string", alt: "CBET package placeholder" },
   "about.snapshot": { publicId: "string", alt: "CBET snapshot" },

@@ -5,28 +5,28 @@ import { CldImage } from '../../../shared/atoms/CldImage';
 export const SocialProof: React.FC = () => {
   const expeditions = [
     {
-      label: "Recent Expedition",
-      image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop",
-      destination: "Prek Toal Biosphere",
-      university: "Royal University of Phnom Penh",
-      topic: "Ornithology",
-      students: "30 Students"
+      label: 'Recent Expedition',
+      imageKey: 'cbet.package.veunsaisiampang.snapshot',
+      destination: 'Prek Toal Community',
+      university: 'Royal University of Phnom Penh',
+      topic: 'Ornithology',
+      students: '30 Students'
     },
     {
-      label: "Past Expedition 1",
-      image: "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?q=80&w=800&auto=format&fit=crop",
-      destination: "Cardamom Mountains",
-      university: "Panha Chiet University",
-      topic: "Sustainability",
-      students: "15 Students"
+      label: 'Past Expedition 1',
+      imageKey: 'cbet.package.veunsaisiampang.community.story',
+      destination: 'Chi Phat Community',
+      university: 'Panha Chiet University',
+      topic: 'Sustainability',
+      students: '25 Students'
     },
     {
-      label: "Past Expedition 2",
-      image: "https://images.unsplash.com/photo-1596386461350-326ea759276f?q=80&w=800&auto=format&fit=crop",
-      destination: "Kirirom National Park",
-      university: "Liger Leadership Academy",
-      topic: "Ecology",
-      students: "45 Students"
+      label: 'Past Expedition 2',
+      imageKey: 'cbet.package.veunsaisiampang.significance',
+      destination: 'Banteay Chhmar CBT',
+      university: 'Liger Leadership Academy',
+      topic: 'Ecology',
+      students: '35 Students'
     }
   ];
 
@@ -50,7 +50,7 @@ export const SocialProof: React.FC = () => {
                   <div className="w-full md:w-1/2 md:pr-8 mb-4 md:mb-0 flex justify-end">
                      <div className="h-32 w-full max-w-lg relative overflow-hidden rounded-2xl md:rounded-l-full md:rounded-r-none shadow-md group-hover:shadow-lg transition-all duration-500">
                         <CldImage
-                          src={trip.image}
+                          assetKey={trip.imageKey}
                           alt={trip.destination}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         />
