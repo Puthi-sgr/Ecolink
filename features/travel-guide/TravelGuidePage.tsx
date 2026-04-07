@@ -10,29 +10,29 @@ import { useCBETPackages } from '../faculty/data/cbetData';
 import type { ProvinceCardData } from './components/ProvinceExplorer';
 
 const SECTIONS = [
-  { 
-    id: 'provinces', 
-    label: 'Provinces', 
-    icon: <MapPin className="w-4 h-4" />, 
-    tip: 'Regional Intelligence' 
+  {
+    id: 'provinces',
+    label: 'Provinces',
+    icon: <MapPin className="w-4 h-4" />,
+    tip: 'Regional Intelligence'
   },
-  { 
-    id: 'prep', 
-    label: 'Preparation', 
-    icon: <Leaf className="w-4 h-4" />, 
-    tip: '5 tips for eco-packing' 
+  {
+    id: 'prep',
+    label: 'Preparation',
+    icon: <Leaf className="w-4 h-4" />,
+    tip: '5 tips for eco-packing'
   },
-  { 
-    id: 'seasons', 
-    label: 'Seasonality', 
-    icon: <Sun className="w-4 h-4" />, 
-    tip: 'The Natural Cycle' 
+  {
+    id: 'seasons',
+    label: 'Seasonality',
+    icon: <Sun className="w-4 h-4" />,
+    tip: 'The Natural Cycle'
   },
-  { 
-    id: 'ai-scout', 
-    label: 'AI Scout', 
-    icon: <Sparkles className="w-4 h-4" />, 
-    tip: 'Ask our AI Guide' 
+  {
+    id: 'ai-scout',
+    label: 'AI Scout',
+    icon: <Sparkles className="w-4 h-4" />,
+    tip: 'Ask our AI Guide'
   }
 ];
 
@@ -125,8 +125,8 @@ const TravelGuidePage: React.FC = () => {
       <div className="pb-6 border-b border-stone-100">
         <h3 className="text-base font-bold text-stone-900 mb-3">Quick Stats</h3>
         <div className="w-full bg-stone-100 h-1.5 rounded-full overflow-hidden mb-2">
-          <div 
-            className="bg-green-600 h-full transition-all duration-700 ease-out" 
+          <div
+            className="bg-green-600 h-full transition-all duration-700 ease-out"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -143,22 +143,19 @@ const TravelGuidePage: React.FC = () => {
             <button
               key={section.id}
               onClick={() => scrollTo(section.id)}
-              className={`w-full group text-left transition-all duration-300 ${
-                isActive 
-                  ? 'bg-white shadow-lg ring-1 ring-stone-100 rounded-[1.5rem] p-4 -mx-1' 
+              className={`w-full group text-left transition-all duration-300 ${isActive
+                  ? 'bg-white shadow-lg ring-1 ring-stone-100 rounded-[1.5rem] p-4 -mx-1'
                   : 'hover:bg-stone-50 rounded-2xl p-3'
-              }`}
+                }`}
             >
               <div className="flex items-center gap-4">
-                <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                  isActive ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700 group-hover:bg-green-200'
-                }`}>
+                <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${isActive ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700 group-hover:bg-green-200'
+                  }`}>
                   {section.icon}
                 </div>
                 <div className="flex-1">
-                  <p className={`text-sm font-bold transition-colors ${
-                    isActive ? 'text-stone-900' : 'text-stone-600 group-hover:text-stone-900'
-                  }`}>
+                  <p className={`text-sm font-bold transition-colors ${isActive ? 'text-stone-900' : 'text-stone-600 group-hover:text-stone-900'
+                    }`}>
                     {section.label}
                   </p>
                   {isActive && (
@@ -183,12 +180,11 @@ const TravelGuidePage: React.FC = () => {
       {/* Simplified Sub-Nav for Mobile */}
       <div className="lg:hidden flex justify-center gap-6 border-b border-stone-100 pb-6 mb-12 overflow-x-auto whitespace-nowrap px-4">
         {SECTIONS.map(section => (
-          <button 
+          <button
             key={section.id}
             onClick={() => scrollTo(section.id)}
-            className={`text-xs font-bold transition-colors tracking-tight ${
-              activeSection === section.id ? 'text-green-600' : 'text-stone-50'
-            }`}
+            className={`text-xs font-bold transition-colors tracking-tight ${activeSection === section.id ? 'text-green-600' : 'text-stone-50'
+              }`}
           >
             {section.label}
           </button>
@@ -204,7 +200,7 @@ const TravelGuidePage: React.FC = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <TravelGuideLayout 
+      <TravelGuideLayout
         sidebar={Sidebar}
         content={Content}
       />
