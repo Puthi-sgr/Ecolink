@@ -9,12 +9,14 @@ import { HowItWorks } from '../components/HowItWorks';
 import { TrustStrip } from '../components/TrustStrip';
 import { ImpactSection } from '../components/ImpactSection';
 import { CBETMap } from '../CBETMap';
+import { CatalogGrid } from '../components/CatalogGrid';
 
-import { MapPin } from 'lucide-react';
+import { Map, MapPin } from 'lucide-react';
 
 export const CBETCatalog: React.FC = () => {
     const packages = useCBETPackages();
     const [searchTerm, setSearchTerm] = useState('');
+    const [viewMode, setViewMode] = useState<'map' | 'cards'>('map');
     const catalogRef = useRef<HTMLDivElement>(null);
 
     const handleCardClick = (pkg: CBETPackage) => {
@@ -48,7 +50,7 @@ export const CBETCatalog: React.FC = () => {
 
                 {/* Catalog Header */}
                 <section className="py-16 bg-surface-2/30">
-                    <div className="container mx-auto px-6 text-center mb-12">
+                    <div className="container mx-auto px-4 md:px-5 xl:px-6 text-center mb-12">
                         <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-2 rounded-full text-xs font-bold uppercase tracking-wider text-text-muted mb-4 border border-border">
                             <MapPin className="w-3 h-3" />
                             Available Destinations
@@ -59,14 +61,50 @@ export const CBETCatalog: React.FC = () => {
                         </p>
                     </div>
 
-                    <div className="container mx-auto px-6 pb-12">
+                    <div className="container mx-auto px-4 md:px-5 xl:px-6 pb-12">
+                        <div className="flex flex-col gap-6">
+                            <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-3">
+                                <div className="hidden md:block" />
 
-                        {/* Content View */}
+                                <div className="flex justify-center">
+                                    <div className="inline-flex items-center gap-1 rounded-full border border-border bg-white p-1 shadow-sm">
+                                        <button
+                                            type="button"
+                                            onClick={() => setViewMode('cards')}
+                                            className={`rounded-full px-4 py-2 text-sm font-semibold uppercase transition-colors ${viewMode === 'cards'
+                                                ? 'bg-primary text-white shadow-sm'
+                                                : 'text-text-muted hover:text-primary'
+                                                }`}
+                                        >
+                                            Photo View
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setViewMode('map')}
+                                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold uppercase transition-colors ${viewMode === 'map'
+                                                ? 'bg-primary text-white shadow-sm'
+                                                : 'text-text-muted hover:text-primary'
+                                                }`}
+                                        >
+                                            <Map className="h-4 w-4" />
+                                            Map View
+                                        </button>
+                                    </div>
+                                </div>
 
-                        <div className="animate-in fade-in zoom-in-95 duration-300">
-                            <CBETMap packages={filteredPackages} onPackageSelect={handleCardClick} />
+                                <p className="text-center text-sm text-text-muted md:text-right">
+                                    Showing <span className="font-bold text-text">{filteredPackages.length}</span> destinations
+                                </p>
+                            </div>
+
+                            <div className="animate-in fade-in zoom-in-95 duration-300">
+                                {viewMode === 'map' ? (
+                                    <CBETMap packages={filteredPackages} onPackageSelect={handleCardClick} />
+                                ) : (
+                                    <CatalogGrid packages={filteredPackages} onPackageSelect={handleCardClick} />
+                                )}
+                            </div>
                         </div>
-
                     </div>
                 </section>
             </div>

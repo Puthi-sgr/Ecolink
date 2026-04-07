@@ -42,7 +42,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
       <header className="sticky top-0 z-50 w-full border-b border-border bg-white">
-        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-5 xl:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => onNavigate('/')}>
             <div className="w-10 h-10 rounded-eco bg-surface-2 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
               <CldImage assetKey="logo.main" alt="EcoLink logo" className="h-8 w-8 object-contain" />
@@ -122,7 +122,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
       </div>
 
       <footer className="border-t border-border bg-surface py-12">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 md:px-5 xl:px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="space-y-4">
               <div className="flex items-center gap-2">

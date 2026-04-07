@@ -20,7 +20,7 @@ export const FavoritesPage: React.FC = () => {
 
   return (
     <div className="bg-background">
-      <section className="container mx-auto px-6 pt-10">
+      <section className="container mx-auto px-4 md:px-5 xl:px-6 pt-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-text">Favorites</h1>
@@ -53,7 +53,7 @@ export const FavoritesPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 pt-6 pb-16">
+      <section className="container mx-auto px-4 md:px-5 xl:px-6 pt-6 pb-16">
         {favoritePackages.length === 0 ? (
           <div className="bg-white border border-border rounded-2xl p-10 text-center shadow-sm">
             <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">

@@ -20,7 +20,7 @@ export const PublicPackageDetailLayout: React.FC<PublicPackageDetailLayoutProps>
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <section className="py-10 bg-surface">
-        <div className="w-full px-5">
+        <div className="container mx-auto px-4 md:px-5 xl:px-6">
           {header && <div className="mb-6">{header}</div>}
           <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-5">
             <aside className="hidden lg:block">

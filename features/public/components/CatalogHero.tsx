@@ -15,7 +15,7 @@ export const CatalogHero: React.FC<CatalogHeroProps> = ({ searchTerm, onSearchCh
       <div className="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50"></div>
       <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl opacity-50"></div>
       
-      <div className="container mx-auto px-6 relative z-10 text-center space-y-8">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6 relative z-10 text-center space-y-8">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 text-primary rounded-full text-xs font-bold uppercase tracking-wider border border-primary/10">
           <MapPin className="w-3 h-3" /> Certified CBET Network
         </div>

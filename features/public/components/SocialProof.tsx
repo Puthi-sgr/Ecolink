@@ -26,7 +26,7 @@ export const SocialProof: React.FC = () => {
 
   return (
     <section className="py-20 bg-surface border-t border-border overflow-hidden">
-      <div className="w-full px-5">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold font-serif text-text mb-3">

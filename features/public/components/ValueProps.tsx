@@ -25,7 +25,7 @@ export const ValueProps: React.FC = () => {
 
   return (
     <section className="py-24 bg-surface border-b border-border/50">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold font-serif text-text tracking-tighter">Why EcoLink?</h2>
         </div>

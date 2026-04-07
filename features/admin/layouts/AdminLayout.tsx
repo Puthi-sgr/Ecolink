@@ -14,7 +14,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     <div className="min-h-screen bg-background flex font-sans">
       {/* Sidebar */}
       <aside className="w-72 bg-surface border-r border-border hidden md:flex flex-col">
-        <div className="h-16 flex items-center px-6 border-b border-border">
+        <div className="h-16 flex items-center px-4 md:px-5 xl:px-6 border-b border-border">
           <div className="w-9 h-9 rounded-eco bg-surface-2 flex items-center justify-center shadow-sm">
             <img src="/Logo.png" alt="EcoLink logo" className="h-6 w-6 object-contain" />
           </div>

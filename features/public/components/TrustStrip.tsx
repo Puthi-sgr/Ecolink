@@ -27,7 +27,7 @@ export const TrustStrip: React.FC = () => {
 
   return (
     <section className="py-12 bg-primary-600 text-white">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {points.map((p, i) => (
             <div key={i} className="flex items-center gap-4 group">

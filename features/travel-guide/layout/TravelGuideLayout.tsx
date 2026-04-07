@@ -7,7 +7,7 @@ interface TravelGuideLayoutProps {
 
 const TravelGuideLayout: React.FC<TravelGuideLayoutProps> = ({ sidebar, content }) => {
   return (
-    <div className="pt-24 pb-20 min-h-screen container mx-auto px-6">
+    <div className="pt-24 pb-20 min-h-screen container mx-auto px-4 md:px-5 xl:px-6">
       <div className="flex flex-col lg:flex-row gap-12">
         {/* Navigation Sidebar */}
         <aside className="lg:w-72 shrink-0 h-fit lg:sticky lg:top-24 z-10">

@@ -13,7 +13,7 @@ export const CBETEducation: React.FC = () => {
             </svg>
         </div>
 
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
           <div className="space-y-12">

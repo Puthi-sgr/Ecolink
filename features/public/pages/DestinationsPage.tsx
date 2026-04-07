@@ -33,7 +33,7 @@ export const DestinationsPage: React.FC = () => {
 
   return (
     <div className="bg-background">
-      <section className="container mx-auto px-6 pt-10">
+      <section className="container mx-auto px-4 md:px-5 xl:px-6 pt-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-text">Explore Communities</h1>
@@ -66,7 +66,7 @@ export const DestinationsPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 pt-6">
+      <section className="container mx-auto px-4 md:px-5 xl:px-6 pt-6">
         <div className="bg-white border border-border rounded-2xl p-4 md:p-5 shadow-sm">
           <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-text-muted">
@@ -108,7 +108,7 @@ export const DestinationsPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 pt-8 pb-16">
+      <section className="container mx-auto px-4 md:px-5 xl:px-6 pt-8 pb-16">
         {viewMode === 'grid' ? (
           <CatalogGrid packages={packagesWithFavorites} onPackageSelect={handlePackageSelect} />
         ) : (

@@ -28,7 +28,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ searchTerm, onSearchChange, 
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 relative z-10 pt-24 pb-32 text-center text-white">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6 relative z-10 pt-24 pb-32 text-center text-white">
         <h1 className="text-4xl md:text-6xl font-bold font-serif mb-6 drop-shadow-md tracking-tight">
           Your Field Trip Starts Here
         </h1>
@@ -47,7 +47,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ searchTerm, onSearchChange, 
       </div>
 
       {/* Search Widget - Overlapping */}
-      <div className="container mx-auto px-6 relative z-20 -mt-20">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6 relative z-20 -mt-20">
         <div className="bg-white rounded-xl shadow-2xl p-2 max-w-5xl mx-auto border border-border/50">
           {/* Tabs */}
           <div className="flex gap-2 p-1 mb-2 overflow-x-auto">

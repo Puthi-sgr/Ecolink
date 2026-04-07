@@ -18,7 +18,7 @@ export const FacultyLayout: React.FC<FacultyLayoutProps> = ({ children }) => {
     <div className="min-h-screen bg-background flex font-sans">
       {/* Sidebar */}
       <aside className="w-64 bg-surface border-r border-border hidden md:flex flex-col">
-        <div className="h-16 flex items-center px-6 border-b border-border">
+        <div className="h-16 flex items-center px-4 md:px-5 xl:px-6 border-b border-border">
           <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-surface text-xs font-bold mr-2">F</div>
           <span className="font-bold text-text font-serif">Faculty Portal</span>
         </div>

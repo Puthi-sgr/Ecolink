@@ -31,7 +31,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ id }) => {
 
   return (
     <section id={id} className="py-24 bg-surface border-b border-border">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl font-bold font-serif text-text mb-4 tracking-tight">Your Journey, Simplified</h2>
           <p className="text-text-muted leading-relaxed">

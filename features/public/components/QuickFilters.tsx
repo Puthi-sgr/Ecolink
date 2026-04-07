@@ -17,7 +17,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = () => {
 
   return (
     <div className="py-8 border-b border-border bg-surface-2/30">
-      <div className="container mx-auto px-6 overflow-x-auto scrollbar-hide">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6 overflow-x-auto scrollbar-hide">
         <div className="flex items-center gap-8 min-w-max">
           <span className="text-xs font-bold uppercase tracking-widest text-text-muted flex-none">Quick Filters</span>
           <div className="flex gap-6">

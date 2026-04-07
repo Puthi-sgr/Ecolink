@@ -41,7 +41,7 @@ export const ImpactSection: React.FC = () => {
 
   return (
     <div className="bg-surface border-b border-border py-4 overflow-hidden">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-6 text-text-muted">
           <div className="flex flex-col">
             <span className="font-bold text-text text-xl leading-none">{formatNumber(stats.totalStudents)}</span>
