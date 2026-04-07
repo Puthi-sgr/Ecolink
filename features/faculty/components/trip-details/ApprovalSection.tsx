@@ -62,12 +62,12 @@ const ApprovalPackCard: React.FC<{ trip: Trip }> = ({ trip }) => (
   <Card title="Official Approval Pack" className="mb-6 border-l-4 border-l-status-approved">
     <div className="mb-4 flex items-center justify-between">
       <p className="text-sm text-text-muted">
-        Issued on <span className="font-medium text-text">{trip.approvalPack?.publishedAt}</span>. 
+        Issued on <span className="font-medium text-text">{trip.approvalPack?.publishedAt}</span>.
         Please download and review all documents.
       </p>
       <Button size="sm" variant="primary">Download All (.zip)</Button>
     </div>
-    
+
     <div className="grid md:grid-cols-1 gap-3">
       {trip.approvalPack?.files.map((file, idx) => (
         <ApprovalFileRow key={idx} name={file.name} />

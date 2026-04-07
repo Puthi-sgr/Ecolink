@@ -15,7 +15,7 @@ import { PublicPackageDetailPricelisting } from './pages/PublicPackageDetailPric
 import { PublicPackageDetailTravelGuide } from './pages/PublicPackageDetailTravelGuide';
 import { Button } from '../../../../shared/atoms/Button';
 import { Badge } from '../../../../shared/atoms/Badge';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, BookOpen, CircleDollarSign, FileText, Users } from 'lucide-react';
 
 interface PublicPackageDetailsProps {
   packageId: string;
@@ -23,10 +23,10 @@ interface PublicPackageDetailsProps {
 }
 
 const TABS = [
-  { id: 'overview', label: 'Overview & Itinerary' },
-  { id: 'about', label: 'About CBET' },
-  { id: 'pricing', label: 'Package Pricing' },
-  { id: 'travel-guide', label: 'Travel Guide' }
+  { id: 'overview', label: 'Overview & Itinerary', icon: FileText },
+  { id: 'about', label: 'About CBET', icon: Users },
+  { id: 'pricing', label: 'Package Pricing', icon: CircleDollarSign },
+  { id: 'travel-guide', label: 'Travel Guide', icon: BookOpen }
 ];
 
 const TAB_IDS = new Set(TABS.map((tabItem) => tabItem.id));
@@ -128,14 +128,14 @@ export const PublicPackageDetails: React.FC<PublicPackageDetailsProps> = ({ pack
             items={TABS}
             activeId={activeTab}
             onNavigate={navigateToTab}
-            meta={
-              <>
-                <Badge variant="secondary">{pkg.cbetSite}</Badge>
-                <span className="text-text-muted">|</span>
-                <span className="text-sm font-medium text-text-muted">{pkg.managingOrg}</span>
-              </>
-            }
           />
+        }
+        meta={
+          <>
+            <Badge variant="secondary">{pkg.cbetSite}</Badge>
+            <span className="text-text-muted">|</span>
+            <span className="text-sm font-medium text-text-muted">{pkg.managingOrg}</span>
+          </>
         }
         sidebar={
           <BookingWidget
