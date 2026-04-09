@@ -4,7 +4,7 @@ import { UserRole } from '../shared/types';
 import { RoleGuard } from './guards/RoleGuard';
 import { PublicLayout } from '../features/public/layouts/PublicLayout';
 import { CBETCatalog } from '../features/public/pages/CBETCatalog';
-import { getCurrentHashPath } from '../shared/utils/hashRoute';
+import { getCurrentHashPath, subscribeToHashRouteChanges } from '../shared/utils/hashRoute';
 import { useSmoothScrollToTop } from '../shared/hooks/useSmoothScrollToTop';
 
 const LandingPage = lazy(() =>
@@ -124,8 +124,7 @@ export const AppRouter: React.FC = () => {
     const handleHashChange = () => {
       setCurrentPath(getCurrentHashPath());
     };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return subscribeToHashRouteChanges(handleHashChange);
   }, []);
 
   useSmoothScrollToTop(currentPath);

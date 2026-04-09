@@ -1,5 +1,7 @@
 import { DocumentAudience, DocumentViewMode, WorkflowWorkspaceView } from '../types';
 
+const HASH_ROUTE_SYNC_EVENT = 'ecolink:hash-route-sync';
+
 export interface ParsedHashRoute {
   path: string;
   query: URLSearchParams;
@@ -30,6 +32,25 @@ export const parseHashRoute = (hash = typeof window !== 'undefined' ? window.loc
   return {
     path: pathPart || '/',
     query: new URLSearchParams(queryString),
+  };
+};
+
+const notifyHashRouteSync = () => {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new Event(HASH_ROUTE_SYNC_EVENT));
+};
+
+export const subscribeToHashRouteChanges = (handler: () => void) => {
+  if (typeof window === 'undefined') {
+    return () => {};
+  }
+
+  window.addEventListener('hashchange', handler);
+  window.addEventListener(HASH_ROUTE_SYNC_EVENT, handler);
+
+  return () => {
+    window.removeEventListener('hashchange', handler);
+    window.removeEventListener(HASH_ROUTE_SYNC_EVENT, handler);
   };
 };
 
@@ -68,12 +89,18 @@ export const replaceHashQuery = (
     }
   });
 
-  window.history.replaceState(null, '', buildHashRoute(path, next));
+  const nextHash = buildHashRoute(path, next);
+  if (window.location.hash === nextHash) return;
+
+  window.history.replaceState(null, '', nextHash);
+  notifyHashRouteSync();
 };
 
 export const setHashPath = (path: string, query?: Record<string, string | undefined>) => {
   if (typeof window === 'undefined') return;
-  window.location.hash = buildHashRoute(path, query);
+  const nextHash = buildHashRoute(path, query);
+  if (window.location.hash === nextHash) return;
+  window.location.hash = nextHash;
 };
 
 export const parsePlannerWorkspaceQuery = (

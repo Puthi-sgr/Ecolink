@@ -26,6 +26,7 @@ import {
   parseHashRoute,
   parsePlannerWorkspaceQuery,
   replacePlannerWorkspaceQuery,
+  subscribeToHashRouteChanges,
 } from '../../../shared/utils/hashRoute';
 
 const sectionCard = 'rounded-[28px] border border-border bg-white p-6 shadow-sm';
@@ -63,8 +64,7 @@ export const PlannerPage: React.FC = () => {
 
   useEffect(() => {
     const handleHashChange = () => setHashState(parseHashRoute());
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return subscribeToHashRouteChanges(handleHashChange);
   }, []);
 
   const workspaceQuery = useMemo(() => parsePlannerWorkspaceQuery(hashState), [hashState]);

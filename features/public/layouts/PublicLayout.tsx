@@ -2,7 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Button } from '../../../shared/atoms/Button';
 import { useAuth } from '../../../app/AuthContext';
 import { UserRole } from '../../../shared/types';
-import { getCurrentHashPath, getCurrentHashQuery } from '../../../shared/utils/hashRoute';
+import {
+  getCurrentHashPath,
+  getCurrentHashQuery,
+  subscribeToHashRouteChanges,
+} from '../../../shared/utils/hashRoute';
 import { ChevronRight, Heart, Home, Info, Map, Menu, Route, UserCircle, X, BookOpen } from 'lucide-react';
 import { CldImage } from '../../../shared/atoms/CldImage';
 
@@ -42,8 +46,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
       setIsPrintMode(Boolean(getCurrentHashQuery().get('print')));
       setMobileMenuOpen(false);
     };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return subscribeToHashRouteChanges(handleHashChange);
   }, []);
 
   const handlePortalAction = () => {

@@ -13,6 +13,7 @@ import {
   parseHashRoute,
   replaceHashQuery,
   setHashPath,
+  subscribeToHashRouteChanges,
 } from '../../../../shared/utils/hashRoute';
 import { PublicPackageDetailLayout } from './layout/PublicPackageDetailLayout';
 import { PackageHero } from './components/PackageHero';
@@ -72,8 +73,7 @@ export const PublicPackageDetails: React.FC<PublicPackageDetailsProps> = ({ pack
 
   useEffect(() => {
     const handleHashChange = () => setHashState(parseHashRoute());
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return subscribeToHashRouteChanges(handleHashChange);
   }, []);
 
   if (!pkg) {

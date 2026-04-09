@@ -1,6 +1,6 @@
 import { startTransition, useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { CBETPackage, DiscoveryFilters, DiscoveryViewMode, SortOption } from '../types';
-import { parseHashRoute, replaceHashQuery } from '../utils/hashRoute';
+import { parseHashRoute, replaceHashQuery, subscribeToHashRouteChanges } from '../utils/hashRoute';
 
 const DEFAULTS: DiscoveryFilters = {
   query: '',
@@ -121,8 +121,7 @@ export const usePackageDiscovery = (packages: CBETPackage[], basePath: string, d
       }));
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return subscribeToHashRouteChanges(handleHashChange);
   }, [basePath]);
 
   useEffect(() => {
