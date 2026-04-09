@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from '../../../shared/atoms/Button';
 import { useAuth } from '../../../app/AuthContext';
-import { UserRole } from '../../../shared/types';
 
 interface FacultyLayoutProps {
   children: React.ReactNode;

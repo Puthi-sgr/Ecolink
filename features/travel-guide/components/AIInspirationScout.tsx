@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import { Sparkles, Bot, Loader2, RefreshCw } from 'lucide-react';
-import { Button } from '@/shared/atoms/Button';
+import { Sparkles } from 'lucide-react';
 
 
 const AIInspirationScout: React.FC = () => {
   const [topic, setTopic] = useState('');
-  const [result, setResult] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
 
   return (
     <section id="ai-scout" className="bg-white border-2 border-dashed border-stone-200 rounded-[2.5rem] p-12 text-center space-y-8">
@@ -32,8 +28,6 @@ const AIInspirationScout: React.FC = () => {
 
         </div>
       </div>
-
-
     </section>
   );
 };

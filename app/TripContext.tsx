@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Trip, ProjectStatus } from '../shared/types';
+import { Trip } from '../shared/types';
 import { MOCK_TRIPS } from '../shared/data/cbetData';
 
 interface TripContextType {

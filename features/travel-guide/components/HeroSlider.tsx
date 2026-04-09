@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { CldImage } from '../../../shared/atoms/CldImage';
 
@@ -55,18 +55,20 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ slides }) => {
   const [current, setCurrent] = useState(0);
   const activeSlides = slides && slides.length ? slides : SLIDES;
 
-  const nextSlide = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % activeSlides.length);
-  }, []);
-
   const prevSlide = () => {
     setCurrent((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
   };
 
   useEffect(() => {
-    const timer = setInterval(nextSlide, 6000);
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % activeSlides.length);
+    }, 6000);
     return () => clearInterval(timer);
-  }, [nextSlide]);
+  }, [activeSlides.length]);
+
+  const nextSlide = () => {
+    setCurrent((prev) => (prev + 1) % activeSlides.length);
+  };
 
   return (
     <div className="relative w-full h-[600px] overflow-hidden rounded-3xl mb-12 shadow-2xl group">

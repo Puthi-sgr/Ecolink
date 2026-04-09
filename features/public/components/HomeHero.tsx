@@ -1,134 +1,168 @@
-import React, { useState } from 'react';
+import React, { useId } from 'react';
+import { ArrowRight, Calendar, CheckCircle, MapPin, Users } from 'lucide-react';
 import { Button } from '../../../shared/atoms/Button';
 import { CldImage } from '../../../shared/atoms/CldImage';
-import { Search, Calendar, Users, CheckCircle, MapPin } from 'lucide-react';
 import { useCBETPackages } from '../../../shared/data/cbetData';
 
 interface HomeHeroProps {
   searchTerm?: string;
   onSearchChange?: (value: string) => void;
+  groupSize?: string;
+  onGroupSizeChange?: (value: string) => void;
+  tripDate?: string;
+  onTripDateChange?: (value: string) => void;
   onExplore?: () => void;
-  onLearnMore?: () => void; // Kept for compatibility if passed
 }
 
-export const HomeHero: React.FC<HomeHeroProps> = ({ searchTerm, onSearchChange, onExplore }) => {
-  const [activeTab, setActiveTab] = useState('CBET Sites');
+export const HomeHero: React.FC<HomeHeroProps> = ({
+  searchTerm = '',
+  onSearchChange,
+  groupSize = '',
+  onGroupSizeChange,
+  tripDate = '',
+  onTripDateChange,
+  onExplore,
+}) => {
   const packages = useCBETPackages();
+  const destinationInputId = useId();
+  const tripDateId = useId();
+  const groupSizeId = useId();
 
   return (
-    <div className="relative w-full pb-16 bg-surface-2 mb-12">
-      {/* Background with overlay */}
-      <div className="absolute inset-0 h-[500px] z-0 overflow-hidden">
+    <section className="relative mb-12 w-full overflow-hidden bg-surface-2 pb-16">
+      <div className="absolute inset-0 z-0 h-[500px] overflow-hidden">
         <CldImage
           height={600}
           assetKey="hero.main"
-          alt="Hero Background"
-          className="w-full h-full object-cover"
+          alt="Faculty and students preparing for a community-based ecotourism visit"
+          className="h-full w-full object-cover"
         />
+        <div className="absolute inset-0 bg-slate-950/45" />
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 md:px-5 xl:px-6 relative z-10 pt-24 pb-32 text-center text-white">
-        <h1 className="text-4xl md:text-6xl font-bold font-serif mb-6 drop-shadow-md tracking-tight">
-          Your Field Trip Starts Here
-        </h1>
-
-        <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-sm md:text-base font-medium opacity-95">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="w-5 h-5 text-accent fill-white stroke-accent" />
-            <span>Verified Safety Protocols</span>
+      <div className="container relative z-10 mx-auto px-4 pb-28 pt-20 text-white md:px-5 xl:px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] backdrop-blur">
+            University-ready site discovery
           </div>
-          <span className="hidden md:inline text-white/40">|</span>
-          <div className="flex items-center gap-2">
-            <CheckCircle className="w-5 h-5 text-accent fill-white stroke-accent" />
-            <span>University Approved</span>
+
+          <h1 className="text-balance text-4xl font-bold font-serif tracking-tight drop-shadow-md md:text-6xl">
+            Plan Community-Based Ecotourism Trips With Clearer Choices
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-white/88 md:text-lg">
+            Compare destinations, estimate fit by group size, and move from site discovery to faculty request review without switching tools.
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm font-medium opacity-95 md:gap-8 md:text-base">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 fill-white stroke-accent text-accent" aria-hidden="true" />
+              <span>Verified Safety Protocols</span>
+            </div>
+            <span className="hidden text-white/40 md:inline" aria-hidden="true">|</span>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 fill-white stroke-accent text-accent" aria-hidden="true" />
+              <span>University Approved</span>
+            </div>
+            <span className="hidden text-white/40 md:inline" aria-hidden="true">|</span>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 fill-white stroke-accent text-accent" aria-hidden="true" />
+              <span>Community Impact Visibility</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Search Widget - Overlapping */}
-      <div className="container mx-auto px-4 md:px-5 xl:px-6 relative z-20 -mt-20">
-        <div className="bg-white rounded-xl shadow-2xl p-2 max-w-5xl mx-auto border border-border/50">
-          {/* Tabs */}
-          <div className="flex gap-2 p-1 mb-2 overflow-x-auto">
-            {['CBET Sites', 'Research Projects', 'Workshops'].map(tab => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-6 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab
-                    ? 'bg-primary text-white shadow-md'
-                    : 'hover:bg-surface-2 text-text-muted bg-transparent'
-                  }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* Inputs Row */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 p-2">
-            {/* Destination Dropdown */}
-            <div className="md:col-span-5 relative group">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <MapPin className="w-5 h-5 text-text-muted group-focus-within:text-primary transition-colors" />
-              </div>
-              <select
-                value={searchTerm}
-                onChange={(e) => onSearchChange?.(e.target.value)}
-                className="w-full h-16 pl-10 pr-10 bg-surface-2 rounded-lg border border-transparent focus:border-primary focus:bg-white outline-none transition-all font-medium text-text appearance-none cursor-pointer"
-              >
-                <option value="">All Destinations</option>
-                {packages.map((pkg) => (
-                  <option key={pkg.id} value={pkg.name}>
-                    {pkg.name} ({pkg.location})
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+      <div className="container relative z-20 mx-auto -mt-16 px-4 md:px-5 xl:px-6">
+        <div className="mx-auto max-w-6xl rounded-[28px] border border-border/60 bg-white/95 p-3 shadow-2xl backdrop-blur">
+          <div className="grid gap-3 rounded-[22px] bg-white p-3 md:grid-cols-12">
+            <div className="md:col-span-5">
+              <label htmlFor={destinationInputId} className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-text-muted">
+                Destination or Province
+              </label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+                  <MapPin className="h-5 w-5 text-text-muted" aria-hidden="true" />
+                </div>
+                <input
+                  id={destinationInputId}
+                  type="text"
+                  value={searchTerm}
+                  onChange={(event) => onSearchChange?.(event.target.value)}
+                  list="cbet-destinations"
+                  name="destination"
+                  autoComplete="off"
+                  placeholder="Search by CBET site or province..."
+                  className="h-16 w-full rounded-2xl border border-border bg-surface-2 pl-11 pr-4 text-base font-medium text-text outline-none transition-colors placeholder:text-text-muted/80 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15"
+                />
+                <datalist id="cbet-destinations">
+                  {packages.map((pkg) => (
+                    <option key={pkg.id} value={pkg.name}>
+                      {pkg.location}
+                    </option>
+                  ))}
+                </datalist>
               </div>
             </div>
 
-            {/* Dates (Mock) */}
-            <div className="md:col-span-3 relative group">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <Calendar className="w-5 h-5 text-text-muted group-focus-within:text-primary transition-colors" />
+            <div className="md:col-span-3">
+              <label htmlFor={tripDateId} className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-text-muted">
+                Trip Date Preview
+              </label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+                  <Calendar className="h-5 w-5 text-text-muted" aria-hidden="true" />
+                </div>
+                <input
+                  id={tripDateId}
+                  type="date"
+                  value={tripDate}
+                  onChange={(event) => onTripDateChange?.(event.target.value)}
+                  name="tripDate"
+                  className="h-16 w-full rounded-2xl border border-border bg-surface-2 pl-11 pr-4 text-base font-medium text-text outline-none transition-colors focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15"
+                />
               </div>
-              <div className="absolute top-2 left-10 text-[10px] font-bold text-text-muted uppercase tracking-wider hidden group-focus-within:block">Check-in</div>
-              <input
-                type="text"
-                placeholder="Add dates"
-                onFocus={(e) => e.target.type = 'date'}
-                onBlur={(e) => e.target.type = 'text'}
-                className="w-full h-16 pl-10 pr-4 bg-surface-2 rounded-lg border border-transparent focus:border-primary focus:bg-white focus:pt-4 outline-none transition-all font-medium text-text placeholder:text-text-muted/70"
-              />
             </div>
 
-            {/* Guests (Mock) */}
-            <div className="md:col-span-2 relative group">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <Users className="w-5 h-5 text-text-muted group-focus-within:text-primary transition-colors" />
-              </div>
-              <select className="w-full h-16 pl-10 pr-4 bg-surface-2 rounded-lg border border-transparent focus:border-primary focus:bg-white outline-none transition-all font-medium text-text appearance-none cursor-pointer">
-                <option value="">Group Size</option>
-                <option value="10-20">10-20 Pax</option>
-                <option value="20-40">20-40 Pax</option>
-                <option value="40+">40+ Pax</option>
-              </select>
-            </div>
-
-            {/* Button */}
             <div className="md:col-span-2">
-              <Button
-                className="w-full h-16 text-lg font-bold shadow-lg bg-primary hover:bg-primary-600"
-                onClick={onExplore}
-              >
-                Search
-              </Button>
+              <label htmlFor={groupSizeId} className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-text-muted">
+                Group Size
+              </label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+                  <Users className="h-5 w-5 text-text-muted" aria-hidden="true" />
+                </div>
+                <select
+                  id={groupSizeId}
+                  value={groupSize}
+                  onChange={(event) => onGroupSizeChange?.(event.target.value)}
+                  name="groupSize"
+                  className="h-16 w-full appearance-none rounded-2xl border border-border bg-surface-2 pl-11 pr-8 text-base font-medium text-text outline-none transition-colors focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15"
+                >
+                  <option value="">Any size</option>
+                  <option value="10-20">10-20 participants</option>
+                  <option value="21-40">21-40 participants</option>
+                  <option value="41+">41+ participants</option>
+                </select>
+              </div>
             </div>
+
+            <div className="md:col-span-2">
+              <div className="flex h-full flex-col justify-end">
+                <Button className="h-16 w-full rounded-2xl text-base font-bold shadow-lg" onClick={onExplore}>
+                  Explore Sites
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 px-3 pb-2 pt-1 text-sm text-text-muted">
+            <span className="font-semibold text-text">Trip planning starts with real package constraints.</span>
+            <span>Search destinations, set a planning date, then switch between map and photo view below.</span>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

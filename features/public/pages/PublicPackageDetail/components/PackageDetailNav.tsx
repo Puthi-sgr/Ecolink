@@ -15,58 +15,41 @@ interface PackageDetailNavProps {
 
 export const PackageDetailNav: React.FC<PackageDetailNavProps> = ({ items, activeId, onNavigate }) => {
   return (
-    <div className="space-y-4 lg:sticky lg:top-24">
-      <div className="hidden lg:block">
-        <p className="px-3 text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
-          Trip Navigation
-        </p>
-        <nav className="space-y-1">
+    <div className="sticky top-16 z-40 border-b border-border bg-white/95 backdrop-blur">
+      <div className="container mx-auto px-4 md:px-5 xl:px-6">
+        <div className="flex justify-center py-3">
+          <nav aria-label="Package sections" className="-mx-1 overflow-x-auto">
+            <div className="flex min-w-max items-center gap-4 px-1 md:gap-7">
           {items.map((item) => {
             const isActive = item.id === activeId;
             const Icon = item.icon;
 
             return (
-              <button
+              <a
                 key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className={`group flex w-full items-center rounded-xl border-l-4 px-3 py-3 text-sm font-medium transition-all ${isActive
-                    ? 'border-primary bg-primary/10 text-primary'
-                    : 'border-transparent text-text-muted hover:bg-surface-2 hover:text-text'
+                href={`#${item.id}`}
+                aria-current={isActive ? 'page' : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  onNavigate(item.id);
+                }}
+                className={`group inline-flex items-center gap-2 whitespace-nowrap border-b-2 px-1 pb-2 text-[13px] font-semibold transition-colors ${isActive
+                    ? 'border-primary text-text'
+                    : 'border-transparent text-text-muted hover:text-text'
                   }`}
               >
                 {Icon && (
                   <Icon
-                    className={`mr-3 h-4 w-4 shrink-0 transition-colors ${isActive ? 'text-primary' : 'text-text-muted group-hover:text-primary'
+                    className={`h-4 w-4 shrink-0 transition-colors ${isActive ? 'text-primary' : 'text-text-muted group-hover:text-primary'
                       }`}
                   />
                 )}
                 <span>{item.label}</span>
-              </button>
+              </a>
             );
           })}
-        </nav>
-      </div>
-
-      <div className="lg:hidden -mx-1 overflow-x-auto pb-2">
-        <div className="flex min-w-max gap-2 px-1">
-          {items.map((item) => {
-            const isActive = item.id === activeId;
-            const Icon = item.icon;
-
-            return (
-              <button
-                key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors ${isActive
-                    ? 'border-primary bg-primary text-white'
-                    : 'border-border bg-white text-text-muted hover:border-primary/40 hover:text-text'
-                  }`}
-              >
-                {Icon && <Icon className="h-4 w-4" />}
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
+            </div>
+          </nav>
         </div>
       </div>
     </div>

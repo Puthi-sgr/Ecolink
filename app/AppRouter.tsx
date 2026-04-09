@@ -1,20 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 import { UserRole } from '../shared/types';
 import { RoleGuard } from './guards/RoleGuard';
-
 import { PublicLayout } from '../features/public/layouts/PublicLayout';
-import { LandingPage } from '../features/public/pages/LandingPage';
-import { LoginPage } from '../features/public/pages/LoginPage';
-import { FacultyDashboard } from '../features/faculty/pages/FacultyDashboard';
-import { FacultyTripDetails } from '../features/faculty/pages/FacultyTripDetails';
-import { AdminDashboard } from '../features/admin/pages/AdminDashboard';
-import { AdminTripDetails } from '../features/admin/pages/AdminTripDetails';
 import { CBETCatalog } from '../features/public/pages/CBETCatalog';
-import { DestinationsPage } from '../features/public/pages/DestinationsPage';
-import { FavoritesPage } from '../features/public/pages/FavoritesPage';
-import { PublicPackageDetails } from '../features/public/pages/PublicPackageDetail/PublicPackageDetails';
-import TravelGuidePage from '../features/travel-guide/TravelGuidePage';
+import { getCurrentHashPath } from '../shared/utils/hashRoute';
+import { useSmoothScrollToTop } from '../shared/hooks/useSmoothScrollToTop';
+
+const LandingPage = lazy(() =>
+  import('../features/public/pages/LandingPage').then((module) => ({ default: module.LandingPage }))
+);
+const LoginPage = lazy(() =>
+  import('../features/public/pages/LoginPage').then((module) => ({ default: module.LoginPage }))
+);
+const FavoritesPage = lazy(() =>
+  import('../features/public/pages/FavoritesPage').then((module) => ({ default: module.FavoritesPage }))
+);
+const PlannerPage = lazy(() =>
+  import('../features/public/pages/PlannerPage').then((module) => ({ default: module.PlannerPage }))
+);
+const DestinationsPage = lazy(() =>
+  import('../features/public/pages/DestinationsPage').then((module) => ({ default: module.DestinationsPage }))
+);
+const PublicPackageDetails = lazy(() =>
+  import('../features/public/pages/PublicPackageDetail/PublicPackageDetails').then((module) => ({
+    default: module.PublicPackageDetails,
+  }))
+);
+const TravelGuidePage = lazy(() => import('../features/travel-guide/TravelGuidePage'));
+const FacultyDashboard = lazy(() =>
+  import('../features/faculty/pages/FacultyDashboard').then((module) => ({ default: module.FacultyDashboard }))
+);
+const FacultyTripDetails = lazy(() =>
+  import('../features/faculty/pages/FacultyTripDetails').then((module) => ({
+    default: module.FacultyTripDetails,
+  }))
+);
+const AdminDashboard = lazy(() =>
+  import('../features/admin/pages/AdminDashboard').then((module) => ({ default: module.AdminDashboard }))
+);
+const AdminTripDetails = lazy(() =>
+  import('../features/admin/pages/AdminTripDetails').then((module) => ({ default: module.AdminTripDetails }))
+);
 
 type RouteParams = Record<string, string | undefined>;
 
@@ -23,7 +50,7 @@ interface RouteConfig {
   render: (params: RouteParams) => React.ReactNode;
 }
 
-const matchRoute = (pattern: string, path: string): RouteParams | null => {
+export const matchRoute = (pattern: string, path: string): RouteParams | null => {
   if (pattern === '*') return {};
 
   const patternSegments = pattern.split('/').filter(Boolean);
@@ -68,7 +95,7 @@ const matchRoute = (pattern: string, path: string): RouteParams | null => {
   return params;
 };
 
-const resolveRoute = (path: string, routes: RouteConfig[]) => {
+export const resolveRoute = (path: string, routes: RouteConfig[]) => {
   for (const route of routes) {
     const params = matchRoute(route.path, path);
     if (params) {
@@ -78,35 +105,43 @@ const resolveRoute = (path: string, routes: RouteConfig[]) => {
   return null;
 };
 
+const RouteLoader: React.FC = () => (
+  <div className="container mx-auto px-4 py-12 md:px-5 xl:px-6">
+    <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm">
+      <p className="text-sm font-semibold text-text">Loading view…</p>
+    </div>
+  </div>
+);
+
 export const AppRouter: React.FC = () => {
   const { user } = useAuth();
-  const [currentPath, setCurrentPath] = useState(window.location.hash.slice(1) || '/');
+  const [currentPath, setCurrentPath] = useState(getCurrentHashPath);
 
   useEffect(() => {
     if (!window.location.hash) {
       window.location.hash = '/';
     }
     const handleHashChange = () => {
-      setCurrentPath(window.location.hash.slice(1) || '/');
+      setCurrentPath(getCurrentHashPath());
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentPath]);
+  useSmoothScrollToTop(currentPath);
 
   const navigate = (path: string) => {
+    if (window.location.hash.slice(1).split('?')[0] === path) {
+      return;
+    }
+
     window.location.hash = path;
   };
 
-  // Login Redirects with ReturnTo logic
   useEffect(() => {
     if (user && currentPath === '/login') {
       const returnTo = sessionStorage.getItem('returnTo');
 
-      // ADMIN OVERRIDE: Always go to dashboard.
       if (user.role === UserRole.ADMIN) {
         sessionStorage.removeItem('returnTo');
         sessionStorage.removeItem('pendingPackageId');
@@ -117,80 +152,84 @@ export const AppRouter: React.FC = () => {
       if (returnTo) {
         sessionStorage.removeItem('returnTo');
         navigate(returnTo);
-      } else {
-        if (user.role === UserRole.FACULTY) {
-          navigate('/faculty/dashboard');
-        }
+      } else if (user.role === UserRole.FACULTY) {
+        navigate('/faculty/dashboard');
       }
     }
-  }, [user, currentPath]);
+  }, [currentPath, user]);
 
   const facultyRoutes: RouteConfig[] = [
     {
       path: '/faculty/trips/:tripId',
-      render: (params) => <FacultyTripDetails tripId={params.tripId || ''} />
+      render: (params) => <FacultyTripDetails tripId={params.tripId || ''} />,
     },
     {
       path: '/faculty/dashboard',
-      render: () => <FacultyDashboard />
+      render: () => <FacultyDashboard />,
     },
     {
       path: '/faculty',
-      render: () => <FacultyDashboard />
-    }
+      render: () => <FacultyDashboard />,
+    },
   ];
 
   const adminRoutes: RouteConfig[] = [
     {
       path: '/admin/trips/:tripId',
-      render: (params) => <AdminTripDetails tripId={params.tripId || ''} />
+      render: (params) => <AdminTripDetails tripId={params.tripId || ''} />,
     },
     {
       path: '/admin/dashboard',
-      render: () => <AdminDashboard />
+      render: () => <AdminDashboard />,
     },
     {
       path: '/admin',
-      render: () => <AdminDashboard />
-    }
+      render: () => <AdminDashboard />,
+    },
   ];
 
   const publicRoutes: RouteConfig[] = [
     {
       path: '/login',
-      render: () => <LoginPage onLoginSuccess={(role) => { }} />
+      render: () => <LoginPage onLoginSuccess={() => {}} />,
     },
     {
       path: '/about',
-      render: () => <LandingPage onNavigate={navigate} />
+      render: () => <LandingPage onNavigate={navigate} />,
     },
     {
       path: '/favorites',
-      render: () => <FavoritesPage />
+      render: () => <FavoritesPage />,
+    },
+    {
+      path: '/planner',
+      render: () => <PlannerPage />,
     },
     {
       path: '/destinations',
-      render: () => <DestinationsPage />
+      render: () => <DestinationsPage />,
     },
     {
       path: '/travel-guide',
-      render: () => <TravelGuidePage />
+      render: () => <TravelGuidePage />,
     },
     {
       path: '/package/:packageId/:tab?',
-      render: (params) => <PublicPackageDetails packageId={params.packageId || ''} tab={params.tab} />
+      render: (params) => <PublicPackageDetails packageId={params.packageId || ''} tab={params.tab} />,
     },
     {
       path: '*',
-      render: () => <CBETCatalog />
-    }
+      render: () => <CBETCatalog />,
+    },
   ];
+
+  const renderWithFallback = (node: React.ReactNode) => <Suspense fallback={<RouteLoader />}>{node}</Suspense>;
 
   const facultyMatch = resolveRoute(currentPath, facultyRoutes);
   if (facultyMatch) {
     return (
       <RoleGuard allowedRoles={[UserRole.FACULTY]} onNavigate={navigate}>
-        {facultyMatch.route.render(facultyMatch.params)}
+        {renderWithFallback(facultyMatch.route.render(facultyMatch.params))}
       </RoleGuard>
     );
   }
@@ -199,19 +238,19 @@ export const AppRouter: React.FC = () => {
   if (adminMatch) {
     return (
       <RoleGuard allowedRoles={[UserRole.ADMIN]} onNavigate={navigate}>
-        {adminMatch.route.render(adminMatch.params)}
+        {renderWithFallback(adminMatch.route.render(adminMatch.params))}
       </RoleGuard>
     );
   }
 
   const publicMatch = resolveRoute(currentPath, publicRoutes) || {
     route: publicRoutes[publicRoutes.length - 1],
-    params: {}
+    params: {},
   };
 
   return (
     <PublicLayout onNavigate={navigate}>
-      {publicMatch.route.render(publicMatch.params)}
+      {renderWithFallback(publicMatch.route.render(publicMatch.params))}
     </PublicLayout>
   );
 };

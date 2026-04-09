@@ -1,8 +1,5 @@
 import React from 'react';
 import { 
-  ShieldCheck, 
-  Heart, 
-  Package, 
   FileText, 
   Handshake, 
   Leaf, 

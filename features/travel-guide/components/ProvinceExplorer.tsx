@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, X, AlertTriangle, Sun, Waves, ArrowRight, Circle } from 'lucide-react';
+import { Check, X, AlertTriangle, ArrowRight } from 'lucide-react';
 import { CldImage } from '../../../shared/atoms/CldImage';
 
 const PROVINCES = [

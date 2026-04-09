@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../../../shared/molecules/Card';
 import { Button } from '../../../shared/atoms/Button';
 import { Input } from '../../../shared/atoms/Input';
-import { Trip, PaymentProof } from '../../../shared/types';
+import { Trip } from '../../../shared/types';
 import { AlertTriangle, Image as ImageIcon } from 'lucide-react';
 
 interface PaymentVerificationProps {
@@ -13,11 +13,13 @@ interface PaymentVerificationProps {
 }
 
 export const PaymentVerification: React.FC<PaymentVerificationProps> = ({ trip, onVerify, onReject, onCancel }) => {
-  if (!trip.paymentProof) return null;
+  const paymentProof = trip.paymentProof;
 
-  const [verifiedAmount, setVerifiedAmount] = useState(trip.paymentProof.amount.toString());
+  const [verifiedAmount, setVerifiedAmount] = useState(paymentProof?.amount.toString() || '');
   const [rejectReason, setRejectReason] = useState('');
   const [mode, setMode] = useState<'VIEW' | 'REJECT'>('VIEW');
+
+  if (!paymentProof) return null;
 
   const handleVerify = () => {
     onVerify(Number(verifiedAmount));
@@ -35,7 +37,7 @@ export const PaymentVerification: React.FC<PaymentVerificationProps> = ({ trip, 
              <div className="text-center">
                  <div className="w-48 h-64 bg-white shadow-sm border border-border mx-auto mb-4 flex items-center justify-center text-text-muted text-xs flex-col gap-2">
                      <ImageIcon className="w-8 h-8 opacity-20" />
-                     {trip.paymentProof.proofUrl}
+                     {paymentProof.proofUrl}
                  </div>
                  <p className="text-xs text-text-muted">Uploaded on {new Date().toLocaleDateString()}</p>
              </div>
@@ -50,11 +52,11 @@ export const PaymentVerification: React.FC<PaymentVerificationProps> = ({ trip, 
                  <div className="grid grid-cols-2 gap-4 text-sm">
                      <div className="p-3 bg-surface-2 rounded border border-border">
                          <span className="block text-xs text-text-muted uppercase">Method</span>
-                         <span className="font-bold text-primary">{trip.paymentProof.method}</span>
+                         <span className="font-bold text-primary">{paymentProof.method}</span>
                      </div>
                      <div className="p-3 bg-surface-2 rounded border border-border">
                          <span className="block text-xs text-text-muted uppercase">Claimed</span>
-                         <span className="font-bold text-primary">${trip.paymentProof.amount.toLocaleString()}</span>
+                         <span className="font-bold text-primary">${paymentProof.amount.toLocaleString()}</span>
                      </div>
                  </div>
 

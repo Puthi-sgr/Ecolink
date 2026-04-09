@@ -3,7 +3,7 @@ import { Card } from '../../../shared/molecules/Card';
 import { Button } from '../../../shared/atoms/Button';
 import { StatusBadge } from '../../../shared/atoms/StatusBadge';
 import { Trip, ProjectStatus } from '../../../shared/types';
-import { ArrowLeft, Bell, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Bell } from 'lucide-react';
 
 export const AdminDetailHeader: React.FC<{ trip: Trip; onBack: () => void }> = ({ trip, onBack }) => (
   <div className="mb-6">

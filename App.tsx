@@ -2,6 +2,7 @@ import React from 'react';
 import { AuthProvider } from './app/AuthContext';
 import { TripProvider } from './app/TripContext';
 import { FavoritesProvider } from './app/FavoritesContext';
+import { PlannerProvider } from './app/PlannerContext';
 import { AppRouter } from './app/AppRouter';
 
 const App: React.FC = () => {
@@ -9,7 +10,9 @@ const App: React.FC = () => {
     <AuthProvider>
       <TripProvider>
         <FavoritesProvider>
-          <AppRouter />
+          <PlannerProvider>
+            <AppRouter />
+          </PlannerProvider>
         </FavoritesProvider>
       </TripProvider>
     </AuthProvider>

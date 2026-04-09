@@ -12,7 +12,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
     <div className="space-y-12">
       <LandingHero 
         onGetStarted={() => onNavigate('/login')}
-        onLearnMore={() => console.log('Learn more clicked')}
+        onLearnMore={() => onNavigate('/destinations')}
       />
       <ValueProps />
       <LandingFeatures />

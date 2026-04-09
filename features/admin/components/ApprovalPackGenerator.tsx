@@ -19,9 +19,11 @@ export const ApprovalPackGenerator: React.FC<ApprovalPackGeneratorProps> = ({ tr
   const [tripLead, setTripLead] = useState('Sarah Connor (EcoLink Senior Lead)');
   const [emergencyPhone, setEmergencyPhone] = useState('+855 12 999 888');
   const [hospital, setHospital] = useState('CBET First Aid Center');
-  const [depositDeadline, setDepositDeadline] = useState(
-    new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  );
+  const [depositDeadline, setDepositDeadline] = useState(() => {
+    const nextDate = new Date();
+    nextDate.setDate(nextDate.getDate() + 7);
+    return nextDate.toISOString().split('T')[0];
+  });
 
   const handleGenerate = () => {
     setIsGenerating(true);

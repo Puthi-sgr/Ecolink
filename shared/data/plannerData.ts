@@ -1,0 +1,76 @@
+import { QuoteRequest, TripPlan, UserRole } from '../types';
+import { normalizeQuoteRequest } from '../utils/requestWorkflow';
+
+export const MOCK_TRIP_PLANS: TripPlan[] = [
+  {
+    id: 'plan-wildlife-feb',
+    name: 'Wildlife Methods Block',
+    packageIds: ['CBET-001', 'CBET-005'],
+    targetDate: '2026-02-18',
+    travelerType: 'Faculty',
+    groupSize: '24',
+    notes: 'Need strong birding interpretation and easy boat access for second-year ecology students.',
+    status: 'Ready to Request',
+    createdAt: '2026-01-12',
+  },
+  {
+    id: 'plan-mekong-shortlist',
+    name: 'Mekong Delta Shortlist',
+    packageIds: ['CBET-006', 'CBET-007', 'CBET-014'],
+    targetDate: '2026-03-09',
+    travelerType: 'Research Team',
+    groupSize: '18',
+    notes: 'Comparing river logistics and overnight comfort for visiting researchers.',
+    status: 'Draft',
+    createdAt: '2026-01-25',
+  },
+  {
+    id: 'plan-short-notice-cohort',
+    name: 'Short-Notice First Year Cohort',
+    packageIds: ['CBET-016', 'CBET-010'],
+    targetDate: '',
+    travelerType: 'Student Group',
+    groupSize: '32',
+    notes: 'Need a low-friction site with clear transport assumptions and a faculty approval brief.',
+    status: 'Ready for Faculty Review',
+    createdAt: '2026-02-02',
+  },
+];
+
+export const MOCK_QUOTE_REQUESTS: QuoteRequest[] = [
+  normalizeQuoteRequest({
+    id: 'quote-001',
+    tripPlanId: 'plan-wildlife-feb',
+    packageId: 'CBET-001',
+    requesterRole: UserRole.FACULTY,
+    targetDate: '2026-02-18',
+    groupSize: '24',
+    purpose: 'Field methods preparation for ecology students',
+    status: 'Quoted',
+    lastUpdated: '2026-01-20',
+    transportPreference: 'Coach + local boat transfer',
+  }),
+  normalizeQuoteRequest({
+    id: 'quote-002',
+    packageId: 'CBET-016',
+    requesterRole: UserRole.FACULTY,
+    targetDate: '2026-03-02',
+    groupSize: '16',
+    purpose: 'Primate conservation elective',
+    status: 'Needs Info',
+    lastUpdated: '2026-01-28',
+    transportPreference: '',
+  }),
+  normalizeQuoteRequest({
+    id: 'quote-003',
+    tripPlanId: 'plan-short-notice-cohort',
+    packageId: 'CBET-010',
+    requesterRole: UserRole.PUBLIC,
+    targetDate: '',
+    groupSize: '32',
+    purpose: 'Orientation field day for first-year environmental studies students',
+    status: 'Draft',
+    lastUpdated: '2026-02-03',
+    transportPreference: '',
+  }),
+];

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Badge } from '../../../shared/atoms/Badge';
 import { Clock, Users, Zap, Home, Sun } from 'lucide-react';
 
 interface QuickFiltersProps {
