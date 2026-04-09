@@ -1,196 +1,318 @@
 # Project Context: EcoLink Portal
 
 ## 1. Runtime, Tooling, and Core Architecture
-- **Build tool:** Vite 6 with `@vitejs/plugin-react`. This is not a browser-native importmap-only app in practice, even though `index.html` still contains an importmap block.
-- **Framework:** React 18 with functional components and hooks.
-- **Language:** TypeScript.
-- **Routing:** Custom hash-based router in [`app/AppRouter.tsx`](./app/AppRouter.tsx). Do not introduce `react-router` unless explicitly refactoring the app architecture.
-- **State management:** React Context (`AuthContext`, `TripContext`, `FavoritesContext`).
-- **Styling:** Tailwind via CDN script in [`index.html`](./index.html). Tailwind tokens are driven from CSS variables defined in `:root` in that same file.
-- **Map stack:** `leaflet` + `react-leaflet`.
-- **Assets/images:** Cloudinary helpers in `shared/utils/cld` and `shared/atoms/CldImage.tsx`.
+- Build tool: Vite 6 with `@vitejs/plugin-react`.
+- Framework: React 18 with functional components and hooks.
+- Language: TypeScript.
+- Routing: Custom hash-based router in [`app/AppRouter.tsx`](./app/AppRouter.tsx). Do not introduce `react-router` unless the app architecture is intentionally being replaced.
+- State management: React Context with `AuthContext`, `TripContext`, `FavoritesContext`, and `PlannerContext`.
+- Shared workflow domain: Derived operations selectors live in [`shared/utils/operationsModel.ts`](./shared/utils/operationsModel.ts) and are surfaced through [`shared/hooks/useOperationsRecords.ts`](./shared/hooks/useOperationsRecords.ts).
+- Styling: Tailwind via CDN script in [`index.html`](./index.html), driven by CSS variables declared in `:root`.
+- Map stack: `leaflet` + `react-leaflet`.
+- Assets/images: Cloudinary helpers in `shared/utils/cld` and [`shared/atoms/CldImage.tsx`](./shared/atoms/CldImage.tsx).
 
 ## 2. High-Level Structure
 ```text
 /
-├── index.html                  # Tailwind CDN config, CSS variables, global font tokens
-├── index.tsx                   # React entry point
-├── App.tsx                     # Provider composition
-├── app/
-│   ├── AppRouter.tsx           # Hash routing, route matching, layout selection
-│   ├── AuthContext.tsx         # Mock auth/session state
-│   ├── TripContext.tsx         # Mutable trip request state
-│   ├── FavoritesContext.tsx    # LocalStorage-backed favorites
-│   └── guards/RoleGuard.tsx    # Role protection
-├── shared/
-│   ├── atoms/                  # Button, Input, Badge, etc.
-│   ├── molecules/              # Card
-│   ├── hooks/                  # Shared reusable hooks
-│   ├── data/                   # Shared mock package/about/trip data
-│   ├── types/                  # App-wide TypeScript interfaces
-│   └── utils/cld/              # Cloudinary utilities
-└── features/
-    ├── public/                 # Main marketing/catalog/package detail UX
-    ├── faculty/                # Faculty portal
-    ├── admin/                  # Admin portal
-    └── travel-guide/           # Standalone travel guide experience
+|-- index.html                  # Tailwind config, CSS variables, global print styles
+|-- index.tsx                   # React entry point
+|-- App.tsx                     # Provider composition
+|-- app/
+|   |-- AppRouter.tsx           # Hash routing, route matching, lazy route loading
+|   |-- AuthContext.tsx         # Mock auth/session state
+|   |-- TripContext.tsx         # Mutable trip records
+|   |-- FavoritesContext.tsx    # LocalStorage-backed favorites
+|   |-- PlannerContext.tsx      # LocalStorage-backed plans, requests, compare state
+|   `-- guards/RoleGuard.tsx    # Role protection with demo auto-login
+|-- shared/
+|   |-- atoms/                  # Button, Input, Badge, FavoriteButton, etc.
+|   |-- molecules/              # Card
+|   |-- components/             # Workflow/document/explorer shared UI
+|   |-- hooks/                  # Shared reusable hooks
+|   |-- data/                   # Shared mock package/about/planner data
+|   |-- types/                  # App-wide TypeScript interfaces
+|   `-- utils/                  # Routing, workflow, explorer, Cloudinary, selectors
+`-- features/
+    |-- public/                 # Catalog, planner, destinations, package detail UX
+    |-- faculty/                # Faculty portal
+    |-- admin/                  # Admin portal
+    `-- travel-guide/           # Standalone travel guide experience
 ```
 
-## 3. Current Typography Rules
-- The app has been unified to use the same font family as the home hero.
-- **Global font:** `Lora`.
+## 3. Current Verification Workflow
+- Lint: `npm run lint`
+- Tests: `npm run test`
+- Watch tests: `npm run test:watch`
+- Production build: `npm run build`
+- Test stack: Vitest + React Testing Library + jsdom via [`vitest.config.ts`](./vitest.config.ts)
+- Lint rules: ESLint 9 + TypeScript + `react-hooks` + `unused-imports` via [`eslint.config.js`](./eslint.config.js)
+- There is a known non-fatal Node experimental warning during Vitest from the `css-color` dependency chain.
+
+## 4. Typography and Global Styling Rules
+- Global font: `Lora`
 - In [`index.html`](./index.html):
   - `--font-sans` = `Lora`
   - `--font-serif` = `Lora`
   - `body` uses `var(--font-serif)`
   - `.leaflet-container` also uses `var(--font-serif)`
-- Do not reintroduce Inter unless there is an intentional full typography redesign.
+- Do not reintroduce Inter unless doing an intentional full typography redesign.
+- Print styles are also defined in [`index.html`](./index.html). If document-mode output changes, update the shared print rules there rather than inventing page-local print hacks.
 
-## 4. Routing and Scroll Behavior
-- All navigation is hash-based (`window.location.hash = '/path'`).
+## 5. Routing Rules and Hash Sync Discipline
+- All navigation is hash-based.
 - Route matching is handled manually in [`app/AppRouter.tsx`](./app/AppRouter.tsx).
-- Smooth scroll-to-top on route changes is centralized in [`shared/hooks/useSmoothScrollToTop.ts`](./shared/hooks/useSmoothScrollToTop.ts).
-- Do not add new one-off `window.scrollTo(0, 0)` page effects if the router-level hook already covers the case.
-- If a feature needs local top-scroll behavior beyond route changes, reuse the hook instead of inventing a new one.
+- Non-home routes are lazy-loaded in the router.
+- The shared routing helpers live in [`shared/utils/hashRoute.ts`](./shared/utils/hashRoute.ts).
+- Important: query-only hash updates may use `history.replaceState`, so app code must subscribe through `subscribeToHashRouteChanges()` instead of listening to native `hashchange` directly.
+- If you add any screen or hook that reacts to route/query changes, use `subscribeToHashRouteChanges()` from [`shared/utils/hashRoute.ts`](./shared/utils/hashRoute.ts).
+- Do not hand-roll hash parsing inside pages when shared helpers already exist.
 
-## 5. Authentication and Protection
-- Auth is mock-only. `login()` creates a mock user object in memory.
-- `RoleGuard` currently still supports demo auto-login behavior for protected routes.
-- Public/faculty/admin experiences are all frontend-only prototypes unless explicitly rewired.
+## 6. Public, Faculty, and Admin Route Model
+- Public routes:
+  - `/`
+  - `/about`
+  - `/favorites`
+  - `/planner`
+  - `/destinations`
+  - `/travel-guide`
+  - `/package/:packageId/:tab?`
+- Faculty routes:
+  - `/faculty`
+  - `/faculty/dashboard`
+  - `/faculty/trips/:tripId`
+- Admin routes:
+  - `/admin`
+  - `/admin/dashboard`
+  - `/admin/trips/:tripId`
 
-## 6. Public Shell and Layout Conventions
-- [`features/public/layouts/PublicLayout.tsx`](./features/public/layouts/PublicLayout.tsx) is the main public shell.
-- Public horizontal gutters have been normalized to:
+## 7. Authentication and Protection
+- Auth is mock-only. `login()` creates an in-memory mock user.
+- `RoleGuard` still supports demo auto-login behavior for protected routes.
+- Public, faculty, and admin experiences are all frontend-only prototypes.
+- Do not add backend assumptions, auth persistence, or server-derived permissions unless explicitly requested.
+
+## 8. Public Shell and Layout Conventions
+- [`features/public/layouts/PublicLayout.tsx`](./features/public/layouts/PublicLayout.tsx) is the public shell.
+- Public horizontal gutters are normalized to:
   - `px-4 md:px-5 xl:px-6`
-- This responsive gutter pattern was applied broadly across public/admin/faculty/travel-guide wrappers to restore a modern inset layout after earlier edge-to-edge experiments.
-- If adjusting shell spacing, keep this pattern coherent instead of reintroducing isolated wrapper values.
+- This gutter pattern is also used broadly across faculty/admin/travel-guide wrappers.
+- Public layout responsibilities:
+  - top navigation
+  - mobile menu
+  - skip link
+  - prototype notice
+  - print-mode shell removal
+- Do not add page-local fake shells when the shared shell already covers the pattern.
 
-## 7. Catalog Page: Current Behavior
-**Primary file:** [`features/public/pages/CBETCatalog.tsx`](./features/public/pages/CBETCatalog.tsx)
+## 9. Canonical Workflow Architecture
+- `#/planner` is now the canonical full-detail workflow surface.
+- Full workflow detail should live in the planner, not be duplicated across package, faculty, and admin screens.
+- Current planner query model:
+  - `#/planner?plan=<id>&view=brief|timeline`
+  - `#/planner?request=<id>&view=timeline|documents|notes|history`
+  - optional `document=brief|itinerary|approval-pack`
+  - optional `audience=requester|faculty|admin`
+  - optional `print=1`
+- Package detail, faculty dashboard, and admin dashboard should show summary UI and deep-link into planner for full workflow work.
 
-- The main public catalog supports two modes:
-  - `MAP VIEW` (default)
-  - `PHOTO VIEW`
-- The view switch is centered and styled as a pill toggle.
-- The active mode uses the app’s eco green.
-- Map mode renders the full `CBETMap`.
-- Photo mode renders [`CatalogGrid.tsx`](./features/public/components/CatalogGrid.tsx).
+## 10. Shared Workflow UI Layers
+- Compact summary layer:
+  - [`shared/components/WorkflowSummaryCard.tsx`](./shared/components/WorkflowSummaryCard.tsx)
+  - Used on package detail, faculty dashboard, and admin dashboard
+- Full-detail planner layer:
+  - [`shared/components/WorkflowWorkspace.tsx`](./shared/components/WorkflowWorkspace.tsx)
+  - Used only in planner
+- Do not keep expanding package/faculty/admin pages into parallel full-detail workflow screens. Use the planner.
 
-## 8. Catalog Cards: Current Data Rules
-**Primary file:** [`features/public/components/CatalogGrid.tsx`](./features/public/components/CatalogGrid.tsx)
+## 11. Workflow Data Model Rules
+- Shared workflow types live in [`shared/types/index.ts`](./shared/types/index.ts)
+- Important workflow additions:
+  - `WorkflowWorkspaceView`
+  - `WorkflowNoteScope`
+  - `DocumentAudience`
+  - `WorkflowHistoryEvent`
+- Quote requests are normalized through [`shared/utils/requestWorkflow.ts`](./shared/utils/requestWorkflow.ts)
+- Request notes are explicitly split into:
+  - `requester`
+  - `internal`
+- Public/package surfaces should expose requester-visible notes only.
+- Faculty/admin may expose both scopes when appropriate.
+- History is a distinct stream from timeline and notes.
 
-The card design was heavily refactored. The next agent must preserve these rules unless intentionally changing the product logic:
+## 12. Operations-Domain Rules
+- Plans, requests, and trips are bridged through derived records in [`shared/utils/operationsModel.ts`](./shared/utils/operationsModel.ts)
+- Screens should prefer `useOperationsRecords()` over directly filtering `plans`, `quoteRequests`, or `trips`
+- ESLint is configured to discourage direct inline filtering of these arrays inside page files
+- Request-to-trip linkage is derived through shared selector logic, not page-local matching
 
-- Top label:
-  - Uses the package `location` in uppercase.
-  - This is currently treated as the province/location label.
-- Route row:
-  - Left side is always `Phnom Penh`
-  - Right side is the package’s real `cbetSite`
-  - Dates are **not fixed** and currently show `On request`
-- Pill/tag:
-  - Uses the package’s first activity (`pkg.activities[0]`)
-  - Clicking this pill navigates to the package detail page
-  - It has a small hover animation and an `Activity` icon
-- Pricing:
-  - Shown as **per student**
-  - No fake strike-through price
-  - No fake per-night math
-  - Helper text says pricing is based on the current capacity band
-- Footer amenities:
-  - Derived from real package data (`includes`, `safetyInfo`)
-  - Not fully hardcoded anymore
-- Navigation:
-  - Whole-card click navigation was intentionally removed
-  - Only the `Details` button and the activity pill navigate to the package detail page
-- Image/map toggle:
-  - Each card can toggle between photo and a mini-map
-  - The mini-map centers on that package only and shows only that package’s marker
-  - It reuses the shared Leaflet stack and `createCustomIcon()`
+## 13. Planner Context Responsibilities
+- [`app/PlannerContext.tsx`](./app/PlannerContext.tsx) owns:
+  - saved plans
+  - quote requests
+  - compare tray IDs
+  - plan duplication
+  - request creation/submission/reopen
+  - scoped note creation
+- It is LocalStorage-backed and prototype-only.
+- Do not add a second planner-like state container elsewhere.
 
-## 9. Catalog Grid Pagination Rules
-**Primary file:** [`features/public/components/CatalogGrid.tsx`](./features/public/components/CatalogGrid.tsx)
+## 14. Catalog and Discovery Rules
+Primary files:
+- [`features/public/pages/CBETCatalog.tsx`](./features/public/pages/CBETCatalog.tsx)
+- [`features/public/pages/DestinationsPage.tsx`](./features/public/pages/DestinationsPage.tsx)
+- [`shared/hooks/usePackageDiscovery.ts`](./shared/hooks/usePackageDiscovery.ts)
 
-- Pagination is row-based, not a hardcoded item count.
-- Default is `rowsPerPage = 3`.
-- Effective page size = `rowsPerPage * responsiveColumns`
-  - Mobile: 1 column -> 3 cards/page
-  - Tablet: 2 columns -> 6 cards/page
-  - Desktop: 3 columns -> 9 cards/page
-- The navigator is centered below the grid.
-- If filtering changes the package list, pagination resets to page 1.
-- This was intentionally made scalable for future additions; do not regress to fixed literal page counts.
+Rules:
+- The catalog remains map-first.
+- Main public discovery modes:
+  - map view
+  - photo view
+- Discovery state is URL-synced through `usePackageDiscovery()`.
+- Do not manually reimplement filter/query syncing inside pages.
+- Discovery uses the same shared package metadata across:
+  - catalog
+  - destinations
+  - compare tray
+  - package detail
 
-## 10. Detail Page: Current Ownership Model
-**Primary files:**
+## 15. Catalog Grid Rules
+Primary file:
+- [`features/public/components/CatalogGrid.tsx`](./features/public/components/CatalogGrid.tsx)
+
+Rules that should be preserved unless intentionally changing product behavior:
+- Whole-card navigation is intentionally removed.
+- Only explicit controls navigate:
+  - activity pill
+  - details/request button
+- Each card can toggle between photo and mini-map.
+- Pagination is row-based, not a fixed item count.
+- The card now includes visual explorer information:
+  - route label
+  - logistics friction tone
+  - availability strip
+- Keep the card information-forward. Do not regress to decorative-only marketing cards.
+
+## 16. Compare Tray Rules
+Primary file:
+- [`features/public/components/PackageCompareTray.tsx`](./features/public/components/PackageCompareTray.tsx)
+
+Rules:
+- Compare up to three packages.
+- The tray is sticky near the bottom on larger screens.
+- The compare workspace should remain keyboard-usable and horizontally scrollable on smaller widths.
+- It now includes visual explorer content per package column.
+- Preserve direct `Add to plan` actions.
+
+## 17. Shared Visual Explorer Layer
+Primary files:
+- [`shared/utils/packageExplorer.ts`](./shared/utils/packageExplorer.ts)
+- [`shared/components/PackageExplorerInsights.tsx`](./shared/components/PackageExplorerInsights.tsx)
+
+This layer is the source of visual package decision aids:
+- month-by-month availability strip
+- Phnom Penh routing/travel profile
+- logistics-friction summary
+- comfort/accessibility indicators
+- alternative-package reason callouts
+
+If package-selection UX is being adjusted, prefer extending this shared layer rather than inventing page-local heuristics.
+
+## 18. Package Detail Ownership Model
+Primary files:
 - [`features/public/pages/PublicPackageDetail/PublicPackageDetails.tsx`](./features/public/pages/PublicPackageDetail/PublicPackageDetails.tsx)
 - [`features/public/pages/PublicPackageDetail/layout/PublicPackageDetailLayout.tsx`](./features/public/pages/PublicPackageDetail/layout/PublicPackageDetailLayout.tsx)
 - [`features/public/pages/PublicPackageDetail/pages/PublicPackageDetailOverviewAndItinery.tsx`](./features/public/pages/PublicPackageDetail/pages/PublicPackageDetailOverviewAndItinery.tsx)
 
-- The package hero is **not** owned by the shared detail layout anymore.
-- The hero was intentionally moved so it only appears in the `Overview & Itinerary` tab.
-- [`PackageHero.tsx`](./features/public/pages/PublicPackageDetail/components/PackageHero.tsx) is injected into the overview page from `PublicPackageDetails.tsx`.
+Rules:
+- The hero is intentionally owned by the overview tab only.
 - Do not move the hero back into the shared layout unless intentionally restoring cross-tab hero behavior.
-- The hero width was also constrained to the left content column so it matches the width of the content below, rather than spanning toward the sidebar.
+- Package detail should remain a lightweight request-prep and request-summary surface.
+- Once a plan/request exists, deep workflow actions should route into planner instead of endlessly expanding the package page.
 
-## 11. Detail Page Subnav Rules
-**Primary file:** [`features/public/pages/PublicPackageDetail/components/PackageDetailNav.tsx`](./features/public/pages/PublicPackageDetail/components/PackageDetailNav.tsx)
+## 19. Detail Subnav Rules
+Primary file:
+- [`features/public/pages/PublicPackageDetail/components/PackageDetailNav.tsx`](./features/public/pages/PublicPackageDetail/components/PackageDetailNav.tsx)
 
-- The trip/package subnav is now a sticky secondary bar under the main nav.
-- It is intentionally centered.
-- The left-side “Trip Navigation / Package sections” descriptor block was removed.
-- It should visually echo the main nav’s active-state language, but remain clearly smaller in scale.
-- Hierarchy rules:
-  - Main nav font is slightly larger / more prominent
-  - Detail subnav font is smaller
-- Do not reintroduce a left rail subnav unless intentionally redesigning the page.
+Rules:
+- The package subnav is a centered sticky secondary bar.
+- It should visually echo the main nav while staying smaller in scale.
+- Do not reintroduce a left-rail detail nav unless intentionally redesigning the page.
 
-## 12. Booking Sidebar Rules
-**Primary file:** [`features/public/pages/PublicPackageDetail/components/BookingWidget.tsx`](./features/public/pages/PublicPackageDetail/components/BookingWidget.tsx)
+## 20. Booking Sidebar Rules
+Primary file:
+- [`features/public/pages/PublicPackageDetail/components/BookingWidget.tsx`](./features/public/pages/PublicPackageDetail/components/BookingWidget.tsx)
 
-- The request sidebar was refactored toward a tighter decision-panel structure.
-- It now includes:
-  - trip snapshot block
+Rules:
+- The sidebar is a request-preparation panel, not a generic long form.
+- It includes:
+  - trip snapshot
   - pricing block
-  - clearer faculty vs non-faculty action flows
-- Faculty action footer:
-  - navy/blue-grey shell
-  - `Review Request` is eco green primary CTA
-  - `Save for Review` is quieter secondary
-- This structure should stay focused and information-forward rather than becoming a generic long form again.
+  - readiness checklist
+  - faculty vs non-faculty action paths
+- Public users should get meaningful prototype actions:
+  - save to planner
+  - download/open brief
+  - sign in for protected flow
+- Faculty users prepare the request, then move into workflow review.
 
-## 13. Shared Button Behavior
-**Primary file:** [`shared/atoms/Button.tsx`](./shared/atoms/Button.tsx)
+## 21. Role-Specific Document Rules
+Primary files:
+- [`shared/components/WorkflowDocumentView.tsx`](./shared/components/WorkflowDocumentView.tsx)
+- [`shared/components/TripBriefPreview.tsx`](./shared/components/TripBriefPreview.tsx)
 
-- `Button` was updated to use:
-  - `inline-flex`
-  - `items-center`
-  - `justify-center`
-  - `gap-2`
-  - `leading-none`
-- This fixed icon/text alignment issues with the unified Lora typography.
-- If button text alignment looks wrong somewhere, check this shared primitive first before adding local hacks.
+Rules:
+- One shared document engine renders different audiences:
+  - requester
+  - faculty
+  - admin
+- Supported artifacts:
+  - brief
+  - itinerary
+  - approval-pack
+- Planner is the main document workspace for active workflow records.
+- Print/export still uses the browser print path, but must render through shared document mode.
 
-## 14. Known Data Realities and Caveats
-- Package data is still mock/static TypeScript data.
-- Some older parts of the app still use approximation or demo assumptions.
-- There is known duplication risk between:
-  - [`shared/data/cbetData.ts`](./shared/data/cbetData.ts)
-  - [`features/faculty/data/cbetData.ts`](./features/faculty/data/cbetData.ts)
-- If editing package semantics, prefer the shared source of truth unless a feature-specific override is truly intended.
+## 22. Faculty and Admin Dashboard Rules
+Primary files:
+- [`features/faculty/pages/FacultyDashboard.tsx`](./features/faculty/pages/FacultyDashboard.tsx)
+- [`features/admin/pages/AdminDashboard.tsx`](./features/admin/pages/AdminDashboard.tsx)
 
-## 15. Known Technical Oddities
-- [`index.html`](./index.html) still references `/index.css`, but that file does not exist. Builds pass with a warning.
-- `index.html` still includes an importmap block even though the app is built with Vite.
-- The repo has no formal lint/test setup in the workflow shown here.
+Rules:
+- These dashboards are now summary-oriented, not canonical workflow detail destinations.
+- Their primary workflow action should be `Open in planner`.
+- Keep operational overviews, counts, and lane summaries here.
+- Do not duplicate the planner's full notes/documents/history workspace inside these dashboards.
 
-## 16. Change Discipline for the Next Agent
-- Prefer updating shared primitives/hooks/layout contracts over scattering local one-off fixes.
-- If a visual pattern repeats in multiple places, solve it at the shared layer.
-- Preserve the current UX decisions unless the user explicitly changes direction:
-  - centered catalog mode switch
-  - map-first catalog experience
+## 23. Button and Primitive Rules
+Primary file:
+- [`shared/atoms/Button.tsx`](./shared/atoms/Button.tsx)
+
+`Button` is normalized with:
+- `inline-flex`
+- `items-center`
+- `justify-center`
+- `gap-2`
+- `leading-none`
+
+If icon/text alignment looks wrong, fix the primitive first before adding one-off local hacks.
+
+## 24. Current Technical Realities and Caveats
+- The app remains frontend-only and prototype-backed.
+- Mock data lives in shared TypeScript data files and LocalStorage-backed contexts.
+- `index.html` still contains an importmap block even though the app is built with Vite.
+- The route-sync bug was fixed by introducing `subscribeToHashRouteChanges()`; do not bypass the shared helpers with raw `history.replaceState` usage in feature code.
+- Role guards still use demo auto-login behavior.
+
+## 25. Change Discipline for the Next Agent
+- Prefer shared primitives, shared hooks, shared selectors, and shared query helpers over page-local one-offs.
+- Preserve these current UX decisions unless the user explicitly changes direction:
+  - custom hash router
+  - route-sync through shared hash helpers
+  - map-first catalog
   - row-based photo-view pagination
+  - no whole-card navigation in the photo grid
   - overview-only package hero
   - centered sticky detail subnav
-  - no whole-card navigation in the photo grid
+  - canonical planner workspace for full workflow detail
+  - role-specific documents on one shared rendering engine
+  - visual package explorer driven from shared metadata
