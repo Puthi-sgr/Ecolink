@@ -8,17 +8,17 @@ import { Button } from '../../../shared/atoms/Button';
 import { WorkflowSummaryCard } from '../../../shared/components/WorkflowSummaryCard';
 import { Card } from '../../../shared/molecules/Card';
 import { FacultyLayout } from '../layouts/FacultyLayout';
-import { useFacultyProjects } from '../data/facultyData';
 import { DashboardHeader } from '../components/DashboardHeader';
 import { DashboardStats } from '../components/DashboardStats';
 import { ProposalsTable } from '../components/ProposalsTable';
 import { TripsTable } from '../components/TripsTable';
-import { useCBETPackages } from '../../../shared/data';
-import { buildPlannerWorkspaceRoute } from '../../../shared/utils/hashRoute';
+import { usePackages } from '../../../shared/repositories/packageRepository';
+import { useFacultyProjects } from '../../../shared/repositories/projectRepository';
+import { plannerRouteService } from '../../../shared/services/plannerRouteService';
 
 export const FacultyDashboard: React.FC = () => {
   const projects = useFacultyProjects();
-  const packages = useCBETPackages();
+  const packages = usePackages();
   const { trips } = useTrips();
   const { user } = useAuth();
   const {
@@ -122,7 +122,7 @@ export const FacultyDashboard: React.FC = () => {
                         size="sm"
                         variant="outline"
                         onClick={() => {
-                          window.location.hash = buildPlannerWorkspaceRoute({
+                          window.location.hash = plannerRouteService.buildWorkspaceRoute({
                             plan: plan.id,
                             view: 'brief',
                             document: 'brief',
@@ -137,7 +137,7 @@ export const FacultyDashboard: React.FC = () => {
                         onClick={() => {
                           const request = convertPlanToQuoteRequest(plan.id);
                           if (request) {
-                            window.location.hash = buildPlannerWorkspaceRoute({
+                            window.location.hash = plannerRouteService.buildWorkspaceRoute({
                               request: request.id,
                               plan: plan.id,
                               view: 'timeline',
@@ -172,7 +172,7 @@ export const FacultyDashboard: React.FC = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    window.location.hash = buildPlannerWorkspaceRoute({
+                    window.location.hash = plannerRouteService.buildWorkspaceRoute({
                       request: focusRequest.id,
                       plan: focusRecord?.plan?.id,
                       view: 'timeline',

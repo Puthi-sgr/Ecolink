@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { CldImage } from '../../../shared/atoms/CldImage';
-import { useCBETPackages } from '../../../shared/data/cbetData';
+import { usePackages } from '../../../shared/repositories/packageRepository';
 
 const formatNumber = (value: number) => {
   if (value >= 1000) {
@@ -10,7 +10,7 @@ const formatNumber = (value: number) => {
 };
 
 export const ImpactSection: React.FC = () => {
-  const packages = useCBETPackages();
+  const packages = usePackages();
   const stats = useMemo(() => {
     if (!packages.length) {
       return {

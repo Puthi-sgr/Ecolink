@@ -30,6 +30,9 @@ export type DocumentViewMode = QuoteDocumentKey;
 export type WorkflowWorkspaceView = 'brief' | 'timeline' | 'documents' | 'notes' | 'history';
 export type WorkflowNoteScope = 'requester' | 'internal';
 export type DocumentAudience = 'requester' | 'faculty' | 'admin';
+export type RequestIntentSource = 'package' | 'planner' | 'faculty' | 'admin';
+export type DialogSize = 'sm' | 'md' | 'lg' | 'xl';
+export type DialogVariant = 'default' | 'alert';
 
 export interface User {
   id: string;
@@ -202,6 +205,7 @@ export interface QuoteRequest {
   id: string;
   tripPlanId?: string;
   packageId: string;
+  source?: RequestIntentSource;
   requesterRole: UserRole;
   targetDate: string;
   groupSize: string;
@@ -289,6 +293,7 @@ export interface PaymentProof {
   verificationStatus: 'Pending' | 'Verified' | 'Rejected';
   verifiedBy?: string;
   verifiedAt?: string;
+  rejectionReason?: string;
 }
 
 export interface Trip {
@@ -308,6 +313,19 @@ export interface Trip {
   siteNotified?: boolean;
   approvalPack?: ApprovalPack;
   paymentProof?: PaymentProof;
+}
+
+export interface CreateRequestInput {
+  source: RequestIntentSource;
+  packageId: string;
+  requesterRole: UserRole;
+  tripPlanId?: string;
+  targetDate?: string;
+  groupSize?: string;
+  purpose?: string;
+  transportPreference?: string;
+  accessibilityNotes?: string;
+  status?: QuoteRequestStatus;
 }
 
 export interface WorkflowRecord {

@@ -2,7 +2,7 @@ import React, { useId } from 'react';
 import { ArrowRight, Calendar, CheckCircle, MapPin, Users } from 'lucide-react';
 import { Button } from '../../../shared/atoms/Button';
 import { CldImage } from '../../../shared/atoms/CldImage';
-import { useCBETPackages } from '../../../shared/data/cbetData';
+import { usePackages } from '../../../shared/repositories/packageRepository';
 
 interface HomeHeroProps {
   searchTerm?: string;
@@ -23,7 +23,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({
   onTripDateChange,
   onExplore,
 }) => {
-  const packages = useCBETPackages();
+  const packages = usePackages();
   const destinationInputId = useId();
   const tripDateId = useId();
   const groupSizeId = useId();

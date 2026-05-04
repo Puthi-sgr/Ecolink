@@ -25,9 +25,12 @@ const SORT_LABELS: Record<SortOption, string> = {
   flexible: 'Most Flexible',
 };
 
+const isDiscoveryRouteActive = (basePath: string, currentPath: string) =>
+  currentPath === basePath || (basePath === '/' && currentPath === '/');
+
 const getHashQuery = (basePath: string) => {
   const { path, query } = parseHashRoute();
-  return path === basePath || (basePath === '/' && path === '/') ? query : new URLSearchParams();
+  return isDiscoveryRouteActive(basePath, path) ? query : new URLSearchParams();
 };
 
 const parseFilters = (basePath: string): DiscoveryFilters => {
@@ -115,6 +118,11 @@ export const usePackageDiscovery = (packages: CBETPackage[], basePath: string, d
 
   useEffect(() => {
     const handleHashChange = () => {
+      const { path } = parseHashRoute();
+      if (!isDiscoveryRouteActive(basePath, path)) {
+        return;
+      }
+
       setFilters((prev) => ({
         ...prev,
         ...parseFilters(basePath),
@@ -125,6 +133,11 @@ export const usePackageDiscovery = (packages: CBETPackage[], basePath: string, d
   }, [basePath]);
 
   useEffect(() => {
+    const { path } = parseHashRoute();
+    if (!isDiscoveryRouteActive(basePath, path)) {
+      return;
+    }
+
     replaceHashQuery(
       basePath,
       {

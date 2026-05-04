@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '../../../shared/molecules/Card';
+import { MetricCard } from '../../../shared/ui/MetricCard';
 
 interface DashboardStatsProps {
   activeResearchCount: number;
@@ -18,26 +18,11 @@ export const DashboardStats: React.FC<DashboardStatsProps> = ({
 }) => {
   return (
     <div className="mb-8 grid gap-6 md:grid-cols-5">
-      <Card className="flex flex-col items-start gap-2">
-        <span className="text-sm font-medium text-text-muted">Active Research</span>
-        <span className="text-3xl font-bold text-text">{activeResearchCount}</span>
-      </Card>
-      <Card className="flex flex-col items-start gap-2">
-        <span className="text-sm font-medium text-text-muted">Upcoming Trips</span>
-        <span className="text-3xl font-bold text-accent">{upcomingTripsCount}</span>
-      </Card>
-      <Card className="flex flex-col items-start gap-2">
-        <span className="text-sm font-medium text-text-muted">Saved Plans</span>
-        <span className="text-3xl font-bold text-text">{savedPlansCount}</span>
-      </Card>
-      <Card className="flex flex-col items-start gap-2">
-        <span className="text-sm font-medium text-text-muted">Draft Requests</span>
-        <span className="text-3xl font-bold text-primary">{draftRequestsCount}</span>
-      </Card>
-      <Card className="flex flex-col items-start gap-2">
-        <span className="text-sm font-medium text-text-muted">Recent Documents</span>
-        <span className="text-3xl font-bold text-text">{recentDocumentsCount}</span>
-      </Card>
+      <MetricCard label="Active Research" value={activeResearchCount} />
+      <MetricCard label="Upcoming Trips" value={upcomingTripsCount} tone="accent" />
+      <MetricCard label="Saved Plans" value={savedPlansCount} />
+      <MetricCard label="Draft Requests" value={draftRequestsCount} tone="primary" />
+      <MetricCard label="Recent Documents" value={recentDocumentsCount} />
     </div>
   );
 };

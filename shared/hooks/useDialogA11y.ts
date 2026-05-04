@@ -6,7 +6,7 @@ const FOCUSABLE_SELECTOR =
 export const useDialogA11y = (
   isOpen: boolean,
   dialogRef: RefObject<HTMLElement>,
-  initialFocusRef: RefObject<HTMLElement>,
+  initialFocusRef?: RefObject<HTMLElement> | null,
   onClose: () => void
 ) => {
   const lastFocusedElementRef = useRef<HTMLElement | null>(null);
@@ -18,7 +18,12 @@ export const useDialogA11y = (
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    initialFocusRef.current?.focus();
+    const focusTarget =
+      initialFocusRef?.current ||
+      dialogRef.current?.querySelector<HTMLElement>(FOCUSABLE_SELECTOR) ||
+      dialogRef.current;
+
+    focusTarget?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {

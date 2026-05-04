@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, CalendarDays, Route, ShieldCheck, TimerReset } from 'lucide-react';
 import { Badge } from '../atoms/Badge';
+import { universalToneClasses } from '../theme';
 import { CBETPackage } from '../types';
 import {
   getAlternativeReason,
@@ -17,6 +18,7 @@ interface PackageAvailabilityStripProps {
 interface PackageExplorerSnapshotProps {
   pkg: CBETPackage;
   travelerGroupSize?: number;
+  variant?: 'card' | 'line';
 }
 
 interface PackageAlternativeReasonProps {
@@ -27,14 +29,14 @@ interface PackageAlternativeReasonProps {
 
 const monthClassMap = {
   off: 'bg-border/70 text-text-muted',
-  available: 'bg-primary/10 text-primary',
+  available: 'bg-primary-50 text-primary-700',
   peak: 'bg-primary text-white',
 } as const;
 
 const comfortToneClassMap = {
-  positive: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  neutral: 'bg-stone-100 text-stone-700 border-stone-200',
-  warning: 'bg-amber-50 text-amber-700 border-amber-200',
+  positive: `${universalToneClasses.leaf.softBg} ${universalToneClasses.leaf.text} ${universalToneClasses.leaf.border}`,
+  neutral: `${universalToneClasses.clay.softBg} ${universalToneClasses.clay.text} ${universalToneClasses.clay.border}`,
+  warning: `${universalToneClasses.sun.softBg} ${universalToneClasses.sun.text} ${universalToneClasses.sun.border}`,
 } as const;
 
 export const PackageAvailabilityStrip: React.FC<PackageAvailabilityStripProps> = ({ pkg }) => {
@@ -64,13 +66,18 @@ export const PackageAvailabilityStrip: React.FC<PackageAvailabilityStripProps> =
 export const PackageExplorerSnapshot: React.FC<PackageExplorerSnapshotProps> = ({
   pkg,
   travelerGroupSize,
+  variant = 'card',
 }) => {
   const routeProfile = getTravelRouteProfile(pkg);
   const friction = getLogisticsFriction(pkg, travelerGroupSize);
   const comfortIndicators = getComfortIndicators(pkg).slice(0, 3);
+  const wrapperClassName =
+    variant === 'line'
+      ? 'space-y-5 rounded-[32px] border border-border/70 bg-white/96 px-5 py-7 shadow-sm md:px-7'
+      : 'space-y-3 rounded-2xl border border-border bg-white p-4';
 
   return (
-    <div className="space-y-3 rounded-2xl border border-border bg-white p-4">
+    <div className={wrapperClassName}>
       <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-start">
         <div>
           <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.16em] text-text-muted">

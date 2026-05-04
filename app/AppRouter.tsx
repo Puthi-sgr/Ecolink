@@ -27,6 +27,11 @@ const PublicPackageDetails = lazy(() =>
     default: module.PublicPackageDetails,
   }))
 );
+const PublicPackageBookingPage = lazy(() =>
+  import('../features/public/pages/PublicPackageDetail/PublicPackageBookingPage').then((module) => ({
+    default: module.PublicPackageBookingPage,
+  }))
+);
 const TravelGuidePage = lazy(() => import('../features/travel-guide/TravelGuidePage'));
 const FacultyDashboard = lazy(() =>
   import('../features/faculty/pages/FacultyDashboard').then((module) => ({ default: module.FacultyDashboard }))
@@ -211,6 +216,10 @@ export const AppRouter: React.FC = () => {
     {
       path: '/travel-guide',
       render: () => <TravelGuidePage />,
+    },
+    {
+      path: '/package/:packageId/request',
+      render: (params) => <PublicPackageBookingPage packageId={params.packageId || ''} />,
     },
     {
       path: '/package/:packageId/:tab?',

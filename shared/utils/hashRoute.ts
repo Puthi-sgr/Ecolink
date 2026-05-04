@@ -16,6 +16,15 @@ export interface PlannerWorkspaceQuery {
   print?: string;
 }
 
+export interface PackageBookingQuery {
+  date?: string;
+  size?: string;
+  purpose?: string;
+  transport?: string;
+  access?: string;
+  band?: string;
+}
+
 const WORKSPACE_VIEWS = new Set<WorkflowWorkspaceView>([
   'brief',
   'timeline',
@@ -161,4 +170,56 @@ export const readHashParam = (path: string, key: string) => {
   const { path: currentPath, query } = parseHashRoute();
   if (currentPath !== path) return '';
   return query.get(key) || '';
+};
+
+export const parsePackageBookingQuery = (
+  packageId: string,
+  route = parseHashRoute()
+): PackageBookingQuery => {
+  const expectedPath = `/package/${packageId}/request`;
+
+  if (route.path !== expectedPath) {
+    return {};
+  }
+
+  return {
+    date: route.query.get('date') || undefined,
+    size: route.query.get('size') || undefined,
+    purpose: route.query.get('purpose') || undefined,
+    transport: route.query.get('transport') || undefined,
+    access: route.query.get('access') || undefined,
+    band: route.query.get('band') || undefined,
+  };
+};
+
+export const buildPackageBookingRoute = (
+  packageId: string,
+  updates?: PackageBookingQuery
+) =>
+  buildHashRoute(`/package/${packageId}/request`, {
+    date: updates?.date,
+    size: updates?.size,
+    purpose: updates?.purpose,
+    transport: updates?.transport,
+    access: updates?.access,
+    band: updates?.band,
+  });
+
+export const replacePackageBookingQuery = (
+  packageId: string,
+  updates: PackageBookingQuery,
+  options?: { preserveExisting?: boolean }
+) => {
+  replaceHashQuery(
+    `/package/${packageId}/request`,
+    {
+      date: updates.date,
+      size: updates.size,
+      purpose: updates.purpose,
+      transport: updates.transport,
+      access: updates.access,
+      band: updates.band,
+    },
+    options
+  );
 };

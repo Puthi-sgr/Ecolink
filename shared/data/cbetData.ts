@@ -482,7 +482,11 @@ export const CBET_PACKAGES: BasePackage[] = [
     duration: '2 Days 1 Night',
     scheduleOutline: ['Day 1 - Depart Banlung, cross the Sesan River by ferry, transfer by motorbike to base camp, afternoon forest trek, and night walk.', 'Day 2 - Pre-dawn gibbon trek and observation, return for brunch, village visit, and transfer back to Banlung.'],
     suitableTiming: 'Nov - Mar (Dry season for trekking and gibbon viewing)',
-    capacityBands: [{ min: 15, max: 35, pricePerStudent: 45 }],
+    capacityBands: [
+      { min: 15, max: 20, pricePerStudent: 75 },
+      { min: 21, max: 27, pricePerStudent: 68 },
+      { min: 28, max: 35, pricePerStudent: 60 }
+    ],
     includes: ['Park permits and conservation fees', 'English-speaking guide and community wildlife tracker', 'Local transport (boat ferry, motorbike transfers, Banlung pickup/drop-off)', 'Meals (Day 1 lunch/dinner, Day 2 breakfast/brunch) and drinking water', 'Homestay accommodation with mosquito net and bedding'],
     excludes: ['Travel to/from Banlung before and after the tour', 'Personal travel insurance', 'Additional snacks, alcoholic beverages, or sodas', 'Personal expenses and gratuities'],
     depositDetails: { percentage: 30, deadlineDays: 14 },

@@ -3,6 +3,7 @@ import { Card } from '../../../../shared/molecules/Card';
 import { Button } from '../../../../shared/atoms/Button';
 import { Trip, ProjectStatus, PaymentProof } from '../../../../shared/types';
 import { CBET_PACKAGES } from '../../../../shared/data/cbetData';
+import { getEstimatedPackageTotal } from '../../../../shared/utils/packagePricing';
 import { Clock, CheckCircle, Receipt, Upload } from 'lucide-react';
 
 const PAYMENT_METHODS = ['KHQR', 'ABA', 'ACLEDA'] as const;
@@ -138,9 +139,7 @@ export const PaymentSection: React.FC<{ trip: Trip; onUpload: (proof: PaymentPro
   }
 
   const pkg = CBET_PACKAGES.find(p => p.id === trip.packageId);
-  const band = pkg?.capacityBands.find(b => trip.groupSize >= b.min && trip.groupSize <= b.max);
-  const pricePerStudent = band ? band.pricePerStudent : 0;
-  const totalCost = trip.groupSize * pricePerStudent;
+  const totalCost = pkg ? getEstimatedPackageTotal(pkg.capacityBands, trip.groupSize) : 0;
   const depositPercent = pkg?.depositDetails.percentage || 50;
   const depositAmount = (totalCost * depositPercent) / 100;
 

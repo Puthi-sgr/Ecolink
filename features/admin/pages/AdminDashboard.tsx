@@ -11,16 +11,16 @@ import { AdminHeader } from '../components/AdminHeader';
 import { ProposalReviewTable } from '../components/ProposalReviewTable';
 import { SystemStats } from '../components/SystemStats';
 import { TripOperationsTable } from '../components/TripOperationsTable';
-import { useAdminProjects } from '../data/adminData';
 import { AdminLayout } from '../layouts/AdminLayout';
-import { useCBETPackages } from '../../../shared/data';
-import { buildPlannerWorkspaceRoute } from '../../../shared/utils/hashRoute';
+import { useAdminProjects } from '../../../shared/repositories/projectRepository';
+import { usePackages } from '../../../shared/repositories/packageRepository';
+import { plannerRouteService } from '../../../shared/services/plannerRouteService';
 
 const PIPELINE_STAGES = ['Draft', 'Needs Info', 'Under Review', 'Quoted', 'Approved', 'Locked'] as const;
 
 export const AdminDashboard: React.FC = () => {
   const projects = useAdminProjects();
-  const packages = useCBETPackages();
+  const packages = usePackages();
   const { trips } = useTrips();
   const { quoteRequests, plans, reopenQuoteRequest } = usePlanner();
   const { records, groups, topDemand } = useOperationsRecords(plans, quoteRequests, trips);
@@ -114,7 +114,7 @@ export const AdminDashboard: React.FC = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    window.location.hash = buildPlannerWorkspaceRoute({
+                    window.location.hash = plannerRouteService.buildWorkspaceRoute({
                       request: focusRequest.id,
                       plan: focusRecord?.plan?.id,
                       view: 'timeline',
@@ -166,7 +166,7 @@ export const AdminDashboard: React.FC = () => {
                       size="sm"
                       variant="outline"
                       onClick={() => {
-                        window.location.hash = buildPlannerWorkspaceRoute({
+                        window.location.hash = plannerRouteService.buildWorkspaceRoute({
                           request: request.id,
                           plan: record.plan?.id,
                           view: 'documents',
@@ -200,7 +200,7 @@ export const AdminDashboard: React.FC = () => {
                     size="sm"
                     variant="outline"
                     onClick={() => {
-                      window.location.hash = buildPlannerWorkspaceRoute({
+                      window.location.hash = plannerRouteService.buildWorkspaceRoute({
                         request: record.request?.id,
                         plan: record.plan?.id,
                         view: 'history',

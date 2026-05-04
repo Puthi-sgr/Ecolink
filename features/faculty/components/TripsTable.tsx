@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from '../../../shared/atoms/Button';
 import { StatusBadge } from '../../../shared/atoms/StatusBadge';
-import { Card } from '../../../shared/molecules/Card';
 import { Trip } from '../../../shared/types';
 import { setHashPath } from '../../../shared/utils/hashRoute';
+import { DataTableCard } from '../../../shared/ui/DataTableCard';
 
 interface TripsTableProps {
   trips: Trip[];
@@ -15,8 +15,13 @@ export const TripsTable: React.FC<TripsTableProps> = ({ trips }) => {
   };
 
   return (
-    <Card title="My Field Trips" className="overflow-hidden">
-      <div className="overflow-x-auto">
+    <DataTableCard
+      title="My Field Trips"
+      description="Trips move from pending through approval and lock inside the shared operations flow."
+      isEmpty={!trips.length}
+      emptyTitle="No trips yet"
+      emptyDescription="Once a request is approved or linked into operations, it will appear here."
+    >
         <table className="w-full border-collapse text-left">
           <thead>
             <tr className="border-b border-border text-sm text-text-muted">
@@ -53,7 +58,6 @@ export const TripsTable: React.FC<TripsTableProps> = ({ trips }) => {
             ))}
           </tbody>
         </table>
-      </div>
-    </Card>
+    </DataTableCard>
   );
 };

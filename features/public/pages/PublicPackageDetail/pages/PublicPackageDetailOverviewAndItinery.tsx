@@ -1,8 +1,5 @@
 import React from 'react';
 import { CBETPackage } from '../../../../../shared/types';
-import { BookingReadinessChecklist } from '../components/BookingReadinessChecklist';
-import { ExperiencePreview } from '../components/ExperiencePreview';
-import { LearningOutcomes } from '../components/LearningOutcomes';
 import { PackageFaq } from '../components/PackageFaq';
 import { PackageOverview } from '../components/PackageOverview';
 import { SeasonalityHighlights } from '../components/SeasonalityHighlights';
@@ -15,17 +12,15 @@ interface PublicPackageDetailOverviewAndItineryProps {
 
 export const PublicPackageDetailOverviewAndItinery: React.FC<PublicPackageDetailOverviewAndItineryProps> = ({ pkg, hero }) => {
   return (
-    <section id="overview" className="space-y-12 scroll-mt-32">
+    <section id="overview" className="scroll-mt-32 space-y-14">
       {hero}
       <PackageOverview pkg={pkg} />
-      <ExperiencePreview />
 
-      <div className="grid gap-12 md:grid-cols-2">
-        <LearningOutcomes outcomes={pkg.learningOutcomes} />
+      <div className="grid gap-10">
         <TypicalSchedule schedule={pkg.scheduleOutline} />
       </div>
 
-      <div className="grid gap-12 md:grid-cols-2">
+      <div className="grid gap-10">
         <SeasonalityHighlights
           title="Availability Snapshot"
           rangeStartMonth={pkg.availabilityMonths.startMonth}
@@ -36,7 +31,6 @@ export const PublicPackageDetailOverviewAndItinery: React.FC<PublicPackageDetail
           bestSeasonNote={pkg.availabilityMonths.bestSeasonNote}
           wetSeasonNote={pkg.availabilityMonths.wetSeasonNote}
         />
-        <BookingReadinessChecklist pkg={pkg} />
       </div>
 
       <PackageFaq pkg={pkg} />

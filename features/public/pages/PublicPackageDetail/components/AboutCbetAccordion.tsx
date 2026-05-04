@@ -11,9 +11,9 @@ interface AboutCbetAccordionProps {
 
 export const AboutCbetAccordion: React.FC<AboutCbetAccordionProps> = ({ items }) => {
   return (
-    <div className="space-y-3">
+    <div className="divide-y divide-border/65 border-y border-border/65">
       {items.map((item) => (
-        <details key={item.title} className="group rounded-2xl border border-border bg-surface p-5">
+        <details key={item.title} className="group py-5">
           <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-text">
             <span>{item.title}</span>
             <span className="text-text-muted group-open:rotate-180 transition-transform">+</span>

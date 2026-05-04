@@ -25,14 +25,14 @@ const getTravelTime = (pkg: CBETPackage) => {
 
 export const PublicPackageDetailTravelGuide: React.FC<PublicPackageDetailTravelGuideProps> = ({ pkg }) => {
   return (
-    <section id="travel-guide" className="space-y-6 scroll-mt-32">
-      <div className="flex items-center gap-3">
-        <div className="h-8 w-1.5 rounded-full bg-primary" />
-        <h3 className="font-bold font-serif text-xl text-text">Travel Guide</h3>
+    <section id="travel-guide" className="space-y-8 scroll-mt-32">
+      <div className="border-b border-border/70 pb-5">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Field guide</p>
+        <h3 className="mt-2 text-2xl font-bold font-serif text-text">Travel Guide</h3>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm">
+      <div className="grid gap-8 border-b border-border/70 pb-7 md:grid-cols-2">
+        <div className="border-l border-primary-200 pl-4">
           <div className="inline-flex items-center gap-2 text-text">
             <Calendar className="h-4 w-4 text-primary" aria-hidden="true" />
             <span className="text-sm font-bold">Best Months to Go</span>
@@ -47,7 +47,7 @@ export const PublicPackageDetailTravelGuide: React.FC<PublicPackageDetailTravelG
           </div>
         </div>
 
-        <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm">
+        <div className="border-l border-border pl-4">
           <div className="inline-flex items-center gap-2 text-text">
             <Activity className="h-4 w-4 text-primary" aria-hidden="true" />
             <span className="text-sm font-bold">Travel Time from Phnom Penh</span>
@@ -63,8 +63,8 @@ export const PublicPackageDetailTravelGuide: React.FC<PublicPackageDetailTravelG
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm">
+      <div className="grid gap-8 border-b border-border/70 pb-7 md:grid-cols-2">
+        <div className="border-l border-primary-200 pl-4">
           <div className="inline-flex items-center gap-2 text-text">
             <ClipboardList className="h-4 w-4 text-primary" aria-hidden="true" />
             <span className="text-sm font-bold">Pack for this site type</span>
@@ -79,7 +79,7 @@ export const PublicPackageDetailTravelGuide: React.FC<PublicPackageDetailTravelG
           </ul>
         </div>
 
-        <div className="rounded-[28px] border border-border bg-white p-6 shadow-sm">
+        <div className="border-l border-border pl-4">
           <div className="inline-flex items-center gap-2 text-text">
             <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
             <span className="text-sm font-bold">Group Readiness</span>
@@ -87,7 +87,7 @@ export const PublicPackageDetailTravelGuide: React.FC<PublicPackageDetailTravelG
           <p className="mt-3 text-sm text-text-muted">
             Best for {pkg.bestFor.join(', ').toLowerCase()}. The operational risk profile is {pkg.safetyInfo.activityLevel.toLowerCase()} with a guide ratio of {pkg.safetyInfo.guideRatio}.
           </p>
-          <div className="mt-4 rounded-2xl bg-surface p-4 text-sm text-text-muted">
+          <div className="mt-4 border-t border-border/55 pt-4 text-sm text-text-muted">
             {pkg.safetyInfo.riskNotes}
           </div>
         </div>

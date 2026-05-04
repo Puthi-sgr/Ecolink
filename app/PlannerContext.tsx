@@ -1,12 +1,8 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { MOCK_QUOTE_REQUESTS, MOCK_TRIP_PLANS } from '../shared/data';
+import { getInitialPlans, getInitialQuoteRequests } from '../shared/repositories/plannerRepository';
 import { QuoteRequest, QuoteRequestStatus, TripPlan, UserRole, WorkflowNoteScope } from '../shared/types';
-import {
-  appendQuoteRequestComment,
-  createDraftQuoteFromPlan,
-  normalizeQuoteRequest,
-  updateQuoteRequestWorkflow,
-} from '../shared/utils/requestWorkflow';
+import { normalizeQuoteRequest } from '../shared/utils/requestWorkflow';
+import { workflowService } from '../shared/services/workflowService';
 
 interface SavePlanInput {
   packageId: string;
@@ -73,13 +69,10 @@ const readStorage = <T,>(key: string, fallback: T): T => {
   }
 };
 
-const buildId = (prefix: string) =>
-  `${prefix}-${Math.random().toString(36).slice(2, 8)}-${Date.now().toString(36).slice(-4)}`;
-
 export const PlannerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [plans, setPlans] = useState<TripPlan[]>(() => readStorage(PLANS_STORAGE_KEY, MOCK_TRIP_PLANS));
+  const [plans, setPlans] = useState<TripPlan[]>(() => readStorage(PLANS_STORAGE_KEY, getInitialPlans()));
   const [quoteRequests, setQuoteRequests] = useState<QuoteRequest[]>(() =>
-    readStorage(QUOTES_STORAGE_KEY, MOCK_QUOTE_REQUESTS).map((request) => normalizeQuoteRequest(request))
+    readStorage(QUOTES_STORAGE_KEY, getInitialQuoteRequests()).map((request) => normalizeQuoteRequest(request))
   );
   const [compareIds, setCompareIds] = useState<string[]>(() => readStorage(COMPARE_STORAGE_KEY, []));
 
@@ -99,17 +92,7 @@ export const PlannerProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, [compareIds]);
 
   const savePackageToPlan = (input: SavePlanInput) => {
-    const nextPlan: TripPlan = {
-      id: buildId('plan'),
-      name: input.planName?.trim() || 'New Trip Plan',
-      packageIds: [input.packageId],
-      targetDate: input.targetDate || '',
-      travelerType: input.travelerType || 'Faculty',
-      groupSize: input.groupSize || '',
-      notes: input.notes || '',
-      status: 'Draft',
-      createdAt: new Date().toISOString().slice(0, 10),
-    };
+    const nextPlan = workflowService.createPlan(input);
 
     setPlans((prev) => [nextPlan, ...prev]);
     return nextPlan;
@@ -123,13 +106,7 @@ export const PlannerProvider: React.FC<{ children: ReactNode }> = ({ children })
     const source = plans.find((plan) => plan.id === id);
     if (!source) return undefined;
 
-    const nextPlan: TripPlan = {
-      ...source,
-      id: buildId('plan'),
-      name: `${source.name} Copy`,
-      status: 'Draft',
-      createdAt: new Date().toISOString().slice(0, 10),
-    };
+    const nextPlan = workflowService.duplicatePlan(source);
 
     setPlans((prev) => [nextPlan, ...prev]);
     return nextPlan;
@@ -137,7 +114,7 @@ export const PlannerProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   const markPlanReadyForFacultyReview = (id: string) => {
     setPlans((prev) =>
-      prev.map((plan) => (plan.id === id ? { ...plan, status: 'Ready for Faculty Review' } : plan))
+      prev.map((plan) => (plan.id === id ? workflowService.markPlanReadyForFacultyReview(plan) : plan))
     );
   };
 
@@ -158,21 +135,23 @@ export const PlannerProvider: React.FC<{ children: ReactNode }> = ({ children })
   const clearCompare = () => setCompareIds([]);
 
   const addQuoteRequest = (input: CreateQuoteRequestInput) => {
-    const nextRequest = normalizeQuoteRequest({
-      id: buildId('quote'),
-      packageId: input.packageId,
-      requesterRole: input.requesterRole,
-      targetDate: input.targetDate,
-      groupSize: input.groupSize,
-      purpose: input.purpose,
-      transportPreference: input.transportPreference,
-      accessibilityNotes: input.accessibilityNotes,
-      status: input.status || 'Under Review',
-      lastUpdated: new Date().toISOString().slice(0, 10),
-      tripPlanId: input.tripPlanId,
-    });
+    const { request: nextRequest } = workflowService.createRequest(
+      {
+        source: 'package',
+        packageId: input.packageId,
+        requesterRole: input.requesterRole,
+        targetDate: input.targetDate,
+        groupSize: input.groupSize,
+        purpose: input.purpose,
+        transportPreference: input.transportPreference,
+        accessibilityNotes: input.accessibilityNotes,
+        status: input.status || 'Under Review',
+        tripPlanId: input.tripPlanId,
+      },
+      quoteRequests
+    );
 
-    setQuoteRequests((prev) => [nextRequest, ...prev]);
+    setQuoteRequests((prev) => (prev.some((request) => request.id === nextRequest.id) ? prev : [nextRequest, ...prev]));
 
     if (input.tripPlanId) {
       setPlans((prev) =>
@@ -187,9 +166,15 @@ export const PlannerProvider: React.FC<{ children: ReactNode }> = ({ children })
     const plan = plans.find((item) => item.id === planId);
     if (!plan || !plan.packageIds.length) return undefined;
 
-    const nextRequest = createDraftQuoteFromPlan(buildId('quote'), plan, plan.packageIds[0], UserRole.FACULTY);
+    const { request: nextRequest } = workflowService.createRequestFromPlan(
+      plan,
+      plan.packageIds[0],
+      UserRole.FACULTY,
+      'planner',
+      quoteRequests
+    );
 
-    setQuoteRequests((prev) => [nextRequest, ...prev]);
+    setQuoteRequests((prev) => (prev.some((request) => request.id === nextRequest.id) ? prev : [nextRequest, ...prev]));
     return nextRequest;
   };
 
@@ -197,15 +182,7 @@ export const PlannerProvider: React.FC<{ children: ReactNode }> = ({ children })
     setQuoteRequests((prev) =>
       prev.map((request) => {
         if (request.id !== requestId) return request;
-        const nextStatus: QuoteRequestStatus = request.missingFields.length ? 'Needs Info' : 'Under Review';
-        return updateQuoteRequestWorkflow(
-          request,
-          {},
-          nextStatus,
-          nextStatus === 'Needs Info'
-            ? 'Readiness check failed. The request is waiting on planner details before admin can quote.'
-            : 'Readiness check passed and the request has been sent into admin review.'
-        );
+        return workflowService.submitRequest(request);
       })
     );
   };
@@ -213,31 +190,20 @@ export const PlannerProvider: React.FC<{ children: ReactNode }> = ({ children })
   const reopenQuoteRequest = (requestId: string) => {
     setQuoteRequests((prev) =>
       prev.map((request) =>
-        request.id === requestId
-          ? updateQuoteRequestWorkflow(
-              request,
-              { revisionCount: request.revisionCount + 1 },
-              'Needs Info',
-              'Quote reopened for changes. Update the assumptions and resubmit for review.'
-            )
-          : request
+        request.id === requestId ? workflowService.reopenRequest(request) : request
       )
     );
   };
 
   const updateQuoteRequest = (requestId: string, updates: Partial<QuoteRequest>) => {
     setQuoteRequests((prev) =>
-      prev.map((request) =>
-        request.id === requestId ? updateQuoteRequestWorkflow(request, updates) : request
-      )
+      prev.map((request) => (request.id === requestId ? workflowService.updateRequest(request, updates) : request))
     );
   };
 
   const addQuoteRequestComment = (requestId: string, input: AddQuoteRequestCommentInput) => {
     setQuoteRequests((prev) =>
-      prev.map((request) =>
-        request.id === requestId ? appendQuoteRequestComment(request, input) : request
-      )
+      prev.map((request) => (request.id === requestId ? workflowService.addComment(request, input) : request))
     );
   };
 

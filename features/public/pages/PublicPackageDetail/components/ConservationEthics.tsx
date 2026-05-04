@@ -30,9 +30,9 @@ export const ConservationEthics: React.FC<ConservationEthicsProps> = ({
   ethicsRules
 }) => {
   return (
-    <section className="space-y-5">
-      <div className="rounded-2xl bg-primary p-5 flex flex-col sm:flex-row gap-4 text-white shadow-sm">
-        <div className="w-16 h-16 rounded-full overflow-hidden border border-white/70 shadow-sm shrink-0">
+    <section className="space-y-5 border-b border-border/70 pb-7">
+      <div className="flex flex-col gap-4 border-l-2 border-primary pl-5 sm:flex-row">
+        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full border border-primary-200 bg-surface-2">
           <CldImage
             assetKey={imageKey}
             alt={title}
@@ -40,26 +40,22 @@ export const ConservationEthics: React.FC<ConservationEthicsProps> = ({
           />
         </div>
         <div className="space-y-2">
-          <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/90">{title}</h4>
-          <p className="text-sm text-white/90 leading-relaxed">{description}</p>
+          <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-primary">{title}</h4>
+          <p className="text-sm leading-relaxed text-text-muted">{description}</p>
         </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="grid gap-4 md:grid-cols-2">
         {ethicsRules.map((rule, index) => (
-          <div key={rule.title} className="flex items-stretch gap-4">
-            <div className="w-6 flex items-center justify-center text-primary font-bold text-2xl leading-none text-center">
-              {index + 1}
-            </div>
-            <div className="flex-1 rounded-2xl border border-primary/25 bg-surface p-4 shadow-sm">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-                  {ICONS[rule.icon] ?? <HelpCircle className="w-5 h-5" />}
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-text">{rule.title}</p>
-                  <p className="text-xs text-text-muted leading-relaxed">{rule.description}</p>
-                </div>
+          <div key={rule.title} className="border-t border-border/70 pt-4">
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary-200 bg-primary-50 text-primary">
+                {ICONS[rule.icon] ?? <HelpCircle className="w-5 h-5" />}
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-text-muted">Rule {index + 1}</p>
+                <p className="mt-1 text-sm font-bold text-text">{rule.title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-text-muted">{rule.description}</p>
               </div>
             </div>
           </div>

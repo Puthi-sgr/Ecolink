@@ -12,17 +12,17 @@ import {
 import { useAuth } from '../../../app/AuthContext';
 import { usePlanner } from '../../../app/PlannerContext';
 import { useTrips } from '../../../app/TripContext';
-import { useCBETPackages } from '../../../shared/data';
 import { Badge } from '../../../shared/atoms/Badge';
 import { Button } from '../../../shared/atoms/Button';
 import { PackageExplorerSnapshot } from '../../../shared/components/PackageExplorerInsights';
 import { WorkflowDocumentView } from '../../../shared/components/WorkflowDocumentView';
 import { WorkflowWorkspace } from '../../../shared/components/WorkflowWorkspace';
 import { useOperationsRecords } from '../../../shared/hooks/useOperationsRecords';
+import { usePackages } from '../../../shared/repositories/packageRepository';
+import { plannerRouteService } from '../../../shared/services/plannerRouteService';
 import { DocumentAudience, DocumentViewMode, UserRole, WorkflowWorkspaceView } from '../../../shared/types';
 import { getWorkflowRecordById } from '../../../shared/utils/operationsModel';
 import {
-  buildPlannerWorkspaceRoute,
   parseHashRoute,
   parsePlannerWorkspaceQuery,
   replacePlannerWorkspaceQuery,
@@ -42,7 +42,7 @@ const plannerViewLabel = (view: WorkflowWorkspaceView) => {
 };
 
 export const PlannerPage: React.FC = () => {
-  const packages = useCBETPackages();
+  const packages = usePackages();
   const { user } = useAuth();
   const { trips } = useTrips();
   const {
@@ -286,7 +286,7 @@ export const PlannerPage: React.FC = () => {
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-text-muted">Current deep link</p>
                 <a
                   className="mt-2 block break-all text-sm font-semibold text-primary"
-                  href={buildPlannerWorkspaceRoute({
+                  href={plannerRouteService.buildWorkspaceRoute({
                     plan: selectedPlan?.id,
                     request: selectedRequest?.id,
                     view: activeView,
@@ -295,7 +295,7 @@ export const PlannerPage: React.FC = () => {
                     print: undefined,
                   })}
                 >
-                  {buildPlannerWorkspaceRoute({
+                  {plannerRouteService.buildWorkspaceRoute({
                     plan: selectedPlan?.id,
                     request: selectedRequest?.id,
                     view: activeView,
@@ -332,7 +332,7 @@ export const PlannerPage: React.FC = () => {
               {records.map((record) => {
                 const pkg = packages.find((item) => item.id === record.packageId);
                 const isActive = record.id === selectedRecord?.id;
-                const href = buildPlannerWorkspaceRoute({
+                const href = plannerRouteService.buildWorkspaceRoute({
                   plan: record.plan?.id,
                   request: record.request?.id,
                   view: record.request ? 'timeline' : 'brief',

@@ -18,24 +18,20 @@ export const PublicPackageDetailLayout: React.FC<PublicPackageDetailLayoutProps>
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       {nav}
-      <section className="py-8 bg-surface">
+      <section className="bg-background py-8 md:py-10">
         <div className="container mx-auto px-4 md:px-5 xl:px-6">
-          {header && <div className="mb-6">{header}</div>}
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            <div className="xl:col-span-2 space-y-8">
-              <div className="space-y-8">
-                {meta && (
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wide text-text-muted border-b border-border pb-6">
-                    {meta}
-                  </div>
-                )}
-                {children}
-              </div>
+          {header && <div className="mb-7">{header}</div>}
+          <div className="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
+            <div className="min-w-0 space-y-10">
+              {meta && (
+                <div className="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                  {meta}
+                </div>
+              )}
+              <div className="space-y-10">{children}</div>
             </div>
 
-            <div className="xl:col-span-1">
-              {sidebar}
-            </div>
+            <aside className="xl:col-span-1">{sidebar}</aside>
           </div>
         </div>
       </section>

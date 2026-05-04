@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card } from '../../../shared/molecules/Card';
 import { Button } from '../../../shared/atoms/Button';
 import { StatusBadge } from '../../../shared/atoms/StatusBadge';
 import { Project } from '../../../shared/types';
+import { DataTableCard } from '../../../shared/ui/DataTableCard';
 
 interface ProposalsTableProps {
   projects: Project[];
@@ -10,8 +10,13 @@ interface ProposalsTableProps {
 
 export const ProposalsTable: React.FC<ProposalsTableProps> = ({ projects }) => {
   return (
-    <Card title="Research Proposals" className="overflow-hidden">
-        <div className="overflow-x-auto">
+    <DataTableCard
+      title="Research Proposals"
+      description="Proposal review remains summary-oriented in the faculty dashboard."
+      isEmpty={!projects.length}
+      emptyTitle="No proposals yet"
+      emptyDescription="Your linked proposals will appear here."
+    >
         <table className="w-full text-left border-collapse">
             <thead>
             <tr className="border-b border-border text-text-muted text-sm">
@@ -36,7 +41,6 @@ export const ProposalsTable: React.FC<ProposalsTableProps> = ({ projects }) => {
             ))}
             </tbody>
         </table>
-        </div>
-    </Card>
+    </DataTableCard>
   );
 };

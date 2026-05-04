@@ -1,10 +1,11 @@
 import React from 'react';
 import { ArrowRight, Scale, X } from 'lucide-react';
 import { usePlanner } from '../../../app/PlannerContext';
-import { useCBETPackages } from '../../../shared/data';
 import { Badge } from '../../../shared/atoms/Badge';
 import { Button } from '../../../shared/atoms/Button';
 import { PackageExplorerSnapshot } from '../../../shared/components/PackageExplorerInsights';
+import { usePackages } from '../../../shared/repositories/packageRepository';
+import { plannerRouteService } from '../../../shared/services/plannerRouteService';
 import { getPackageFitCallout } from '../../../shared/utils/packageFit';
 
 const getPriceLabel = (prices: number[]) => {
@@ -25,7 +26,7 @@ const COMPARISON_ROWS = [
 ] as const;
 
 export const PackageCompareTray: React.FC = () => {
-  const packages = useCBETPackages();
+  const packages = usePackages();
   const { compareIds, toggleCompare, clearCompare, savePackageToPlan } = usePlanner();
   const comparedPackages = packages.filter((pkg) => compareIds.includes(pkg.id));
 
@@ -54,7 +55,7 @@ export const PackageCompareTray: React.FC = () => {
             <Button
               size="sm"
               onClick={() => {
-                window.location.hash = '/planner';
+                plannerRouteService.openWorkspace({});
               }}
             >
               Open planner
@@ -78,7 +79,7 @@ export const PackageCompareTray: React.FC = () => {
                 </th>
                 {comparedPackages.map((pkg) => (
                   <th key={pkg.id} scope="col" className="min-w-[230px] p-2 text-left align-top">
-                    <div className="rounded-2xl border border-border bg-surface p-4">
+                    <div className="rounded-2xl border border-secondary-200 bg-secondary-50/70 p-4">
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <p className="text-xs font-bold uppercase tracking-[0.18em] text-text-muted">{pkg.location}</p>
@@ -87,7 +88,7 @@ export const PackageCompareTray: React.FC = () => {
                         <button
                           type="button"
                           aria-label={`Remove ${pkg.cbetSite} from comparison`}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full text-text-muted transition-colors hover:bg-white hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-full text-secondary-700 transition-colors hover:bg-white hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30"
                           onClick={() => toggleCompare(pkg.id)}
                         >
                           <X className="h-4 w-4" aria-hidden="true" />

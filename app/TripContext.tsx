@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { Trip } from '../shared/types';
-import { MOCK_TRIPS } from '../shared/data/cbetData';
+import { getInitialTrips } from '../shared/repositories/packageRepository';
 
 interface TripContextType {
   trips: Trip[];
@@ -10,9 +10,26 @@ interface TripContextType {
 }
 
 const TripContext = createContext<TripContextType | undefined>(undefined);
+const TRIPS_STORAGE_KEY = 'ecolink:trips';
+
+const readStorage = <T,>(key: string, fallback: T): T => {
+  if (typeof window === 'undefined') return fallback;
+
+  try {
+    const stored = window.localStorage.getItem(key);
+    return stored ? (JSON.parse(stored) as T) : fallback;
+  } catch {
+    return fallback;
+  }
+};
 
 export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [trips, setTrips] = useState<Trip[]>(MOCK_TRIPS);
+  const [trips, setTrips] = useState<Trip[]>(() => readStorage(TRIPS_STORAGE_KEY, getInitialTrips()));
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem(TRIPS_STORAGE_KEY, JSON.stringify(trips));
+  }, [trips]);
 
   const addTrip = (trip: Trip) => {
     setTrips(prev => [trip, ...prev]);

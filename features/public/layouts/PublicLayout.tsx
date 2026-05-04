@@ -20,7 +20,6 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
   const [activePath, setActivePath] = useState(getCurrentHashPath);
   const [isPrintMode, setIsPrintMode] = useState(Boolean(getCurrentHashQuery().get('print')));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showPrototypeNotice, setShowPrototypeNotice] = useState(true);
   const isHome = activePath === '/';
   const isDestinations = activePath.startsWith('/destinations') || activePath.startsWith('/package');
   const isTravelGuide = activePath.startsWith('/travel-guide');
@@ -82,8 +81,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
         Skip to content
       </a>
 
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-white/95 backdrop-blur" data-app-shell="true">
-        <div className="container mx-auto px-4 md:px-5 xl:px-6 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-50 w-full bg-white/85 shadow-[0_12px_32px_rgba(25,28,29,0.05)] backdrop-blur-xl" data-app-shell="true">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-5 xl:px-6">
           <a
             href="#/"
             className="flex items-center gap-3 group"
@@ -92,27 +91,27 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
               onNavigate('/');
             }}
           >
-            <div className="w-10 h-10 rounded-eco bg-surface-2 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+            <div className="flex h-10 w-10 items-center justify-center rounded-eco bg-surface shadow-[0_10px_24px_rgba(25,28,29,0.06)] ring-1 ring-[rgba(194,198,212,0.18)] transition-transform group-hover:scale-105">
               <CldImage assetKey="logo.main" alt="EcoLink logo" className="h-8 w-8 object-contain" />
             </div>
             <div>
-              <span className="font-bold text-xl text-text font-serif tracking-tight">EcoLink</span>
+              <span className="font-bold text-[1.45rem] text-text font-serif tracking-tight">EcoLink</span>
               <p className="hidden md:block text-xs uppercase tracking-[0.18em] text-text-muted">
                 Community-Based Ecotourism Planning
               </p>
             </div>
           </a>
 
-          <nav aria-label="Primary" className="hidden md:flex items-center gap-2">
+          <nav aria-label="Primary" className="hidden md:flex items-center gap-1">
             {navItems.map(({ label, href, icon: Icon, active }) => (
               <a
                 key={href}
                 href={`#${href}`}
                 aria-current={active ? 'page' : undefined}
-                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[15px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 ${
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 ${
                   active
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-text-muted hover:bg-surface-2 hover:text-text'
+                    ? 'bg-surface text-text shadow-[0_10px_24px_rgba(25,28,29,0.06)] ring-1 ring-[rgba(68,152,26,0.18)]'
+                    : 'text-text-muted hover:bg-surface-2/80 hover:text-text'
                 }`}
                 onClick={(event) => {
                   event.preventDefault();
@@ -138,7 +137,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
 
             <button
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-text transition-colors hover:border-primary hover:text-primary md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-surface text-text shadow-[0_10px_24px_rgba(25,28,29,0.06)] ring-1 ring-[rgba(194,198,212,0.18)] transition-colors hover:text-primary md:hidden"
               aria-expanded={mobileMenuOpen}
               aria-controls="public-mobile-menu"
               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -150,7 +149,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
         </div>
 
         {mobileMenuOpen && (
-          <div id="public-mobile-menu" className="border-t border-border bg-white md:hidden">
+          <div id="public-mobile-menu" className="bg-white/95 backdrop-blur-xl md:hidden">
             <nav aria-label="Mobile" className="container mx-auto px-4 md:px-5 xl:px-6 py-4">
               <div className="grid gap-2">
                 {navItems.map(({ label, href, icon: Icon, active }) => (
@@ -159,7 +158,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
                     href={`#${href}`}
                     aria-current={active ? 'page' : undefined}
                     className={`flex items-center justify-between rounded-eco px-4 py-3 text-sm font-semibold transition-colors ${
-                      active ? 'bg-primary text-white' : 'bg-surface-2 text-text hover:bg-surface'
+                      active ? 'bg-primary text-white shadow-[0_14px_28px_rgba(68,152,26,0.18)]' : 'bg-surface-2 text-text hover:bg-surface'
                     }`}
                     onClick={(event) => {
                       event.preventDefault();
@@ -187,33 +186,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
       <main id="main-content" className="flex-1">
         {children}
       </main>
-
-      {showPrototypeNotice && (
-        <div
-          className="fixed bottom-4 left-4 right-4 z-50 rounded-2xl border border-border bg-white px-5 py-4 text-sm text-text shadow-2xl ring-1 ring-primary/20 md:left-auto md:right-6 md:max-w-sm"
-          aria-live="polite"
-          data-app-shell="true"
-        >
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="font-bold text-primary tracking-wide uppercase">Prototype Notice</p>
-              <p className="text-text mt-2 leading-relaxed">
-                This application is a prototype. The listings and requests shown here are demo data and should not be treated as live operational records.
-              </p>
-            </div>
-            <button
-              type="button"
-              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-text-muted transition-colors hover:bg-surface-2 hover:text-text"
-              aria-label="Dismiss prototype notice"
-              onClick={() => setShowPrototypeNotice(false)}
-            >
-              <X className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      <footer className="border-t border-border bg-surface py-12" data-app-shell="true">
+      <footer className="bg-surface-2 py-12" data-app-shell="true">
         <div className="container mx-auto px-4 md:px-5 xl:px-6">
           <div className="grid grid-cols-1 gap-12 mb-12 md:grid-cols-4">
             <div className="space-y-4">
@@ -250,7 +223,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onNavigate
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-text-muted text-xs">
+          <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-text-muted text-xs">
             <p>&copy; 2026 EcoLink Portal. All rights reserved.</p>
             <p>Certified Carbon Neutral Operations</p>
           </div>

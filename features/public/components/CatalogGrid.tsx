@@ -127,7 +127,7 @@ export const CatalogGrid: React.FC<CatalogGridProps> = ({
                 type="button"
                 onClick={() => setPage(Math.max(currentPage - 1, 1))}
                 disabled={currentPage === 1}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-text transition-colors hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-medium text-text transition-colors shadow-[0_12px_28px_rgba(25,28,29,0.04)] ring-1 ring-[rgba(194,198,212,0.24)] hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <ChevronLeft className="h-4 w-4" aria-hidden="true" />
                 Previous
@@ -146,8 +146,8 @@ export const CatalogGrid: React.FC<CatalogGridProps> = ({
                       aria-current={isActive ? 'page' : undefined}
                       className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition-colors ${
                         isActive
-                          ? 'bg-primary text-white shadow-sm'
-                          : 'border border-border bg-white text-text-muted hover:border-primary hover:text-primary'
+                          ? 'bg-gradient-to-r from-primary to-primary-500 text-white shadow-[0_12px_24px_rgba(68,152,26,0.22)]'
+                          : 'bg-surface text-text-muted shadow-[0_10px_24px_rgba(25,28,29,0.04)] ring-1 ring-[rgba(194,198,212,0.22)] hover:text-primary'
                       }`}
                     >
                       {page}
@@ -160,7 +160,7 @@ export const CatalogGrid: React.FC<CatalogGridProps> = ({
                 type="button"
                 onClick={() => setPage(Math.min(currentPage + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-text transition-colors hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-medium text-text transition-colors shadow-[0_12px_28px_rgba(25,28,29,0.04)] ring-1 ring-[rgba(194,198,212,0.24)] hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Next
                 <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -225,9 +225,9 @@ const CatalogGridCard: React.FC<CatalogGridCardProps> = ({
     <div className="group h-full w-full">
       <Card
         padding="none"
-        className="flex h-full flex-col overflow-hidden rounded-[16px] border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+        className="flex h-full flex-col overflow-hidden rounded-[18px] bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(25,28,29,0.12)]"
       >
-        <div className="border-b border-border/70 px-4 py-1.5 text-center">
+        <div className="bg-surface-2/65 px-4 py-1.5 text-center">
           <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-text">
             {getProvinceLabel(pkg.location)}
           </span>
@@ -254,7 +254,7 @@ const CatalogGridCard: React.FC<CatalogGridCardProps> = ({
           <div className="absolute bottom-3 right-3 flex items-center gap-2">
             <button
               type="button"
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-sm font-medium text-text shadow-md"
+              className="inline-flex items-center gap-2 rounded-full bg-white/94 px-3 py-2 text-sm font-medium text-text shadow-[0_14px_32px_rgba(25,28,29,0.14)] ring-1 ring-[rgba(194,198,212,0.24)] backdrop-blur-sm"
               onClick={() => setShowMiniMap((current) => !current)}
             >
               {showMiniMap ? <Image className="h-4 w-4 text-primary" aria-hidden="true" /> : <Map className="h-4 w-4 text-primary" aria-hidden="true" />}
@@ -304,17 +304,17 @@ const CatalogGridCard: React.FC<CatalogGridCardProps> = ({
           <div className="mt-3 min-h-[34px]">
             <a
               href={packageHref}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/35 hover:bg-primary/15 hover:shadow-sm"
+              className="inline-flex items-center gap-2 rounded-full border border-secondary-200 bg-secondary-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-secondary-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-secondary-300 hover:bg-secondary-100 hover:shadow-sm"
               onClick={(event) => {
                 event.preventDefault();
                 onPackageSelect(pkg);
               }}
             >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/70 text-white">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-white">
                 <Activity className="h-3 w-3" aria-hidden="true" />
               </span>
               <span>{pkg.activities[0] ?? 'Main Activity'}</span>
-              <span className="text-primary/60" aria-hidden="true">
+              <span className="text-secondary/70" aria-hidden="true">
                 {'>'}
               </span>
             </a>
@@ -384,7 +384,7 @@ const CatalogGridCard: React.FC<CatalogGridCardProps> = ({
               type="button"
               className={`inline-flex items-center justify-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${
                 isCompared
-                  ? 'border-primary bg-primary/10 text-primary'
+                  ? 'border-secondary-200 bg-secondary-50 text-secondary-700'
                   : 'border-border bg-white text-text-muted hover:border-primary/30 hover:text-text'
               }`}
               onClick={() => onToggleCompare(pkg.id)}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, Compass, Route, ShieldCheck, Users } from 'lucide-react';
-import { useCBETPackages } from '../../shared/data';
+import { usePackages } from '../../shared/repositories/packageRepository';
 import { Badge } from '../../shared/atoms/Badge';
 import { Button } from '../../shared/atoms/Button';
 import TravelGuideLayout from './layout/TravelGuideLayout';
@@ -20,7 +20,7 @@ const buildScroll = (id: string) => {
 };
 
 const TravelGuidePage: React.FC = () => {
-  const packages = useCBETPackages();
+  const packages = usePackages();
   const seasonalPicks = packages.slice(0, 4);
   const overnightPicks = packages.filter((pkg) => pkg.featuredCollectionIds.includes('overnight')).slice(0, 3);
 

@@ -16,20 +16,20 @@ export const Badge: React.FC<BadgeProps> = ({
   icon
 }) => {
   const variants = {
-    primary: "bg-primary/10 text-primary border-primary/20",
-    secondary: "bg-surface-2 text-text-muted border-border",
-    accent: "bg-accent/10 text-accent border-accent/20",
-    outline: "border-border text-text-muted bg-transparent",
-    surface: "bg-surface border-border text-text-muted shadow-sm"
+    primary: "border-primary/15 bg-primary/10 text-primary",
+    secondary: "border-secondary-200 bg-secondary-50 text-secondary-700",
+    accent: "border-accent-200 bg-accent-50 text-clay",
+    outline: "border-border/25 bg-transparent text-text-muted",
+    surface: "border-border/20 bg-surface text-text-muted shadow-[0_8px_22px_rgba(25,28,29,0.04)]"
   };
 
   const sizes = {
-    xs: "px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
-    sm: "px-2.5 py-1 text-xs font-medium"
+    xs: "px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]",
+    sm: "px-3 py-1 text-xs font-medium"
   };
 
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-md border ${variants[variant]} ${sizes[size]} ${className}`}>
+    <span className={`inline-flex items-center gap-1.5 rounded-full border ${variants[variant]} ${sizes[size]} ${className}`}>
       {icon}
       {children}
     </span>
