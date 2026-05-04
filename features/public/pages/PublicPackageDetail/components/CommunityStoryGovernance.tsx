@@ -18,10 +18,10 @@ export const CommunityStoryGovernance: React.FC<CommunityStoryGovernanceProps> =
   imageKey
 }) => {
   return (
-    <section className="space-y-4">
-      <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm space-y-4">
+    <section className="grid gap-5 border-b border-border/70 pb-7 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)] md:items-center">
+      <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full overflow-hidden border border-border bg-surface-2">
+          <div className="h-10 w-10 overflow-hidden rounded-full border border-border bg-surface-2">
             <CldImage
               assetKey={avatarKey}
               alt={title}
@@ -34,18 +34,18 @@ export const CommunityStoryGovernance: React.FC<CommunityStoryGovernanceProps> =
           </div>
         </div>
 
-        <p className="text-sm text-text-muted leading-relaxed">
+        <p className="text-sm leading-relaxed text-text-muted">
           {description}
         </p>
+      </div>
 
-        <div className="rounded-2xl border border-border/60 overflow-hidden">
-          <div className="aspect-[16/9]">
-            <CldImage
-              assetKey={imageKey}
-              alt={`${title} fieldwork`}
-              className="w-full h-full object-cover"
-            />
-          </div>
+      <div className="overflow-hidden rounded-[28px]">
+        <div className="aspect-[16/9] bg-surface-2">
+          <CldImage
+            assetKey={imageKey}
+            alt={`${title} fieldwork`}
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
     </section>

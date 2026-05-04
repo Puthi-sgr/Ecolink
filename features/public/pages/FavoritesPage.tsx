@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCBETPackages } from '../../../shared/data/cbetData';
+import { usePackages } from '../../../shared/repositories/packageRepository';
 import { CBETPackage } from '../../../shared/types';
 import { CatalogGrid } from '../components/CatalogGrid';
 import { CBETMap } from '../CBETMap';
@@ -7,7 +7,7 @@ import { useFavorites } from '../../../app/FavoritesContext';
 import { Heart, Map, Grid } from 'lucide-react';
 
 export const FavoritesPage: React.FC = () => {
-  const packages = useCBETPackages();
+  const packages = usePackages();
   const { withFavoriteStatus } = useFavorites();
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
 
@@ -28,26 +28,26 @@ export const FavoritesPage: React.FC = () => {
               Your saved CBET destinations and field sites.
             </p>
           </div>
-          <div className="flex items-center gap-2 bg-white border border-border rounded-2xl p-1 shadow-sm">
+          <div className="inline-flex items-center gap-1 rounded-full bg-white/88 p-1 shadow-[0_18px_40px_rgba(25,28,29,0.08)] ring-1 ring-[rgba(194,198,212,0.28)] backdrop-blur-xl">
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-2 transition-colors ${
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold uppercase transition-colors ${
                 viewMode === 'grid'
-                  ? 'bg-surface-2 text-text'
-                  : 'text-text-muted hover:text-text'
+                  ? 'bg-gradient-to-r from-primary to-primary-500 text-white shadow-[0_12px_24px_rgba(68,152,26,0.22)]'
+                  : 'text-text-muted hover:text-primary'
               }`}
             >
-              <Grid className="w-4 h-4" /> Grid
+              <Grid className="h-4 w-4" /> Photo View
             </button>
             <button
               onClick={() => setViewMode('map')}
-              className={`px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-2 transition-colors ${
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold uppercase transition-colors ${
                 viewMode === 'map'
-                  ? 'bg-surface-2 text-text'
-                  : 'text-text-muted hover:text-text'
+                  ? 'bg-gradient-to-r from-primary to-primary-500 text-white shadow-[0_12px_24px_rgba(68,152,26,0.22)]'
+                  : 'text-text-muted hover:text-primary'
               }`}
             >
-              <Map className="w-4 h-4" /> Map
+              <Map className="h-4 w-4" /> Map View
             </button>
           </div>
         </div>
@@ -55,7 +55,7 @@ export const FavoritesPage: React.FC = () => {
 
       <section className="container mx-auto px-4 md:px-5 xl:px-6 pt-6 pb-16">
         {favoritePackages.length === 0 ? (
-          <div className="bg-white border border-border rounded-2xl p-10 text-center shadow-sm">
+          <div className="rounded-[28px] bg-surface p-10 text-center shadow-[0_20px_52px_rgba(25,28,29,0.06)] ring-1 ring-[rgba(194,198,212,0.18)]">
             <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
               <Heart className="w-6 h-6" />
             </div>

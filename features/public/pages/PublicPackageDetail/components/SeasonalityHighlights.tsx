@@ -65,9 +65,13 @@ export const SeasonalityHighlights: React.FC<SeasonalityHighlightsProps> = ({
   };
 
   return (
-    <section className="space-y-3">
-      <h4 className="text-lg font-bold text-text">{title}</h4>
-      <div className="rounded-2xl border border-border bg-surface p-5 space-y-4">
+    <section className="space-y-5 rounded-[32px] border border-border/70 bg-white/96 px-5 py-7 shadow-sm md:px-7">
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Season window</p>
+        <h4 className="mt-2 text-2xl font-bold font-serif text-text">{title}</h4>
+      </div>
+
+      <div className="space-y-4">
         <div className="grid text-[11px] font-semibold text-text-muted" style={gridStyle}>
           {months.map((month) => (
             <div key={`top-${month}`} className="text-center">
@@ -117,17 +121,17 @@ export const SeasonalityHighlights: React.FC<SeasonalityHighlightsProps> = ({
         </div>
 
         {(bestSeasonNote || wetSeasonNote) && (
-          <div className="grid gap-3 sm:grid-cols-2 text-sm">
+          <div className="grid gap-4 border-t border-border/55 pt-5 text-sm sm:grid-cols-2">
             {bestSeasonNote && (
-              <div className="rounded-xl border border-border/60 bg-surface-2 p-3">
-                <p className="text-[11px] uppercase tracking-wider text-text-muted font-semibold">Best months</p>
-                <p className="text-sm text-text leading-relaxed">{bestSeasonNote}</p>
+              <div className="border-l border-primary-200 pl-4">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">Best months</p>
+                <p className="mt-1 text-sm leading-relaxed text-text">{bestSeasonNote}</p>
               </div>
             )}
             {wetSeasonNote && (
-              <div className="rounded-xl border border-border/60 bg-surface-2 p-3">
-                <p className="text-[11px] uppercase tracking-wider text-text-muted font-semibold">Wet season</p>
-                <p className="text-sm text-text leading-relaxed">{wetSeasonNote}</p>
+              <div className="border-l border-border pl-4">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">Wet season</p>
+                <p className="mt-1 text-sm leading-relaxed text-text">{wetSeasonNote}</p>
               </div>
             )}
           </div>

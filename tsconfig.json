@@ -11,7 +11,11 @@
     ],
     "skipLibCheck": true,
     "types": [
-      "node"
+      "react",
+      "react-dom",
+      "node",
+      "vitest/globals",
+      "@testing-library/jest-dom"
     ],
     "moduleResolution": "bundler",
     "isolatedModules": true,

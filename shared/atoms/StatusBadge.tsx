@@ -1,17 +1,19 @@
 import React from 'react';
-import { ProjectStatus } from '../types';
-import { theme } from '../theme';
+import { PlannerStatus, ProjectStatus, QuoteRequestStatus } from '../types';
+import { getStatusPresentation } from '../domain/statusPresentation';
 
 interface StatusBadgeProps {
-  status: ProjectStatus;
+  status: ProjectStatus | QuoteRequestStatus | PlannerStatus;
 }
 
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
-  const styles = theme.status[status] || theme.status.PENDING;
+  const presentation = getStatusPresentation(status);
 
   return (
-    <span className={`px-3 py-1 text-xs font-semibold border ${theme.borderRadius.default} ${styles.bg} ${styles.text} ${styles.border}`}>
-      {status}
+    <span
+      className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ring-1 ring-inset ${presentation.className}`}
+    >
+      {presentation.label}
     </span>
   );
 };

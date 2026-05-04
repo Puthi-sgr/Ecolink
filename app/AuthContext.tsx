@@ -9,18 +9,18 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const createMockUser = (role: UserRole): User => ({
+  id: '123',
+  name: role === UserRole.ADMIN ? 'Admin User' : 'Faculty Member',
+  email: role === UserRole.ADMIN ? 'admin@ecolink.org' : 'faculty@ecolink.edu',
+  role,
+});
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => createMockUser(UserRole.FACULTY));
 
   const login = (role: UserRole) => {
-    // Mock login logic
-    const mockUser: User = {
-      id: '123',
-      name: role === UserRole.ADMIN ? 'Admin User' : 'Faculty Member',
-      email: role === UserRole.ADMIN ? 'admin@ecolink.org' : 'faculty@ecolink.edu',
-      role: role
-    };
-    setUser(mockUser);
+    setUser(createMockUser(role));
   };
 
   const logout = () => {

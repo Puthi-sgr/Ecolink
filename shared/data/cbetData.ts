@@ -1,6 +1,22 @@
 import { CBETPackage, Trip, ProjectStatus } from '../types';
+import { withTravelMetadata } from './packageTravelMetadata';
 
-export const CBET_PACKAGES: CBETPackage[] = [
+type BasePackage = Omit<
+  CBETPackage,
+  | 'themes'
+  | 'bestFor'
+  | 'availabilityMonths'
+  | 'highlights'
+  | 'meetingPoint'
+  | 'transportModes'
+  | 'languages'
+  | 'reviewSummary'
+  | 'cancellationSummary'
+  | 'faq'
+  | 'featuredCollectionIds'
+>;
+
+export const CBET_PACKAGES: BasePackage[] = [
   {
     id: 'CBET-001',
     name: 'Prek Toal Bird Sanctuary',
@@ -466,7 +482,11 @@ export const CBET_PACKAGES: CBETPackage[] = [
     duration: '2 Days 1 Night',
     scheduleOutline: ['Day 1 - Depart Banlung, cross the Sesan River by ferry, transfer by motorbike to base camp, afternoon forest trek, and night walk.', 'Day 2 - Pre-dawn gibbon trek and observation, return for brunch, village visit, and transfer back to Banlung.'],
     suitableTiming: 'Nov - Mar (Dry season for trekking and gibbon viewing)',
-    capacityBands: [{ min: 15, max: 35, pricePerStudent: 45 }],
+    capacityBands: [
+      { min: 15, max: 20, pricePerStudent: 75 },
+      { min: 21, max: 27, pricePerStudent: 68 },
+      { min: 28, max: 35, pricePerStudent: 60 }
+    ],
     includes: ['Park permits and conservation fees', 'English-speaking guide and community wildlife tracker', 'Local transport (boat ferry, motorbike transfers, Banlung pickup/drop-off)', 'Meals (Day 1 lunch/dinner, Day 2 breakfast/brunch) and drinking water', 'Homestay accommodation with mosquito net and bedding'],
     excludes: ['Travel to/from Banlung before and after the tour', 'Personal travel insurance', 'Additional snacks, alcoholic beverages, or sodas', 'Personal expenses and gratuities'],
     depositDetails: { percentage: 30, deadlineDays: 14 },
@@ -485,26 +505,28 @@ export const CBET_PACKAGES: CBETPackage[] = [
 
 export const MOCK_TRIPS: Trip[] = [
   {
-    id: 'EL-2024-0082',
+    id: 'EL-2026-0082',
     packageId: 'CBET-001',
+    tripPlanId: 'plan-wildlife-feb',
+    quoteRequestId: 'quote-001',
     packageName: 'Prek Toal Bird Sanctuary',
     facultyName: 'Dr. Sarah Jenning',
     department: 'Environmental Science',
     requestorContact: 's.jenning@ecolink.edu',
-    date: '2024-11-15',
-    groupSize: 22,
-    purpose: 'BIO-201 Field Requirement',
+    date: '2026-02-18',
+    groupSize: 24,
+    purpose: 'Field methods preparation for ecology students',
     status: ProjectStatus.LOCKED,
     transportStatus: 'Booked',
     siteNotified: true,
     approvalPack: {
-      tripId: 'EL-2024-0082',
+      tripId: 'EL-2026-0082',
       files: [
         { name: 'Confirmation_Letter.pdf', url: '#' },
         { name: 'Itinerary_Final.pdf', url: '#' },
         { name: 'Safety_Briefing.pdf', url: '#' }
       ],
-      publishedAt: '2024-10-01'
+      publishedAt: '2026-02-01'
     }
   },
   {
@@ -523,7 +545,9 @@ export const MOCK_TRIPS: Trip[] = [
   }
 ];
 
-export const useCBETPackages = () => CBET_PACKAGES;
+export const ENRICHED_CBET_PACKAGES: CBETPackage[] = withTravelMetadata(CBET_PACKAGES);
+
+export const useCBETPackages = () => ENRICHED_CBET_PACKAGES;
 export const useFacultyTrips = () => MOCK_TRIPS;
 
 export const ADDITIONAL_MOCK_TRIPS: Trip[] = [

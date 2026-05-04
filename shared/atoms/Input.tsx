@@ -10,10 +10,14 @@ export const Input: React.FC<InputProps> = ({ label, className = '', id, ...prop
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      {label && <label htmlFor={inputId} className="text-sm font-medium text-text-muted">{label}</label>}
+      {label && (
+        <label htmlFor={inputId} className="text-[11px] font-semibold uppercase tracking-[0.08em] text-text-muted">
+          {label}
+        </label>
+      )}
       <input 
         id={inputId}
-        className={`w-full border border-border bg-surface rounded-eco px-eco py-eco focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-text ${className}`}
+        className={`w-full rounded-eco border border-border/30 bg-surface px-eco py-eco text-text shadow-[0_8px_24px_rgba(25,28,29,0.03)] transition-all placeholder:text-text-muted/55 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/12 ${className}`}
         {...props}
       />
     </div>

@@ -21,17 +21,17 @@ const ICONS: Record<string, React.ReactNode> = {
 
 export const QuickFactsCard: React.FC<QuickFactsCardProps> = ({ items }) => {
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
-      <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-text-muted mb-4">Quick Facts</h4>
-      <div className="space-y-3">
+    <div className="border-y border-border/70 py-5">
+      <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-primary">Quick Facts</h4>
+      <div className="divide-y divide-border/65">
         {items.map((fact) => (
-          <div key={fact.label} className="flex gap-3 pb-3 border-b border-border/60 last:border-b-0 last:pb-0">
-            <div className="w-10 h-10 rounded-xl bg-surface-2 flex items-center justify-center text-primary">
+          <div key={fact.label} className="flex gap-3 py-3 first:pt-0 last:pb-0">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full border border-primary-200 bg-primary-50 text-primary">
               {fact.icon ? ICONS[fact.icon] ?? <HelpCircle className="w-5 h-5" /> : <HelpCircle className="w-5 h-5" />}
             </div>
             <div className="flex-1">
-              <p className="text-[11px] uppercase tracking-wider text-text-muted font-semibold">{fact.label}</p>
-              <p className="text-sm font-semibold text-text">{fact.value}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">{fact.label}</p>
+              <p className="mt-1 text-sm font-semibold text-text">{fact.value}</p>
             </div>
           </div>
         ))}
