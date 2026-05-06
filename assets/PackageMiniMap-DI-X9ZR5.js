@@ -1,1 +1,0 @@
-import{j as t}from"./index-BdH32bbR.js";import{C as o,M as r,g as s}from"./createCustomIcon-BDaQHGym.js";import"./index-Ck8eW1cE.js";const n=s(),i=({coordinates:a})=>t.jsx(o,{center:[a.lat,a.lng],zoom:11,children:t.jsx(r,{position:[a.lat,a.lng],icon:n})});export{i as default};
