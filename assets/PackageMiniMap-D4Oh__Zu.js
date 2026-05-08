@@ -1,0 +1,1 @@
+import{j as t}from"./index-CeaaIVoA.js";import{C as o,M as r,g as s}from"./createCustomIcon-BQottiAG.js";import"./index-Bom205ds.js";const n=s(),i=({coordinates:a})=>t.jsx(o,{center:[a.lat,a.lng],zoom:11,children:t.jsx(r,{position:[a.lat,a.lng],icon:n})});export{i as default};
