@@ -1,1 +1,0 @@
-import{r as e}from"./index-CeaaIVoA.js";const u=(t=!1)=>{const[o,s]=e.useState(t),a=e.useCallback(()=>s(!0),[]),c=e.useCallback(()=>s(!1),[]),l=e.useCallback(()=>s(r=>!r),[]);return{isOpen:o,open:a,close:c,toggle:l,setIsOpen:s}};export{u};
